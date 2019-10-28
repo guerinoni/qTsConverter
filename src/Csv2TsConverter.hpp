@@ -1,8 +1,11 @@
 #pragma once
 
 #include "Converter.hpp"
-#include "CsvParser.hpp"
 #include "TsBuilder.hpp"
+
+#include <memory>
+
+class CsvParser;
 
 class Csv2TsConverter : public Converter
 {
@@ -15,6 +18,6 @@ class Csv2TsConverter : public Converter
     void process() const override;
 
   private:
-    CsvParser parser_;
+    std::shared_ptr<CsvParser> parser_;
     TsBuilder builder_;
 };

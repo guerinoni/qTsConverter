@@ -3,11 +3,11 @@
 #include <QDebug>
 #include <QFile>
 
+CsvParser::CsvParser(CsvProperty property) : property_{ property } {}
+
 Translations CsvParser::parse(const std::string &filename) const
 {
-    const auto sep_line  = '\n';
-    const auto sep_field = '~';
-
+    const auto sep_line = '\n';
     QFile file(filename.c_str());
 
     if (!file.open(QIODevice::ReadOnly)) {
@@ -20,10 +20,13 @@ Translations CsvParser::parse(const std::string &filename) const
     auto content = file.readAll();
     auto list    = content.split(sep_line);
     for (const auto &l : list) {
-        auto fields = l.split(sep_field);
+        auto sep    = property_.field_separator.front();
+        auto fields = l.split(sep);
         TranslationObj obj;
-        obj.source      = fields.first();
-        obj.translation = fields.last();
+        obj.source =
+            fields.first().replace(property_.string_separator.c_str(), "");
+        obj.translation =
+            fields.last().replace(property_.string_separator.c_str(), "");
         tr_objs.emplace_back(obj);
     }
 
