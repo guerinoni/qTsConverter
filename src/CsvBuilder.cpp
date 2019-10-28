@@ -4,10 +4,11 @@
 #include <QFile>
 #include <QTextStream>
 
+CsvBuilder::CsvBuilder(CsvProperty property) : property_{ property } {}
+
 void CsvBuilder::build(const std::string &output_filename,
                        Translations trs) const
 {
-    const auto sep = "~";
     QFile file(output_filename.c_str());
 
     if (!file.open(QFile::WriteOnly | QFile::Truncate)) {
@@ -17,16 +18,19 @@ void CsvBuilder::build(const std::string &output_filename,
 
     QTextStream output(&file);
 
-    output << "\""
-           << "Input"
-           << "\"" << sep << "\""
-           << "Output"
-           << "\"\n";
+    output << property_.string_separator.c_str() << "Input"
+           << property_.string_separator.c_str()
+           << property_.field_separator.c_str()
+           << property_.string_separator.c_str() << "Output"
+           << property_.string_separator.c_str() << "\n";
 
     auto id = 0;
     for (const auto &tr : trs) {
-        output << "\"" << tr.source << "\"" << sep << "\"" << tr.translation
-               << "\"\n";
+        output << property_.string_separator.c_str() << tr.source
+               << property_.string_separator.c_str()
+               << property_.field_separator.c_str()
+               << property_.string_separator.c_str() << tr.translation
+               << property_.string_separator.c_str() << "\n";
     }
 
     file.close();

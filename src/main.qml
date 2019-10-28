@@ -88,6 +88,7 @@ Window {
                 height: 30
 
                 TextInput {
+                    id: fieldSeparator
                     text: "~"
                     anchors.centerIn: parent
                 }
@@ -105,6 +106,7 @@ Window {
                 height: 30
 
                 TextInput {
+                    id: stringSeparator
                     text: "`"
                     anchors.centerIn: parent
                 }
@@ -116,8 +118,12 @@ Window {
             text: qsTr("Convert")
             enabled: sourceInput.text.length !== 0
                      && sourceOutput.text.length !== 0
+                     && fieldSeparator.text.length !== 0
+                     && stringSeparator.text.length !== 0
             onClicked: converter.convert(comboType.currentIndex,
-                                         sourceInput.text, sourceOutput.text)
+                                         sourceInput.text, sourceOutput.text,
+                                         fieldSeparator.text,
+                                         stringSeparator.text)
         }
     }
 

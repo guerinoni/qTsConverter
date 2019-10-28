@@ -1,7 +1,9 @@
 #include "Csv2TsConverter.hpp"
 
 Csv2TsConverter::Csv2TsConverter(const std::string &input,
-                                 const std::string &output) :
+                                 const std::string &output,
+                                 const std::string &field_sep,
+                                 const std::string &string_sep) :
     Converter{ input, output }
 {
 }

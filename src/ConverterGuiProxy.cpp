@@ -5,13 +5,15 @@
 ConverterGuiProxy::ConverterGuiProxy(QObject *parent) : QObject(parent) {}
 
 void ConverterGuiProxy::convert(QConversionType type, QString input,
-                                QString output)
+                                QString output, QString field_separator,
+                                QString string_separator)
 {
     input.remove("file://");
     output.remove("file://");
     auto converter = ConverterFactory::make_converter(
         static_cast<ConverterFactory::ConversionType>(type),
-        input.toStdString(), output.toStdString());
+        input.toStdString(), output.toStdString(),
+        field_separator.toStdString(), string_separator.toStdString());
     converter->process();
 }
 

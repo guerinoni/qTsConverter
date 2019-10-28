@@ -19,5 +19,6 @@ class ConverterGuiProxy : public QObject
     Q_ENUM(QConversionType)
 
   public slots:
-    void convert(QConversionType type, QString input, QString output);
+    void convert(QConversionType type, QString input, QString output,
+                 QString field_separator, QString string_separator);
 };
