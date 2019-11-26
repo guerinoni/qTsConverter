@@ -1,5 +1,7 @@
 [![Build Status](https://travis-ci.org/guerinoni/qt-ts-csv.svg?branch=master)](https://travis-ci.org/guerinoni/qt-ts-csv)
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/f615b50a30204ed8aee3ca5d0ad382ee)](https://www.codacy.com/manual/guerinoni/qt-ts-csv?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=guerinoni/qt-ts-csv&amp;utm_campaign=Badge_Grade)
+
 # qt-ts-csv
 A tool to generate csv file from qt ts file and vice versa
 
