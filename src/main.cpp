@@ -9,6 +9,8 @@ int main(int argc, char **argv)
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
     QGuiApplication app(argc, argv);
+    app.setOrganizationName("Federico Guerinoni");
+    app.setOrganizationDomain("Federico Guerinoni");
 
     QQmlApplicationEngine engine;
 
