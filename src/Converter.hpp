@@ -5,7 +5,8 @@
 class Converter
 {
   public:
-    explicit Converter(const std::string &input, const std::string &output);
+    explicit Converter(const std::string &inputFile,
+                       const std::string &outputDir);
     Converter()                       = default;
     Converter(const Converter &other) = default;
     Converter(Converter &&other)      = default;
@@ -17,6 +18,6 @@ class Converter
     virtual void process() const;
 
   protected:
-    std::string input_;
-    std::string output_;
+    std::string m_inputFile;
+    std::string m_outputDir;
 };

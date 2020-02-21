@@ -14,10 +14,10 @@ Ts2CsvConverter::Ts2CsvConverter(const std::string &input,
 
 void Ts2CsvConverter::process() const
 {
-    if (input_.empty() || output_.empty()) {
+    if (m_inputFile.empty() || m_outputDir.empty()) {
         return;
     }
 
-    auto trs = parser_.parse(input_);
-    builder_->build(output_ + "/output.csv", trs);
+    auto trs = parser_.parse(m_inputFile);
+    builder_->build(m_outputDir + "/output.csv", trs);
 }

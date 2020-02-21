@@ -1,7 +1,9 @@
 #include "Converter.hpp"
 
-Converter::Converter(const std::string &input, const std::string &output) :
-    input_{ input }, output_{ output }
+Converter::Converter(const std::string &inputFile,
+                     const std::string &outputDir) :
+    m_inputFile{ inputFile },
+    m_outputDir{ outputDir }
 {
 }
 

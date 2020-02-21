@@ -13,10 +13,10 @@ Csv2TsConverter::Csv2TsConverter(const std::string &input,
 
 void Csv2TsConverter::process() const
 {
-    if (input_.empty() || output_.empty()) {
+    if (m_inputFile.empty() || m_outputDir.empty()) {
         return;
     }
 
-    auto trs = parser_->parse(input_);
-    builder_.build(output_ + "/output.ts", trs);
+    auto trs = parser_->parse(m_inputFile);
+    builder_.build(m_outputDir + "/output.ts", trs);
 }

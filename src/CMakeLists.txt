@@ -6,15 +6,15 @@ set(CMAKE_AUTOUIC ON)
 find_package(Qt5 COMPONENTS Core Gui Quick Xml REQUIRED)
 
 add_executable(${CMAKE_PROJECT_NAME}
-    Converter.cpp
-    ConverterFactory.cpp
-    ConverterGuiProxy.cpp
-    Csv2TsConverter.cpp
-    CsvBuilder.cpp
-    CsvParser.cpp
-    Ts2CsvConverter.cpp
-    TsBuilder.cpp
-    TsParser.cpp
+    Converter.cpp Converter.hpp
+    ConverterFactory.cpp ConverterFactory.hpp
+    ConverterGuiProxy.cpp ConverterGuiProxy.hpp
+    Csv2TsConverter.cpp Csv2TsConverter.hpp
+    CsvBuilder.cpp CsvBuilder.hpp
+    CsvParser.cpp CsvParser.hpp
+    Ts2CsvConverter.cpp Ts2CsvConverter.hpp
+    TsBuilder.cpp TsBuilder.hpp
+    TsParser.cpp TsParser.hpp
     main.cpp
     qml.qrc)
 
