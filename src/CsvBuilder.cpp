@@ -24,7 +24,6 @@ void CsvBuilder::build(const std::string &output_filename,
            << property_.string_separator.c_str() << "Output"
            << property_.string_separator.c_str() << "\n";
 
-    auto id = 0;
     for (const auto &tr : trs) {
         output << property_.string_separator.c_str() << tr.source
                << property_.string_separator.c_str()

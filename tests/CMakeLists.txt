@@ -6,11 +6,16 @@ set(CMAKE_AUTOUIC ON)
 find_package(Qt5 COMPONENTS Core Gui Quick Xml Test REQUIRED)
 
 add_executable(tests
-    ../src/Converter.cpp ../src/Converter.hpp
-    ../src/Ts2CsvConverter.cpp ../src/Ts2CsvConverter.hpp
-    ../src/TsParser.cpp ../src/TsParser.hpp
-    ../src/CsvBuilder.cpp ../src/CsvBuilder.hpp
-    tst_Ts2csv.cpp tst_Ts2csv.hpp
+    ../src/Converter.cpp            ../src/Converter.hpp
+    ../src/Csv2TsConverter.cpp      ../src/Csv2TsConverter.hpp
+    ../src/CsvBuilder.cpp           ../src/CsvBuilder.hpp
+    ../src/CsvParser.cpp            ../src/CsvParser.hpp
+    ../src/Ts2CsvConverter.cpp      ../src/Ts2CsvConverter.hpp
+    ../src/TsBuilder.cpp            ../src/TsBuilder.hpp
+    ../src/TsParser.cpp             ../src/TsParser.hpp
+
+    tst_Ts2csv.cpp  tst_Ts2csv.hpp
+    tst_Csv2ts.cpp  tst_Csv2ts.hpp
     main.cpp)
 
 target_link_libraries(tests Qt5::Core Qt5::Xml Qt5::Test)
