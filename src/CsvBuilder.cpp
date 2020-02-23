@@ -3,34 +3,30 @@
 #include <QDebug>
 #include <QFile>
 #include <QTextStream>
+#include <include/qtcsv/stringdata.h>
+#include <include/qtcsv/writer.h>
 
 CsvBuilder::CsvBuilder(CsvProperty property) : property_{ property } {}
 
 void CsvBuilder::build(const std::string &output_filename,
                        Translations trs) const
 {
-    QFile file(output_filename.c_str());
+    QStringList strList;
+    strList << "Input"
+            << "Output";
 
-    if (!file.open(QFile::WriteOnly | QFile::Truncate)) {
-        qDebug() << "can't open file";
-        return;
-    }
-
-    QTextStream output(&file);
-
-    output << property_.string_separator.c_str() << "Input"
-           << property_.string_separator.c_str()
-           << property_.field_separator.c_str()
-           << property_.string_separator.c_str() << "Output"
-           << property_.string_separator.c_str() << "\n";
+    QtCSV::StringData strData;
+    strData.addRow(strList);
 
     for (const auto &tr : trs) {
-        output << property_.string_separator.c_str() << tr.source
-               << property_.string_separator.c_str()
-               << property_.field_separator.c_str()
-               << property_.string_separator.c_str() << tr.translation
-               << property_.string_separator.c_str() << "\n";
+        strList.clear();
+        strList << tr.source << tr.translation;
+        strData.addRow(strList);
     }
 
-    file.close();
+    if (!QtCSV::Writer::write(output_filename.c_str(), strData,
+                              property_.field_separator.c_str(),
+                              property_.string_separator.c_str())) {
+        qWarning() << "error writing file";
+    }
 }
