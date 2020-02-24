@@ -6,7 +6,7 @@ import QtQuick.Layouts 1.3
 import QtQuick.Dialogs 1.2
 
 Window {
-    title: qsTr("Ts2Csv Converter")
+    title: qsTr("Ts2Csv Converter ") + version
 
     minimumHeight: 200
     minimumWidth: 800

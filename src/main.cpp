@@ -16,6 +16,8 @@ int main(int argc, char **argv)
 
     ConverterGuiProxy cgp;
     engine.rootContext()->setContextProperty(QStringLiteral("converter"), &cgp);
+    engine.rootContext()->setContextProperty(QStringLiteral("version"),
+                                             VERSION);
 
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
     if (engine.rootObjects().isEmpty()) {
