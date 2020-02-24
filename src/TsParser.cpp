@@ -3,10 +3,12 @@
 #include <QFile>
 #include <QtXml>
 
-Translations TsParser::parse(const std::string &filename) const
+TsParser::TsParser(InOutParameter parameter) : Parser{ parameter } {}
+
+Translations TsParser::parse() const
 {
     QDomDocument doc;
-    QFile file(filename.c_str());
+    QFile file(m_ioParameter.inputFile.c_str());
 
     if (!file.open(QIODevice::ReadOnly) || !doc.setContent(&file)) {
         qDebug() << "can't open file";
@@ -17,21 +19,21 @@ Translations TsParser::parse(const std::string &filename) const
 
     auto contexts = doc.elementsByTagName("context");
     for (int i = 0; i < contexts.size(); ++i) {
-        auto node = contexts.item(i);
+        auto nodeCtx = contexts.item(i);
         TranslationContext context;
-        context.name = node.firstChildElement("name").text();
-        auto msgs    = node.childNodes();
+        context.name = nodeCtx.firstChildElement("name").text();
+        auto msgs    = nodeCtx.childNodes();
         for (auto j = 0; j < msgs.size(); j++) {
-            auto node = msgs.item(j);
+            auto nodeMsg = msgs.item(j);
 
-            if (node.nodeName() != "message") {
+            if (nodeMsg.nodeName() != "message") {
                 continue;
             }
 
             TranslationMessage msg;
-            msg.source      = node.firstChildElement("source").text();
-            msg.translation = node.firstChildElement("translation").text();
-            msg.locations.emplace_back(wrapLocation(node));
+            msg.source      = nodeMsg.firstChildElement("source").text();
+            msg.translation = nodeMsg.firstChildElement("translation").text();
+            msg.locations.emplace_back(wrapLocation(nodeMsg));
             context.messages.emplace_back(msg);
         }
 

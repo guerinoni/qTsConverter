@@ -1,6 +1,6 @@
 #include "tst_Ts2csv.hpp"
 
-#include "../src/Ts2CsvConverter.hpp"
+#include "../src/ConverterFactory.hpp"
 
 void tst_Ts2Csv::cleanup()
 {
@@ -10,8 +10,10 @@ void tst_Ts2Csv::cleanup()
 void tst_Ts2Csv::checkScenario1()
 {
     const auto inputFile{ FILESPATH + std::string("/scenario1.ts") };
-    Ts2CsvConverter ts2csv(inputFile, FILESPATH, ";", "\"");
-    ts2csv.process();
+    auto conv = ConverterFactory::make_converter(
+        ConverterFactory::ConversionType::Ts2Csv, inputFile, m_outputFile, ";",
+        "\"");
+    conv->process();
     QFile out(m_outputFile.c_str());
     QVERIFY(out.exists());
 

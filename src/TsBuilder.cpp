@@ -2,10 +2,13 @@
 
 #include <QtXml>
 
-void TsBuilder::build(const std::string &output_filename,
-                      Translations trs) const
+TsBuilder::TsBuilder(InOutParameter parameter) : Builder{ std::move(parameter) }
 {
-    QFile output(output_filename.c_str());
+}
+
+void TsBuilder::build(Translations &&trs) const
+{
+    QFile output(m_ioParameter.outputDir.c_str());
     if (!output.open(QFile::WriteOnly | QFile::Truncate)) {
         qDebug() << "can't open file" << output.fileName();
         return;

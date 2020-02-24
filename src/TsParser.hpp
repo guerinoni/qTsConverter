@@ -1,13 +1,15 @@
 #pragma once
 
-#include "TranslationObject.hpp"
+#include "Parser.hpp"
 
 class QDomNode;
 
-class TsParser
+class TsParser : public Parser
 {
   public:
-    Translations parse(const std::string &filename) const;
+    explicit TsParser(InOutParameter parameter);
+
+    Translations parse() const override;
 
   private:
     std::pair<QString, int> wrapLocation(const QDomNode &node) const;

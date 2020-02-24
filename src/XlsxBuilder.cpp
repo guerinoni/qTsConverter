@@ -5,8 +5,12 @@
 #include <QtDebug>
 #include <xlsx/xlsxdocument.h>
 
-void XlsxBuilder::build(const std::string &output_filename,
-                        Translations trs) const
+XlsxBuilder::XlsxBuilder(InOutParameter parameter) :
+    Builder{ std::move(parameter) }
+{
+}
+
+void XlsxBuilder::build(Translations &&trs) const
 {
     QXlsx::Document xlsx;
     xlsx.write(1, 1, "Context");
@@ -32,7 +36,8 @@ void XlsxBuilder::build(const std::string &output_filename,
         }
     }
 
-    if (!xlsx.saveAs(output_filename.c_str())) {
+    if (!xlsx.saveAs(m_ioParameter.outputDir.c_str() +
+                     QString("/output.xlsx"))) {
         qWarning() << "error writing file";
     }
 }

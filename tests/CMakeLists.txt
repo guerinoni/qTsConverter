@@ -8,13 +8,18 @@ include_directories(${PROJECT_SOURCE_DIR}/3rd-party/qtxlsx/src)
 find_package(Qt5 COMPONENTS Core Gui Quick Xml Test REQUIRED)
 
 add_executable(tests
-    ../src/Converter.cpp            ../src/Converter.hpp
-    ../src/Csv2TsConverter.cpp      ../src/Csv2TsConverter.hpp
-    ../src/CsvBuilder.cpp           ../src/CsvBuilder.hpp
-    ../src/CsvParser.cpp            ../src/CsvParser.hpp
-    ../src/Ts2CsvConverter.cpp      ../src/Ts2CsvConverter.hpp
-    ../src/TsBuilder.cpp            ../src/TsBuilder.hpp
-    ../src/TsParser.cpp             ../src/TsParser.hpp
+    ../src/Converter.cpp           ../src/Converter.hpp
+    ../src/ConverterFactory.cpp    ../src/ConverterFactory.hpp
+    ../src/CsvBuilder.cpp          ../src/CsvBuilder.hpp
+    ../src/CsvParser.cpp           ../src/CsvParser.hpp
+    ../src/TsBuilder.cpp           ../src/TsBuilder.hpp
+    ../src/TsParser.cpp            ../src/TsParser.hpp
+    ../src/XlsxBuilder.cpp         ../src/XlsxBuilder.hpp
+    ../src/Parser.cpp              ../src/Parser.hpp
+    ../src/Builder.cpp             ../src/Builder.hpp
+    ../src/TranslationObject.hpp
+    ../src/CsvProperty.hpp
+    ../src/InOutParameter.hpp
 
     tst_Ts2csv.cpp  tst_Ts2csv.hpp
     tst_Csv2ts.cpp  tst_Csv2ts.hpp

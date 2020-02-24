@@ -1,23 +1,20 @@
 #pragma once
 
-#include <string>
+#include "Builder.hpp"
+#include "InOutParameter.hpp"
+#include "Parser.hpp"
+
+#include <memory>
 
 class Converter
 {
   public:
-    explicit Converter(const std::string &inputFile,
-                       const std::string &outputDir);
-    Converter()                       = default;
-    Converter(const Converter &other) = default;
-    Converter(Converter &&other)      = default;
-    virtual ~Converter()              = default;
-
-    Converter &operator=(const Converter &other) = default;
-    Converter &operator=(Converter &&other) = default;
+    explicit Converter(std::unique_ptr<Parser> parser,
+                       std::unique_ptr<Builder> builder);
 
     virtual void process() const;
 
-  protected:
-    std::string m_inputFile;
-    std::string m_outputDir;
+  private:
+    std::unique_ptr<Parser> m_parser;
+    std::unique_ptr<Builder> m_builder;
 };

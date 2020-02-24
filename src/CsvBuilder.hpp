@@ -1,15 +1,11 @@
 #pragma once
 
-#include "CsvProperty.hpp"
-#include "TranslationObject.hpp"
+#include "Builder.hpp"
 
-class CsvBuilder
+class CsvBuilder : public Builder
 {
   public:
-    explicit CsvBuilder(CsvProperty property);
+    explicit CsvBuilder(InOutParameter parameter);
 
-    void build(const std::string &output_filename, Translations trs) const;
-
-  private:
-    CsvProperty property_;
+    void build(Translations &&trs) const override;
 };

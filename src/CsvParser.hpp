@@ -1,17 +1,18 @@
 #pragma once
 
-#include "CsvProperty.hpp"
-#include "TranslationObject.hpp"
+#include "Parser.hpp"
 
-class CsvParser
+class CsvParser : public Parser
 {
   public:
-    explicit CsvParser(CsvProperty property);
+    explicit CsvParser(InOutParameter parameter);
 
-    Translations parse(const std::string &filename) const;
+    Translations parse() const override;
 
   private:
-    CsvProperty property_;
-
     std::pair<QString, int> decodeLocation(QString str) const;
+    void removeEmptyFrontBack(QList<QStringList> &list) const;
+    void splitMergedString(QList<QStringList> &list) const;
+    void splitByRow(QList<QStringList> &list) const;
+    void removeQuote(QList<QStringList> &list) const;
 };

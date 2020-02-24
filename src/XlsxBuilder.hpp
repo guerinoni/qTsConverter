@@ -1,9 +1,11 @@
 #pragma once
 
-#include "TranslationObject.hpp"
+#include "Builder.hpp"
 
-class XlsxBuilder
+class XlsxBuilder : public Builder
 {
   public:
-    void build(const std::string &output_filename, Translations trs) const;
+    explicit XlsxBuilder(InOutParameter parameter);
+
+    void build(Translations &&trs) const override;
 };
