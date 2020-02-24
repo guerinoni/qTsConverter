@@ -17,6 +17,8 @@ Window {
     visible: ApplicationWindow.Windowed
 
     property bool choosingFile: true
+    readonly property bool isCsvFormat: comboType.currentIndex === 0
+                                        || comboType.currentIndex === 1
 
     GridLayout {
         anchors {
@@ -73,14 +75,16 @@ Window {
 
             ComboBox {
                 id: comboType
-                model: ["TS => CSV", "CSV => TS"]
+                model: ["TS => CSV", "CSV => TS", "TS => XLSX"]
             }
 
             Text {
                 text: qsTr("Field separator:")
+                visible: isCsvFormat
             }
 
             Rectangle {
+                visible: isCsvFormat
                 border.width: 0.5
                 border.color: "black"
                 color: "transparent"
@@ -96,9 +100,11 @@ Window {
 
             Text {
                 text: qsTr("String separator:")
+                visible: isCsvFormat
             }
 
             Rectangle {
+                visible: isCsvFormat
                 border.width: 0.5
                 border.color: "black"
                 color: "transparent"

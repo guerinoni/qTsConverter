@@ -4,6 +4,7 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
 include_directories(${PROJECT_SOURCE_DIR}/3rd-party/qtcsv)
+include_directories(${PROJECT_SOURCE_DIR}/3rd-party/qtxlsx/src)
 find_package(Qt5 COMPONENTS Core Gui Quick Xml Test REQUIRED)
 
 add_executable(tests
@@ -20,5 +21,5 @@ add_executable(tests
     main.cpp)
 
 target_link_libraries(tests PRIVATE Qt5::Core Qt5::Xml Qt5::Test
-                            PUBLIC qtcsv)
+                            PUBLIC qtcsv QtXlsxWriter)
 add_definitions(-DFILESPATH=\"${CMAKE_CURRENT_SOURCE_DIR}/files\")

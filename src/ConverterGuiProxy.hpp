@@ -12,8 +12,9 @@ class ConverterGuiProxy : public QObject
     explicit ConverterGuiProxy(QObject *parent = nullptr);
 
     enum QConversionType {
-        Ts2Csv = ConverterFactory::Ts2Csv,
-        Csv2Ts = ConverterFactory::Csv2Ts,
+        Ts2Csv  = ConverterFactory::Ts2Csv,
+        Csv2Ts  = ConverterFactory::Csv2Ts,
+        Ts2Xlsx = ConverterFactory::Ts2Xlsx,
         Dummy
     };
     Q_ENUM(QConversionType)

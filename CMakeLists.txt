@@ -3,5 +3,6 @@ cmake_minimum_required(VERSION 3.10)
 project(qt-ts-csv LANGUAGES CXX VERSION "3.1.0")
 
 add_subdirectory(3rd-party/qtcsv)
+add_subdirectory(3rd-party/qtxlsx)
 add_subdirectory(src)
 add_subdirectory(tests)

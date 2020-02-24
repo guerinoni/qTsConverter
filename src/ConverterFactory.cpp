@@ -2,6 +2,7 @@
 
 #include "Csv2TsConverter.hpp"
 #include "Ts2CsvConverter.hpp"
+#include "Ts2XlsxConverter.hpp"
 
 #include <cassert>
 
@@ -20,6 +21,11 @@ ConverterFactory::make_converter(ConverterFactory::ConversionType type,
         case ConversionType::Csv2Ts:
             return std::make_unique<Csv2TsConverter>(in, out, field_sep,
                                                      string_sep);
+            break;
+
+        case ConversionType::Ts2Xlsx:
+            return std::make_unique<Ts2XlsxConverter>(in, out, field_sep,
+                                                      string_sep);
             break;
 
         default:
