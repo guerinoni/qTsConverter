@@ -12,4 +12,6 @@ class CsvParser
 
   private:
     CsvProperty property_;
+
+    std::pair<QString, int> decodeLocation(QString str) const;
 };

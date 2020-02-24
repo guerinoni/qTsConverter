@@ -19,5 +19,9 @@ void tst_Ts2Csv::checkScenario1()
     expected.open(QIODevice::ReadOnly);
     out.open(QIODevice::ReadOnly);
 
-    QCOMPARE(expected.readAll(), out.readAll());
+    const auto o = out.readAll();
+    const auto e = expected.readAll();
+
+    QCOMPARE(o.size(), e.size());
+    QCOMPARE(o, e);
 }

@@ -12,16 +12,24 @@ void CsvBuilder::build(const std::string &output_filename,
                        Translations trs) const
 {
     QStringList strList;
-    strList << "Input"
-            << "Output";
+    strList << "Context"
+            << "Source"
+            << "Translation"
+            << "Location";
 
     QtCSV::StringData strData;
     strData.addRow(strList);
 
     for (const auto &tr : trs) {
-        strList.clear();
-        strList << tr.source << tr.translation;
-        strData.addRow(strList);
+        for (const auto &msg : tr.messages) {
+            strList.clear();
+            strList << tr.name << msg.source << msg.translation;
+            for (const auto &loc : msg.locations) {
+                strList << QString(loc.first + " - " +
+                                   QString::number(loc.second));
+            }
+            strData.addRow(strList);
+        }
     }
 
     if (!QtCSV::Writer::write(output_filename.c_str(), strData,
