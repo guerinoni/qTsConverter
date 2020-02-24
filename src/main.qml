@@ -89,7 +89,7 @@ Window {
 
                 TextInput {
                     id: fieldSeparator
-                    text: "~"
+                    text: ";"
                     anchors.centerIn: parent
                 }
             }
@@ -107,7 +107,7 @@ Window {
 
                 TextInput {
                     id: stringSeparator
-                    text: "`"
+                    text: "\""
                     anchors.centerIn: parent
                 }
             }
