@@ -16,6 +16,7 @@ add_executable(${CMAKE_PROJECT_NAME}
     TsBuilder.cpp           TsBuilder.hpp
     TsParser.cpp            TsParser.hpp
     XlsxBuilder.cpp         XlsxBuilder.hpp
+    XlsxParser.cpp          XlsxParser.hpp
     Parser.cpp              Parser.hpp
     Builder.cpp             Builder.hpp
     TranslationObject.hpp

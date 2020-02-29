@@ -5,6 +5,7 @@
 #include "TsBuilder.hpp"
 #include "TsParser.hpp"
 #include "XlsxBuilder.hpp"
+#include "XlsxParser.hpp"
 
 #include <cassert>
 
@@ -36,6 +37,14 @@ ConverterFactory::make_converter(ConverterFactory::ConversionType type,
                 std::make_unique<TsParser>(InOutParameter{
                     in, out, CsvProperty{ string_sep, field_sep } }),
                 std::make_unique<XlsxBuilder>(InOutParameter{
+                    in, out, CsvProperty{ field_sep, string_sep } }));
+            break;
+
+        case ConversionType::Xlsx2Ts:
+            return std::make_unique<Converter>(
+                std::make_unique<XlsxParser>(InOutParameter{
+                    in, out, CsvProperty{ string_sep, field_sep } }),
+                std::make_unique<TsBuilder>(InOutParameter{
                     in, out, CsvProperty{ field_sep, string_sep } }));
             break;
 

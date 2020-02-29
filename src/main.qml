@@ -75,7 +75,7 @@ Window {
 
             ComboBox {
                 id: comboType
-                model: ["TS => CSV", "CSV => TS", "TS => XLSX"]
+                model: ["TS => CSV", "CSV => TS", "TS => XLSX", "XLSX => TS"]
             }
 
             Text {

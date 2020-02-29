@@ -15,6 +15,7 @@ class ConverterGuiProxy : public QObject
         Ts2Csv  = ConverterFactory::Ts2Csv,
         Csv2Ts  = ConverterFactory::Csv2Ts,
         Ts2Xlsx = ConverterFactory::Ts2Xlsx,
+        Xlsx2Ts = ConverterFactory::Xlsx2Ts,
         Dummy
     };
     Q_ENUM(QConversionType)

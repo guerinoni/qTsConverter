@@ -15,6 +15,7 @@ add_executable(tests
     ../src/TsBuilder.cpp           ../src/TsBuilder.hpp
     ../src/TsParser.cpp            ../src/TsParser.hpp
     ../src/XlsxBuilder.cpp         ../src/XlsxBuilder.hpp
+    ../src/XlsxParser.cpp          ../src/XlsxParser.hpp
     ../src/Parser.cpp              ../src/Parser.hpp
     ../src/Builder.cpp             ../src/Builder.hpp
     ../src/TranslationObject.hpp
