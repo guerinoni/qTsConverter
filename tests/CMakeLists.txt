@@ -21,6 +21,7 @@ add_executable(tests
     ../src/TranslationObject.hpp
     ../src/CsvProperty.hpp
     ../src/InOutParameter.hpp
+    ../src/TitleHeaders.hpp
 
     tst_Ts2csv.cpp  tst_Ts2csv.hpp
     tst_Csv2ts.cpp  tst_Csv2ts.hpp

@@ -22,6 +22,7 @@ add_executable(${CMAKE_PROJECT_NAME}
     TranslationObject.hpp
     CsvProperty.hpp
     InOutParameter.hpp
+    TitleHeaders.hpp
     main.cpp
     qml.qrc)
 

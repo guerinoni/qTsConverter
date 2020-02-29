@@ -1,5 +1,7 @@
 #include "CsvBuilder.hpp"
 
+#include "TitleHeaders.hpp"
+
 #include <QDebug>
 #include <QFile>
 #include <QTextStream>
@@ -11,10 +13,8 @@ CsvBuilder::CsvBuilder(InOutParameter parameter) : Builder{ parameter } {}
 void CsvBuilder::build(Translations &&trs) const
 {
     QStringList strList;
-    strList << "Context"
-            << "Source"
-            << "Translation"
-            << "Location";
+    strList << TitleHeader::Context << TitleHeader::Source
+            << TitleHeader::Translation << TitleHeader::Location;
 
     QtCSV::StringData strData;
     strData.addRow(strList);

@@ -1,5 +1,7 @@
 #include "XlsxParser.hpp"
 
+#include "TitleHeaders.hpp"
+
 #include <QtDebug>
 #include <xlsx/xlsxdocument.h>
 
@@ -9,8 +11,10 @@ Translations XlsxParser::parse() const
 {
     QXlsx::Document xlsx(m_ioParameter.inputFile.c_str());
 
-    if (xlsx.read(1, 1) != "Context" || xlsx.read(1, 2) != "Source" ||
-        xlsx.read(1, 3) != "Translation" || xlsx.read(1, 4) != "Location") {
+    if (xlsx.read(1, 1) != TitleHeader::Context ||
+        xlsx.read(1, 2) != TitleHeader::Source ||
+        xlsx.read(1, 3) != TitleHeader::Translation ||
+        xlsx.read(1, 4) != TitleHeader::Location) {
         qWarning() << "the xlsx file is not valid";
         return {};
     }

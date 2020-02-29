@@ -1,5 +1,7 @@
 #include "XlsxBuilder.hpp"
 
+#include "TitleHeaders.hpp"
+
 #include <QFile>
 #include <QTextStream>
 #include <QtDebug>
@@ -13,10 +15,10 @@ XlsxBuilder::XlsxBuilder(InOutParameter parameter) :
 void XlsxBuilder::build(Translations &&trs) const
 {
     QXlsx::Document xlsx;
-    xlsx.write(1, 1, "Context");
-    xlsx.write(1, 2, "Source");
-    xlsx.write(1, 3, "Translation");
-    xlsx.write(1, 4, "Location");
+    xlsx.write(1, 1, TitleHeader::Context);
+    xlsx.write(1, 2, TitleHeader::Source);
+    xlsx.write(1, 3, TitleHeader::Translation);
+    xlsx.write(1, 4, TitleHeader::Location);
 
     int row{ 2 };
     int col{ 1 };
