@@ -12,7 +12,7 @@ XlsxBuilder::XlsxBuilder(InOutParameter parameter) :
 {
 }
 
-void XlsxBuilder::build(Translations &&trs) const
+bool XlsxBuilder::build(const Translations &trs) const
 {
     QXlsx::Document xlsx;
     xlsx.write(1, 1, TitleHeader::Context);
@@ -41,5 +41,8 @@ void XlsxBuilder::build(Translations &&trs) const
     if (!xlsx.saveAs(m_ioParameter.outputDir.c_str() +
                      QString("/output.xlsx"))) {
         qWarning() << "error writing file";
+        return false;
     }
+
+    return true;
 }

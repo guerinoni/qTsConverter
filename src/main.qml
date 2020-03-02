@@ -126,10 +126,12 @@ Window {
                      && sourceOutput.text.length !== 0
                      && fieldSeparator.text.length !== 0
                      && stringSeparator.text.length !== 0
-            onClicked: converter.convert(comboType.currentIndex,
-                                         sourceInput.text, sourceOutput.text,
-                                         fieldSeparator.text,
-                                         stringSeparator.text)
+            onClicked: {
+                converter.convert(comboType.currentIndex, sourceInput.text,
+                                  sourceOutput.text, fieldSeparator.text,
+                                  stringSeparator.text)
+                messageDialog.visible = true
+            }
         }
     }
 
@@ -147,6 +149,18 @@ Window {
             } else {
                 sourceOutput.text = fileDialog.fileUrl
             }
+        }
+    }
+
+    MessageDialog {
+        id: messageDialog
+        visible: false
+        icon: converter.convSuccessfull ? StandardIcon.Information : StandardIcon.Critical
+        title: converter.convSuccessfull ? "Conversion completed" : "Conversion failed"
+        text: converter.convMsg
+        detailedText: converter.detailedConvMsg
+        onAccepted: {
+            visible = false
         }
     }
 }

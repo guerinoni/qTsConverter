@@ -6,13 +6,13 @@ TsBuilder::TsBuilder(InOutParameter parameter) : Builder{ std::move(parameter) }
 {
 }
 
-void TsBuilder::build(Translations &&trs) const
+bool TsBuilder::build(const Translations &trs) const
 {
     const auto outputFile = m_ioParameter.outputDir + "/output.ts";
     QFile output(outputFile.c_str());
     if (!output.open(QFile::WriteOnly | QFile::Truncate)) {
         qDebug() << "can't open file" << output.fileName();
-        return;
+        return false;
     }
 
     QDomDocument doc("TS");
@@ -56,4 +56,5 @@ void TsBuilder::build(Translations &&trs) const
     stream << doc.toString(2);
 
     output.close();
+    return true;
 }

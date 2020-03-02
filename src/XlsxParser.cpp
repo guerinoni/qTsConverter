@@ -7,7 +7,7 @@
 
 XlsxParser::XlsxParser(InOutParameter parameter) : Parser{ parameter } {}
 
-Translations XlsxParser::parse() const
+std::pair<Translations, QString> XlsxParser::parse() const
 {
     QXlsx::Document xlsx(m_ioParameter.inputFile.c_str());
 
@@ -16,7 +16,8 @@ Translations XlsxParser::parse() const
         xlsx.read(1, 3) != TitleHeader::Translation ||
         xlsx.read(1, 4) != TitleHeader::Location) {
         qWarning() << "the xlsx file is not valid";
-        return {};
+        return std::make_pair(Translations(),
+                              "Invalid XLSX file, check the headers!");
     }
 
     Translations translations;
@@ -51,5 +52,5 @@ Translations XlsxParser::parse() const
         msg.locations.clear();
     }
 
-    return translations;
+    return std::make_pair(translations, "");
 }
