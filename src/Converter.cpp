@@ -7,7 +7,16 @@ Converter::Converter(std::unique_ptr<Parser> parser,
 {
 }
 
-void Converter::process() const
+Converter::CoversionResult Converter::process() const
 {
-    m_builder->build(m_parser->parse());
+    const auto result = m_parser->parse();
+    if (result.first.empty()) {
+        return CoversionResult(false, "Failed to parse source!", result.second);
+    }
+
+    if (m_builder->build(result.first)) {
+        return CoversionResult(true, "Conversion successfull!", "");
+    } else {
+        return CoversionResult(false, "Conversion failed!", "");
+    }
 }

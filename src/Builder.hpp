@@ -8,7 +8,7 @@ class Builder
   public:
     explicit Builder(InOutParameter parameter);
 
-    virtual void build(Translations &&trs) const = 0;
+    virtual bool build(const Translations &trs) const = 0;
 
   protected:
     InOutParameter m_ioParameter;

@@ -7,5 +7,5 @@ class TsBuilder : public Builder
   public:
     explicit TsBuilder(InOutParameter parameter);
 
-    void build(Translations &&trs) const override;
+    bool build(const Translations &trs) const override;
 };
