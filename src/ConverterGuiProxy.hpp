@@ -1,7 +1,7 @@
 #pragma once
 
 #include "ConverterFactory.hpp"
-
+#include <QUrl>
 #include <QObject>
 
 class ConverterGuiProxy : public QObject

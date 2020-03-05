@@ -8,8 +8,11 @@ void ConverterGuiProxy::convert(QConversionType type, QString input,
                                 QString output, QString field_separator,
                                 QString string_separator)
 {
-    input.remove("file://");
-    output.remove("file://");
+    // Remove file:// on linux and file:/// on windows
+    input  = QUrl::fromUserInput(input).toLocalFile();
+    output = QUrl::fromUserInput(output).toLocalFile();
+
+    qDebug() << input << output;
     auto converter = ConverterFactory::make_converter(
         static_cast<ConverterFactory::ConversionType>(type),
         input.toStdString(), output.toStdString(),
