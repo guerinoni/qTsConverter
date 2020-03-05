@@ -45,6 +45,7 @@ Window {
 
             Text {
                 id: sourceInput
+                color: Material.color(Material.Grey)
                 Layout.fillWidth: true
             }
 
@@ -67,6 +68,7 @@ Window {
 
             Text {
                 id: sourceOutput
+                color: Material.color(Material.Grey)
                 Layout.fillWidth: true
             }
 
@@ -132,7 +134,7 @@ Window {
             Layout.fillWidth: true
             text: qsTr("Convert")
             highlighted: true
-             Material.background: Material.Orange
+            Material.background: Material.Orange
             enabled: sourceInput.text.length !== 0
                      && sourceOutput.text.length !== 0
                      && fieldSeparator.text.length !== 0
@@ -151,7 +153,6 @@ Window {
         title: choosingFile ? qsTr("Select File") : qsTr("Select Folder")
         nameFilters: []
         selectFolder: !choosingFile
-
 
         onAccepted: {
             if (choosingFile) {
