@@ -3,14 +3,20 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
+#include <QQuickWindow>
 
 int main(int argc, char **argv)
 {
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
+#ifdef Q_OS_WINDOWS
+    QQuickWindow::setTextRenderType(QQuickWindow::TextRenderType::NativeTextRendering);
+#endif
+
     QGuiApplication app(argc, argv);
     app.setOrganizationName("Federico Guerinoni");
     app.setOrganizationDomain("Federico Guerinoni");
+    app.setApplicationName("qt-ts-csv");
 
     QQmlApplicationEngine engine;
 

@@ -1,14 +1,16 @@
 import QtQuick 2.0
 import QtQuick.Window 2.11
 import Qt.labs.platform 1.0
-import QtQuick.Controls 2.4
+import Qt.labs.settings 1.0
+import QtQuick.Controls 2.7
 import QtQuick.Layouts 1.3
 import QtQuick.Dialogs 1.2
+import QtQuick.Controls.Material 2.0
 
 Window {
     title: qsTr("Ts2Csv Converter ") + version
 
-    minimumHeight: 200
+    minimumHeight: 220
     minimumWidth: 800
 
     height: minimumHeight
@@ -20,10 +22,16 @@ Window {
     readonly property bool isCsvFormat: comboType.currentIndex === 0
                                         || comboType.currentIndex === 1
 
+    Settings {
+        id: settings
+        property string lastSourceInput
+        property string lastSourceOutput
+    }
+
     GridLayout {
         anchors {
             fill: parent
-            margins: 10
+            margins: 20
         }
 
         columns: 1
@@ -37,14 +45,16 @@ Window {
 
             Text {
                 id: sourceInput
+                color: Material.color(Material.Grey)
                 Layout.fillWidth: true
-                text: ""
             }
 
             Button {
                 text: qsTr("Browse")
+                highlighted: true
                 onClicked: {
                     choosingFile = true
+                    fileDialog.folder = settings.lastSourceInput
                     fileDialog.open()
                 }
             }
@@ -53,19 +63,21 @@ Window {
         RowLayout {
 
             Text {
-                text: qsTr("Destination filename:")
+                text: qsTr("Destination folder:")
             }
 
             Text {
                 id: sourceOutput
+                color: Material.color(Material.Grey)
                 Layout.fillWidth: true
-                text: ""
             }
 
             Button {
                 text: qsTr("Browse")
+                highlighted: true
                 onClicked: {
                     choosingFile = false
+                    fileDialog.folder = settings.lastSourceOutput
                     fileDialog.open()
                 }
             }
@@ -87,7 +99,6 @@ Window {
                 visible: isCsvFormat
                 border.width: 0.5
                 border.color: "black"
-                color: "transparent"
                 width: 30
                 height: 30
 
@@ -122,6 +133,8 @@ Window {
         Button {
             Layout.fillWidth: true
             text: qsTr("Convert")
+            highlighted: true
+            Material.background: Material.Orange
             enabled: sourceInput.text.length !== 0
                      && sourceOutput.text.length !== 0
                      && fieldSeparator.text.length !== 0
@@ -140,25 +153,53 @@ Window {
         title: choosingFile ? qsTr("Select File") : qsTr("Select Folder")
         nameFilters: []
         selectFolder: !choosingFile
-        folder: StandardPaths.standardLocations(
-                    StandardPaths.DesktopLocation)[0]
 
         onAccepted: {
             if (choosingFile) {
                 sourceInput.text = fileDialog.fileUrl
+                var str = fileDialog.fileUrl.toString()
+                settings.lastSourceInput =  str.substring(0, str.lastIndexOf("/"))
             } else {
                 sourceOutput.text = fileDialog.fileUrl
+                settings.lastSourceOutput =  fileDialog.fileUrl
             }
         }
     }
 
-    MessageDialog {
+    Dialog {
         id: messageDialog
         visible: false
-        icon: converter.convSuccessfull ? StandardIcon.Information : StandardIcon.Critical
         title: converter.convSuccessfull ? "Conversion completed" : "Conversion failed"
-        text: converter.convMsg
-        detailedText: converter.detailedConvMsg
+        contentItem: Rectangle {
+            implicitWidth: 400
+            implicitHeight: 150
+            ColumnLayout {
+                anchors.fill: parent
+                anchors.margins: 40
+
+                Text {
+                    text: converter.convMsg
+                    Layout.alignment: Qt.AlignHCenter
+                    color: Material.color(Material.Grey)
+                    font.pointSize: 16
+                }
+
+                Text {
+                    text: converter.detailedConvMsg
+                     Layout.alignment: Qt.AlignHCenter
+                     color: Material.color(Material.BlueGrey)
+                }
+
+                Button {
+                    text: qsTr("Ok!")
+                    onClicked: messageDialog.close()
+                    highlighted: true
+                    Material.background: Material.Orange
+                    Layout.fillWidth: true
+                }
+            }
+        }
+
         onAccepted: {
             visible = false
         }
