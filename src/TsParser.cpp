@@ -5,14 +5,14 @@
 
 TsParser::TsParser(InOutParameter parameter) : Parser{ parameter } {}
 
-Translations TsParser::parse() const
+std::pair<Translations, QString> TsParser::parse() const
 {
     QDomDocument doc;
     QFile file(m_ioParameter.inputFile.c_str());
 
     if (!file.open(QIODevice::ReadOnly) || !doc.setContent(&file)) {
         qDebug() << "can't open file";
-        return {};
+        return std::make_pair(Translations(), "Failed to open source!");
     }
 
     Translations translations;
@@ -40,7 +40,7 @@ Translations TsParser::parse() const
         translations.emplace_back(context);
     }
 
-    return translations;
+    return std::make_pair(translations, "");
 }
 
 std::pair<QString, int> TsParser::wrapLocation(const QDomNode &node) const

@@ -10,7 +10,7 @@
 
 CsvBuilder::CsvBuilder(InOutParameter parameter) : Builder{ parameter } {}
 
-void CsvBuilder::build(Translations &&trs) const
+bool CsvBuilder::build(const Translations &trs) const
 {
     QStringList strList;
     strList << TitleHeader::Context << TitleHeader::Source
@@ -37,5 +37,8 @@ void CsvBuilder::build(Translations &&trs) const
             m_ioParameter.csvProperty.field_separator.c_str(),
             m_ioParameter.csvProperty.string_separator.c_str())) {
         qWarning() << "error writing file";
+        return false;
     }
+
+    return true;
 }

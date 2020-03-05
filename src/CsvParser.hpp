@@ -7,7 +7,7 @@ class CsvParser : public Parser
   public:
     explicit CsvParser(InOutParameter parameter);
 
-    Translations parse() const override;
+    std::pair<Translations, QString> parse() const override;
 
   private:
     std::pair<QString, int> decodeLocation(QString str) const;
