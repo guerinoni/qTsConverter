@@ -87,7 +87,6 @@ Window {
             spacing: 20
             ComboBox {
                 id: comboType
-                Layout.preferredWidth: 200
                 model: ["TS => CSV", "CSV => TS", "TS => XLSX", "XLSX => TS"]
             }
 
