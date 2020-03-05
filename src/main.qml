@@ -4,11 +4,12 @@ import Qt.labs.platform 1.0
 import QtQuick.Controls 2.4
 import QtQuick.Layouts 1.3
 import QtQuick.Dialogs 1.2
+import QtQuick.Controls.Material 2.0
 
 Window {
     title: qsTr("Ts2Csv Converter ") + version
 
-    minimumHeight: 200
+    minimumHeight: 220
     minimumWidth: 800
 
     height: minimumHeight
@@ -23,7 +24,7 @@ Window {
     GridLayout {
         anchors {
             fill: parent
-            margins: 10
+            margins: 20
         }
 
         columns: 1
@@ -38,11 +39,11 @@ Window {
             Text {
                 id: sourceInput
                 Layout.fillWidth: true
-                text: ""
             }
 
             Button {
                 text: qsTr("Browse")
+                highlighted: true
                 onClicked: {
                     choosingFile = true
                     fileDialog.open()
@@ -59,11 +60,11 @@ Window {
             Text {
                 id: sourceOutput
                 Layout.fillWidth: true
-                text: ""
             }
 
             Button {
                 text: qsTr("Browse")
+                highlighted: true
                 onClicked: {
                     choosingFile = false
                     fileDialog.open()
@@ -87,7 +88,6 @@ Window {
                 visible: isCsvFormat
                 border.width: 0.5
                 border.color: "black"
-                color: "transparent"
                 width: 30
                 height: 30
 
@@ -122,6 +122,8 @@ Window {
         Button {
             Layout.fillWidth: true
             text: qsTr("Convert")
+            highlighted: true
+             Material.background: Material.Orange
             enabled: sourceInput.text.length !== 0
                      && sourceOutput.text.length !== 0
                      && fieldSeparator.text.length !== 0
