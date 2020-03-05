@@ -1,6 +1,7 @@
 import QtQuick 2.0
 import QtQuick.Window 2.11
 import Qt.labs.platform 1.0
+import Qt.labs.settings 1.0
 import QtQuick.Controls 2.4
 import QtQuick.Layouts 1.3
 import QtQuick.Dialogs 1.2
@@ -20,6 +21,12 @@ Window {
     property bool choosingFile: true
     readonly property bool isCsvFormat: comboType.currentIndex === 0
                                         || comboType.currentIndex === 1
+
+    Settings {
+        id: settings
+        property string lastSourceInput
+        property string lastSourceOutput
+    }
 
     GridLayout {
         anchors {
@@ -46,6 +53,7 @@ Window {
                 highlighted: true
                 onClicked: {
                     choosingFile = true
+                    fileDialog.folder = settings.lastSourceInput
                     fileDialog.open()
                 }
             }
@@ -54,7 +62,7 @@ Window {
         RowLayout {
 
             Text {
-                text: qsTr("Destination filename:")
+                text: qsTr("Destination folder:")
             }
 
             Text {
@@ -67,6 +75,7 @@ Window {
                 highlighted: true
                 onClicked: {
                     choosingFile = false
+                    fileDialog.folder = settings.lastSourceOutput
                     fileDialog.open()
                 }
             }
@@ -140,14 +149,16 @@ Window {
         title: choosingFile ? qsTr("Select File") : qsTr("Select Folder")
         nameFilters: []
         selectFolder: !choosingFile
-        folder: StandardPaths.standardLocations(
-                    StandardPaths.DesktopLocation)[0]
+
 
         onAccepted: {
             if (choosingFile) {
                 sourceInput.text = fileDialog.fileUrl
+                var str = fileDialog.fileUrl.toString()
+                settings.lastSourceInput =  str.substring(0, str.lastIndexOf("/"))
             } else {
                 sourceOutput.text = fileDialog.fileUrl
+                settings.lastSourceOutput =  fileDialog.fileUrl
             }
         }
     }

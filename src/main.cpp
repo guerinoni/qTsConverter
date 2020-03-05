@@ -11,6 +11,7 @@ int main(int argc, char **argv)
     QGuiApplication app(argc, argv);
     app.setOrganizationName("Federico Guerinoni");
     app.setOrganizationDomain("Federico Guerinoni");
+    app.setApplicationName("qt-ts-csv");
 
     QQmlApplicationEngine engine;
 
