@@ -84,7 +84,7 @@ Window {
         }
 
         RowLayout {
-
+            spacing: 20
             ComboBox {
                 id: comboType
                 model: ["TS => CSV", "CSV => TS", "TS => XLSX", "XLSX => TS"]

@@ -4,6 +4,7 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <QQuickWindow>
+#include <QFontDatabase>
 
 int main(int argc, char **argv)
 {
@@ -17,6 +18,10 @@ int main(int argc, char **argv)
     app.setOrganizationName("Federico Guerinoni");
     app.setOrganizationDomain("Federico Guerinoni");
     app.setApplicationName("qt-ts-csv");
+
+
+    QFontDatabase::addApplicationFont(":/assets/fonts/Roboto-Light.ttf");
+    QFontDatabase::addApplicationFont(":/assets/fonts/Roboto-Regular.ttf");
 
     QQmlApplicationEngine engine;
 
