@@ -35,14 +35,16 @@ std::pair<Translations, QString> CsvParser::parse() const
         msg.source      = l.at(1);
         msg.translation = l.at(2);
         msg.locations.emplace_back(decodeLocation(l.at(3)));
-        context.messages.emplace_back(msg);
 
         auto it =
             std::find_if(translations.begin(), translations.end(),
                          [&](const auto &c) { return c.name == context.name; });
         if (it == translations.end()) {
+            context.messages.clear();
+            context.messages.emplace_back(msg);
             translations.emplace_back(context);
         } else {
+            context.messages.emplace_back(msg);
             translations.at(std::distance(translations.begin(), it)) = context;
         }
         msg.locations.clear();

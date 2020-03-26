@@ -39,14 +39,15 @@ std::pair<Translations, QString> XlsxParser::parse() const
                 std::make_pair(list.first(), list.last().toInt()));
         }
 
-        context.messages.emplace_back(msg);
-
         auto it =
             std::find_if(translations.begin(), translations.end(),
                          [&](const auto &c) { return c.name == context.name; });
         if (it == translations.end()) {
+            context.messages.clear();
+            context.messages.emplace_back(msg);
             translations.emplace_back(context);
         } else {
+            context.messages.emplace_back(msg);
             translations.at(std::distance(translations.begin(), it)) = context;
         }
         msg.locations.clear();
