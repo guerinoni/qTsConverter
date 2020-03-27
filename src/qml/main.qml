@@ -1,11 +1,12 @@
 import QtQuick 2.0
 import QtQuick.Window 2.11
-import Qt.labs.platform 1.0
-import Qt.labs.settings 1.0
 import QtQuick.Controls 2.7
 import QtQuick.Layouts 1.3
 import QtQuick.Dialogs 1.2
 import QtQuick.Controls.Material 2.0
+
+import Qt.labs.platform 1.1
+import Qt.labs.settings 1.0
 
 Window {
     title: qsTr("Ts2Csv Converter ") + version
@@ -18,7 +19,6 @@ Window {
 
     visible: ApplicationWindow.Windowed
 
-    property bool choosingFile: true
     readonly property bool isCsvFormat: comboType.currentIndex === 0
                                         || comboType.currentIndex === 1
 
@@ -53,9 +53,8 @@ Window {
                 text: qsTr("Browse")
                 highlighted: true
                 onClicked: {
-                    choosingFile = true
-                    fileDialog.folder = settings.lastSourceInput
-                    fileDialog.open()
+                    loadFileDialog.folder = settings.lastSourceInput
+                    loadFileDialog.open()
                 }
             }
         }
@@ -76,9 +75,8 @@ Window {
                 text: qsTr("Browse")
                 highlighted: true
                 onClicked: {
-                    choosingFile = false
-                    fileDialog.folder = settings.lastSourceOutput
-                    fileDialog.open()
+                    saveFileDialog.folder = settings.lastSourceOutput
+                    saveFileDialog.open()
                 }
             }
         }
@@ -143,65 +141,29 @@ Window {
                 converter.convert(comboType.currentIndex, sourceInput.text,
                                   sourceOutput.text, fieldSeparator.text,
                                   stringSeparator.text)
-                messageDialog.visible = true
+                finishDialog.visible = true
             }
         }
     }
 
-    FileDialog {
-        id: fileDialog
-        title: choosingFile ? qsTr("Select File") : qsTr("Select Folder")
-        nameFilters: []
-        selectFolder: !choosingFile
+    LoadFileDialog {
+        id: loadFileDialog
+        objectName: "loadFileDialog"
 
-        onAccepted: {
-            if (choosingFile) {
-                sourceInput.text = fileDialog.fileUrl
-                var str = fileDialog.fileUrl.toString()
-                settings.lastSourceInput =  str.substring(0, str.lastIndexOf("/"))
-            } else {
-                sourceOutput.text = fileDialog.fileUrl
-                settings.lastSourceOutput =  fileDialog.fileUrl
-            }
-        }
+        onAccepted: sourceInput.text = loadFileDialog.file
     }
 
-    Dialog {
-        id: messageDialog
-        visible: false
-        title: converter.convSuccessfull ? "Conversion completed" : "Conversion failed"
-        contentItem: Rectangle {
-            implicitWidth: 400
-            implicitHeight: 150
-            ColumnLayout {
-                anchors.fill: parent
-                anchors.margins: 40
+    SaveFileDialog {
+        id: saveFileDialog
+        objectName: "saveFileDialog"
 
-                Text {
-                    text: converter.convMsg
-                    Layout.alignment: Qt.AlignHCenter
-                    color: Material.color(Material.Grey)
-                    font.pointSize: 16
-                }
+        onAccepted: sourceOutput.text = saveFileDialog.file
+    }
 
-                Text {
-                    text: converter.detailedConvMsg
-                     Layout.alignment: Qt.AlignHCenter
-                     color: Material.color(Material.BlueGrey)
-                }
+    FinishDialog {
+        id: finishDialog
+        objectName: "finishDialog"
 
-                Button {
-                    text: qsTr("Ok!")
-                    onClicked: messageDialog.close()
-                    highlighted: true
-                    Material.background: Material.Orange
-                    Layout.fillWidth: true
-                }
-            }
-        }
-
-        onAccepted: {
-            visible = false
-        }
+        onAccepted: visible = false
     }
 }

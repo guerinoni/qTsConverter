@@ -8,8 +8,7 @@ TsBuilder::TsBuilder(InOutParameter parameter) : Builder{ std::move(parameter) }
 
 bool TsBuilder::build(const Translations &trs) const
 {
-    const auto outputFile = m_ioParameter.outputDir + "/output.ts";
-    QFile output(outputFile.c_str());
+    QFile output(m_ioParameter.outputFile.c_str());
     if (!output.open(QFile::WriteOnly | QFile::Truncate)) {
         qDebug() << "can't open file" << output.fileName();
         return false;

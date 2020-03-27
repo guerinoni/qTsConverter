@@ -4,5 +4,8 @@
         <file>qtquickcontrols2.conf</file>
         <file>assets/fonts/Roboto-Light.ttf</file>
         <file>assets/fonts/Roboto-Regular.ttf</file>
+        <file>FinishDialog.qml</file>
+        <file>SaveFileDialog.qml</file>
+        <file>LoadFileDialog.qml</file>
     </qresource>
 </RCC>

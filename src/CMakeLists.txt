@@ -24,7 +24,7 @@ add_executable(${CMAKE_PROJECT_NAME}
     InOutParameter.hpp
     TitleHeaders.hpp
     main.cpp
-    qml.qrc)
+    qml/qml.qrc)
 
 target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE Qt5::Core Qt5::Gui Qt5::Quick Qt5::Xml
                                             PUBLIC qtcsv QtXlsxWriter)

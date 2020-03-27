@@ -12,6 +12,6 @@ struct InOutParameter {
     InOutParameter &operator=(InOutParameter &&) = default;
 
     std::string inputFile;
-    std::string outputDir;
+    std::string outputFile;
     CsvProperty csvProperty;
 };

@@ -31,9 +31,8 @@ bool CsvBuilder::build(const Translations &trs) const
         }
     }
 
-    const auto outputFile = m_ioParameter.outputDir + "/output.csv";
     if (!QtCSV::Writer::write(
-            outputFile.c_str(), strData,
+            m_ioParameter.outputFile.c_str(), strData,
             m_ioParameter.csvProperty.field_separator.c_str(),
             m_ioParameter.csvProperty.string_separator.c_str())) {
         qWarning() << "error writing file";
