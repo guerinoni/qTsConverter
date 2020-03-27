@@ -5,28 +5,16 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/f615b50a30204ed8aee3ca5d0ad382ee)](https://www.codacy.com/manual/guerinoni/qt-ts-csv?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=guerinoni/qt-ts-csv&amp;utm_campaign=Badge_Grade)
 
 # qt-ts-csv
-A tool to generate csv file from qt ts file and vice versa
+This tool was born to convert `.ts` file of Qt translation in other format more editable using an office suite.
+Now it supports `.ts` -> `.csv/.xls.` and vice versa. You can also do conversion between `.csv` and `.xls` keeping in mind the use of header tags used to retrieve the right information of translation.
 
 ## Build
-~~~
-before_install:
-  - sudo add-apt-repository --yes ppa:beineri/opt-qt-5.12.3-bionic
-  - sudo apt-get update -qq
-
-install:
-  - sudo apt-get -y install cmake
-  - sudo apt-get -y install libgl1-mesa-dev
-  - sudo apt-get -y install qt512base
-  - sudo apt-get -y install qt512quickcontrols
-  - sudo apt-get -y install qt512quickcontrols2
-
-script:
-  - source /opt/qt512/bin/qt512-env.sh
-  - mkdir build
-  - cd build
-  - cmake .. -DCMAKE_PREFIX_PATH=/opt/qt512/
-  - make
-~~~
+```
+> mkdir build
+> cd build
+> cmake .. -DCMAKE_PREFIX_PATH=/opt/qt512/
+> make
+```
 
 ## Usage
 
