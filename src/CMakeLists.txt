@@ -19,6 +19,7 @@ add_executable(${CMAKE_PROJECT_NAME}
     XlsxParser.cpp          XlsxParser.hpp
     Parser.cpp              Parser.hpp
     Builder.cpp             Builder.hpp
+    ConversionModel.cpp     ConversionModel.hpp
     TranslationObject.hpp
     CsvProperty.hpp
     InOutParameter.hpp

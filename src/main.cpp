@@ -1,4 +1,5 @@
 #include "ConverterGuiProxy.hpp"
+#include "ConversionModel.hpp"
 
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
@@ -25,7 +26,11 @@ int main(int argc, char **argv)
 
     QQmlApplicationEngine engine;
 
+    ConversionModel cm;
+    engine.rootContext()->setContextProperty(QStringLiteral("conversionModel"), &cm);
+
     ConverterGuiProxy cgp;
+    qmlRegisterUncreatableType<ConverterGuiProxy>("app", 1, 0, "ConverterGuiProxy", "");
     engine.rootContext()->setContextProperty(QStringLiteral("converter"), &cgp);
     engine.rootContext()->setContextProperty(QStringLiteral("version"),
                                              VERSION);

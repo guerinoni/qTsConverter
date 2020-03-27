@@ -1,12 +1,12 @@
-import QtQuick 2.0
-import QtQuick.Window 2.11
-import QtQuick.Controls 2.7
-import QtQuick.Layouts 1.3
-import QtQuick.Dialogs 1.2
-import QtQuick.Controls.Material 2.0
+import QtQuick 2.12
 
-import Qt.labs.platform 1.1
+import QtQuick.Window 2.12
+import QtQuick.Controls 2.12
+import QtQuick.Layouts 1.12
+import QtQuick.Controls.Material 2.1
 import Qt.labs.settings 1.0
+
+import app 1.0
 
 Window {
     title: qsTr("Ts2Csv Converter ") + version
@@ -45,8 +45,10 @@ Window {
 
             Text {
                 id: sourceInput
+
                 color: Material.color(Material.Grey)
                 Layout.fillWidth: true
+                onTextChanged: conversionModel.setInput(text)
             }
 
             Button {
@@ -69,6 +71,7 @@ Window {
                 id: sourceOutput
                 color: Material.color(Material.Grey)
                 Layout.fillWidth: true
+                onTextChanged: conversionModel.setOutput(text)
             }
 
             Button {
@@ -83,9 +86,10 @@ Window {
 
         RowLayout {
             spacing: 20
+
             ComboBox {
                 id: comboType
-                model: ["TS => CSV", "CSV => TS", "TS => XLSX", "XLSX => TS"]
+                model: conversionModel
             }
 
             Text {
@@ -133,7 +137,8 @@ Window {
             text: qsTr("Convert")
             highlighted: true
             Material.background: Material.Orange
-            enabled: sourceInput.text.length !== 0
+            enabled: comboType.currentIndex !== ConverterGuiProxy.Dummy
+                     && sourceInput.text.length !== 0
                      && sourceOutput.text.length !== 0
                      && fieldSeparator.text.length !== 0
                      && stringSeparator.text.length !== 0
@@ -166,4 +171,11 @@ Window {
 
         onAccepted: visible = false
     }
+
+    Connections {
+        target: conversionModel
+        onSetComboBoxIndex: comboType.currentIndex = index
+    }
+
+    Component.onCompleted: comboType.currentIndex = ConverterGuiProxy.Dummy
 }
