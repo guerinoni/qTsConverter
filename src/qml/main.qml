@@ -9,7 +9,7 @@ import Qt.labs.settings 1.0
 import app 1.0
 
 Window {
-    title: qsTr("Ts2Csv Converter ") + version
+    title: qsTr("qTsConverter ") + version
 
     minimumHeight: 220
     minimumWidth: 800
