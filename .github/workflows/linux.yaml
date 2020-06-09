@@ -15,6 +15,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@master
 
+      - name: Checkout submodules
+        uses: textbook/git-checkout-submodule-action@2.1.1
+
+
       - name: Installing Qt
         uses: jurplel/install-qt-action@v2.6.2
         with:

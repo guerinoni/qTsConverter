@@ -64,7 +64,7 @@ Window {
         RowLayout {
 
             Text {
-                text: qsTr("Destination folder:")
+                text: qsTr("Destination filename:")
             }
 
             Text {
