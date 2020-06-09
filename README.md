@@ -1,5 +1,6 @@
 # qTsConverter
-![linux](https://github.com/guerinoni/qTsConverter/workflows/linux/badge.svg)
+![linux](https://github.com/guerinoni/qTsConverter/workflows/linux/badge.svg?branch=master)
+
 This tool was born to convert `.ts` file of Qt translation in other format more
 editable using an office suite.
 
