@@ -7,5 +7,15 @@
         <file>FinishDialog.qml</file>
         <file>SaveFileDialog.qml</file>
         <file>LoadFileDialog.qml</file>
+        <file>assets/logos/vector/default.svg</file>
+        <file>assets/logos/vector/default-monochrome.svg</file>
+        <file>assets/logos/vector/default-monochrome-black.svg</file>
+        <file>assets/logos/vector/default-monochrome-white.svg</file>
+        <file>assets/logos/vector/isolated-layout.svg</file>
+        <file>assets/logos/vector/isolated-monochrome-black.svg</file>
+        <file>assets/logos/vector/isolated-monochrome-white.svg</file>
+        <file>assets/logos/cover.png</file>
+        <file>assets/logos/default.png</file>
+        <file>assets/logos/profile.png</file>
     </qresource>
 </RCC>

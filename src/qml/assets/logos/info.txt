@@ -1,0 +1,14 @@
+
+Hope you enjoy your new logo, here are the people that
+made your beautiful logo happen :)
+font name: Changa-ExtraLight
+font link: https://www.fontsquirrel.com/fonts/changa
+font author: Eduardo Tunni
+font author site: http://www.tipo.net.ar/
+
+
+icon designer: Marek Polakovic
+icon designer link: /marekpolakovic
+        
+{"bg":"#366CD9","icon":"#000000","font":"#000000","slogan":"#141414"}
+      
