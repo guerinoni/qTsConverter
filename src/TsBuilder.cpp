@@ -25,9 +25,9 @@ bool TsBuilder::build(const Translations &trs) const
         name.appendChild(doc.createTextNode(ctxs.name));
         context.appendChild(name);
 
-        for (const auto msg : ctxs.messages) {
+        for (const auto &msg : ctxs.messages) {
             auto message = doc.createElement("message");
-            for (auto loc : msg.locations) {
+            for (const auto &loc : msg.locations) {
                 auto location = doc.createElement("location");
                 location.setAttribute("line", loc.second);
                 location.setAttribute("filename", loc.first);

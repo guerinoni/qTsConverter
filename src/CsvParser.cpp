@@ -30,7 +30,7 @@ std::pair<Translations, QString> CsvParser::parse() const
     list.pop_front();
     removeQuote(list);
 
-    for (const auto &l : list) {
+    for (const auto &l : qAsConst(list)) {
         context.name    = l.at(0);
         msg.source      = l.at(1);
         msg.translation = l.at(2);
