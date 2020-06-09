@@ -1,8 +1,9 @@
 #pragma once
 
 #include "ConverterFactory.hpp"
-#include <QUrl>
+
 #include <QObject>
+#include <QUrl>
 
 class ConverterGuiProxy : public QObject
 {
@@ -34,8 +35,9 @@ class ConverterGuiProxy : public QObject
     void conversionCompleted();
 
   public slots:
-    void convert(ConverterGuiProxy::QConversionType type, QString input, QString output,
-                 QString field_separator, QString string_separator);
+    void convert(ConverterGuiProxy::QConversionType type, QString input,
+                 QString output, const QString &field_separator,
+                 const QString &string_separator);
 
   private:
     bool m_convSuccessfull{ false };

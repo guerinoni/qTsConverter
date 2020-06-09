@@ -5,8 +5,8 @@
 ConverterGuiProxy::ConverterGuiProxy(QObject *parent) : QObject(parent) {}
 
 void ConverterGuiProxy::convert(QConversionType type, QString input,
-                                QString output, QString field_separator,
-                                QString string_separator)
+                                QString output, const QString &field_separator,
+                                const QString &string_separator)
 {
     // Remove file:// on linux and file:/// on windows
     input  = QUrl::fromUserInput(input).toLocalFile();
@@ -47,6 +47,6 @@ void ConverterGuiProxy::setConversionInfo(bool convSuccessfull,
     Q_EMIT conversionCompleted();
 }
 
-static_assert(ConverterGuiProxy::QConversionType::Dummy ==
-                  ConverterFactory::ConversionType::Dummy,
+static_assert(static_cast<int>(ConverterGuiProxy::QConversionType::Dummy) ==
+                  static_cast<int>(ConverterFactory::ConversionType::Dummy),
               "enum proxy QConversionType is different than ConversionType");

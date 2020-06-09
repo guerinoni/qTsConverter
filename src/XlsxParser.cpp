@@ -5,7 +5,7 @@
 #include <QtDebug>
 #include <xlsx/xlsxdocument.h>
 
-XlsxParser::XlsxParser(InOutParameter parameter) : Parser{ parameter } {}
+XlsxParser::XlsxParser(InOutParameter &&parameter) : Parser{ std::move(parameter) } {}
 
 std::pair<Translations, QString> XlsxParser::parse() const
 {
@@ -34,7 +34,7 @@ std::pair<Translations, QString> XlsxParser::parse() const
 
         for (auto col = 4; col <= lastColumn; ++col) {
             const auto loc = xlsx.read(row, col).toString();
-            auto list      = loc.split(" - ");
+            auto list      = loc.split(QStringLiteral(" - "));
             msg.locations.emplace_back(
                 std::make_pair(list.first(), list.last().toInt()));
         }

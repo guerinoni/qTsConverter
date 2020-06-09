@@ -51,24 +51,24 @@ void ConversionModel::deduceInputOutput() noexcept
         return;
     }
 
-    if (m_input.endsWith(".ts")) {
-        if (m_output.endsWith(".csv")) {
+    if (m_input.endsWith(QStringLiteral(".ts"))) {
+        if (m_output.endsWith(QStringLiteral(".csv"))) {
             Q_EMIT setComboBoxIndex(ConverterFactory::Ts2Csv);
         }
 
-        if (m_output.endsWith(".xls") || m_output.endsWith(".xlsx")) {
+        if (m_output.endsWith(QStringLiteral(".xls")) || m_output.endsWith(QStringLiteral(".xlsx"))) {
             Q_EMIT setComboBoxIndex(ConverterFactory::Ts2Xlsx);
         }
     }
 
-    if (m_input.endsWith(".csv")) {
-        if (m_output.endsWith(".ts")) {
+    if (m_input.endsWith(QStringLiteral(".csv"))) {
+        if (m_output.endsWith(QStringLiteral(".ts"))) {
             Q_EMIT setComboBoxIndex(ConverterFactory::Csv2Ts);
         }
     }
 
-    if (m_input.endsWith(".xls") || m_input.endsWith(".xlsx")) {
-        if (m_output.endsWith(".ts")) {
+    if (m_input.endsWith(QStringLiteral(".xls")) || m_input.endsWith(QStringLiteral(".xlsx"))) {
+        if (m_output.endsWith(QStringLiteral(".ts"))) {
             Q_EMIT setComboBoxIndex(ConverterFactory::Xlsx2Ts);
         }
     }

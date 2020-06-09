@@ -11,12 +11,12 @@ Converter::CoversionResult Converter::process() const
 {
     const auto result = m_parser->parse();
     if (result.first.empty()) {
-        return CoversionResult(false, "Failed to parse source!", result.second);
+        return CoversionResult(false, QStringLiteral("Failed to parse source!"), result.second);
     }
 
     if (m_builder->build(result.first)) {
-        return CoversionResult(true, "Conversion successfull!", "");
+        return CoversionResult(true, QStringLiteral("Conversion successfull!"), {});
     } else {
-        return CoversionResult(false, "Conversion failed!", "");
+        return CoversionResult(false, QStringLiteral("Conversion failed!"), {});
     }
 }

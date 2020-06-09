@@ -53,9 +53,9 @@ std::pair<Translations, QString> CsvParser::parse() const
     return std::make_pair(translations, "");
 }
 
-std::pair<QString, int> CsvParser::decodeLocation(QString str) const
+std::pair<QString, int> CsvParser::decodeLocation(const QString &str) const
 {
-    auto list = str.split(" - ");
+    auto list = str.split(QStringLiteral(" - "));
     return std::make_pair(list.first(), list.last().toInt());
 }
 
@@ -77,7 +77,7 @@ void CsvParser::splitMergedString(QList<QStringList> &list) const
 {
     for (auto &l : list) {
         for (int i = 0; i < l.size(); ++i) {
-            auto pair = l[i].split("\n");
+            auto pair = l[i].split(QStringLiteral("\n"));
             if (pair.size() == 1) {
                 continue;
             }
@@ -112,7 +112,7 @@ void CsvParser::removeQuote(QList<QStringList> &list) const
 {
     for (auto &l : list) {
         for (auto &ll : l) {
-            ll = ll.replace('"', "");
+            ll = ll.replace('"', QString{});
         }
     }
 }

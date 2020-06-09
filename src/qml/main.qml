@@ -9,7 +9,7 @@ import Qt.labs.settings 1.0
 import app 1.0
 
 Window {
-    title: qsTr("qTsConverter ") + version
+    title: "qTsConverter " + version
 
     minimumHeight: 220
     minimumWidth: 800
@@ -40,7 +40,7 @@ Window {
         RowLayout {
 
             Text {
-                text: qsTr("Source filename:")
+                text: "Source filename:"
             }
 
             Text {
@@ -52,7 +52,7 @@ Window {
             }
 
             Button {
-                text: qsTr("Browse")
+                text: "Browse"
                 highlighted: true
                 onClicked: {
                     loadFileDialog.folder = settings.lastSourceInput
@@ -64,7 +64,7 @@ Window {
         RowLayout {
 
             Text {
-                text: qsTr("Destination filename:")
+                text: "Destination filename:"
             }
 
             Text {
@@ -75,7 +75,7 @@ Window {
             }
 
             Button {
-                text: qsTr("Browse")
+                text: "Browse"
                 highlighted: true
                 onClicked: {
                     saveFileDialog.folder = settings.lastSourceOutput
@@ -93,7 +93,7 @@ Window {
             }
 
             Text {
-                text: qsTr("Field separator:")
+                text: "Field separator:"
                 visible: isCsvFormat
             }
 
@@ -112,7 +112,7 @@ Window {
             }
 
             Text {
-                text: qsTr("String separator:")
+                text: "String separator:"
                 visible: isCsvFormat
             }
 
@@ -134,7 +134,7 @@ Window {
 
         Button {
             Layout.fillWidth: true
-            text: qsTr("Convert")
+            text: "Convert"
             highlighted: true
             Material.background: Material.Orange
             enabled: comboType.currentIndex !== ConverterGuiProxy.Dummy

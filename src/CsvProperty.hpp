@@ -4,8 +4,10 @@
 
 struct CsvProperty {
     CsvProperty() = default;
-    explicit CsvProperty(std::string field_sep, std::string string_sep) :
-        field_separator{ field_sep }, string_separator{ string_sep }
+    explicit CsvProperty(const std::string &field_sep,
+                         const std::string &string_sep) :
+        field_separator{ field_sep },
+        string_separator{ string_sep }
     {
     }
     CsvProperty(const CsvProperty &) = default;

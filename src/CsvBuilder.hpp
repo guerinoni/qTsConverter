@@ -5,7 +5,7 @@
 class CsvBuilder : public Builder
 {
   public:
-    explicit CsvBuilder(InOutParameter parameter);
+    explicit CsvBuilder(InOutParameter &&parameter);
 
     bool build(const Translations &trs) const override;
 };

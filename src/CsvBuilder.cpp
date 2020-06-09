@@ -8,7 +8,7 @@
 #include <include/qtcsv/stringdata.h>
 #include <include/qtcsv/writer.h>
 
-CsvBuilder::CsvBuilder(InOutParameter parameter) : Builder{ parameter } {}
+CsvBuilder::CsvBuilder(InOutParameter &&parameter) : Builder{ parameter } {}
 
 bool CsvBuilder::build(const Translations &trs) const
 {

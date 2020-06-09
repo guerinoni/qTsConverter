@@ -7,7 +7,14 @@ class QDomNode;
 class TsParser : public Parser
 {
   public:
-    explicit TsParser(InOutParameter parameter);
+    TsParser() = default;
+    explicit TsParser(InOutParameter &&parameter);
+    TsParser(const TsParser &) = delete;
+    TsParser(TsParser &&)      = delete;
+    virtual ~TsParser()        = default;
+
+    TsParser &operator=(const TsParser &) = delete;
+    TsParser &operator=(TsParser &&) = delete;
 
     std::pair<Translations, QString> parse() const override;
 

@@ -6,7 +6,15 @@
 class Parser
 {
   public:
-    explicit Parser(InOutParameter parameter);
+    Parser() = default;
+    explicit Parser(InOutParameter &&parameter);
+    Parser(const Parser &) = delete;
+    Parser(Parser &&) = delete;
+
+    virtual ~Parser() = default;
+
+    Parser &operator=(const Parser &) = delete;
+    Parser &operator=(Parser &&) = delete;
 
     virtual std::pair<Translations, QString> parse() const = 0;
 
