@@ -1,0 +1,32 @@
+name: linux
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        qt_version: [5.14.2]
+        platform: [ubuntu-18.04, ubuntu-20.04]
+        arch: [x64]
+      fail-fast: false
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+
+      - name: Installing Qt
+        uses: jurplel/install-qt-action@v2.6.2
+        with:
+          version: ${{ matrix.qt_version }}
+          arch: ${{ matrix.qtarch }}
+          cached: ${{ steps.cache-qt.outputs.cache-hit }}
+
+      - name: Build
+        shell: bash
+        run: |
+          sudo apt install libgl-dev libx11-dev libxkbcommon-x11-dev
+          mkdir build
+          cd build
+          cmake ..
+          cmake --build .
