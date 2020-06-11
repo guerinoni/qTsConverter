@@ -36,8 +36,8 @@ class ConverterGuiProxy : public QObject
 
   public slots:
     void convert(ConverterGuiProxy::QConversionType type, QString input,
-                 QString output, const QString &field_separator,
-                 const QString &string_separator);
+                 QString output, const QString &fieldSeparator,
+                 const QString &stringSeparator, const QString &tsVersion);
 
   private:
     bool m_convSuccessfull{ false };

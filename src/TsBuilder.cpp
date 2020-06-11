@@ -17,7 +17,7 @@ bool TsBuilder::build(const Translations &trs) const
     QDomDocument doc(QStringLiteral("TS"));
 
     auto root = doc.createElement(QStringLiteral("TS"));
-    root.setAttribute(QStringLiteral("version"), QStringLiteral("2.1")); // TODO: extract as parameter
+    root.setAttribute(QStringLiteral("version"), m_ioParameter.tsVersion.c_str());
 
     for (const auto &ctxs : trs) {
         auto context = doc.createElement(QStringLiteral("context"));

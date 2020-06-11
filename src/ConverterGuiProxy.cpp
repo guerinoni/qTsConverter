@@ -5,8 +5,9 @@
 ConverterGuiProxy::ConverterGuiProxy(QObject *parent) : QObject(parent) {}
 
 void ConverterGuiProxy::convert(QConversionType type, QString input,
-                                QString output, const QString &field_separator,
-                                const QString &string_separator)
+                                QString output, const QString &fieldSeparator,
+                                const QString &stringSeparator,
+                                const QString &tsVersion)
 {
     // Remove file:// on linux and file:/// on windows
     input  = QUrl::fromUserInput(input).toLocalFile();
@@ -14,8 +15,8 @@ void ConverterGuiProxy::convert(QConversionType type, QString input,
 
     auto converter = ConverterFactory::make_converter(
         static_cast<ConverterFactory::ConversionType>(type),
-        input.toStdString(), output.toStdString(),
-        field_separator.toStdString(), string_separator.toStdString());
+        input.toStdString(), output.toStdString(), fieldSeparator.toStdString(),
+        stringSeparator.toStdString(), tsVersion.toStdString());
 
     const auto results = converter->process();
     setConversionInfo(results.success, results.message,

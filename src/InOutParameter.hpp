@@ -13,5 +13,6 @@ struct InOutParameter {
 
     std::string inputFile;
     std::string outputFile;
+    std::string tsVersion;
     CsvProperty csvProperty;
 };

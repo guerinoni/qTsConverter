@@ -19,8 +19,11 @@ Window {
 
     visible: ApplicationWindow.Windowed
 
-    readonly property bool isCsvFormat: comboType.currentIndex === 0
-                                        || comboType.currentIndex === 1
+    readonly property bool isCsvFormat: comboType.currentIndex === ConverterGuiProxy.Ts2Csv
+                                        || comboType.currentIndex === ConverterGuiProxy.Csv2Ts
+
+    readonly property bool conversionToTs: comboType.currentIndex === ConverterGuiProxy.Csv2Ts
+                                           || comboType.currentIndex === ConverterGuiProxy.Xlsx2Ts
 
     Settings {
         id: settings
@@ -92,42 +95,71 @@ Window {
                 model: conversionModel
             }
 
-            Text {
-                text: "Field separator:"
+            Row {
                 visible: isCsvFormat
-            }
 
-            Rectangle {
-                visible: isCsvFormat
-                border.width: 0.5
-                border.color: "black"
-                width: 30
-                height: 30
+                Text {
+                    text: "Field separator:"
+                    anchors.verticalCenter: parent.verticalCenter
+                }
 
-                TextInput {
-                    id: fieldSeparator
-                    text: ";"
-                    anchors.centerIn: parent
+                Rectangle {
+                    border.width: 0.5
+                    border.color: "black"
+                    width: 30
+                    height: 30
+
+                    TextInput {
+                        id: fieldSeparator
+                        text: ";"
+                        anchors.centerIn: parent
+                    }
                 }
             }
 
-            Text {
-                text: "String separator:"
+            Row {
                 visible: isCsvFormat
+
+                Text {
+                    text: "String separator:"
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+
+                Rectangle {
+                    border.width: 0.5
+                    border.color: "black"
+                    color: "transparent"
+                    width: 30
+                    height: 30
+
+                    TextInput {
+                        id: stringSeparator
+                        text: "\""
+                        anchors.centerIn: parent
+                    }
+                }
             }
 
-            Rectangle {
-                visible: isCsvFormat
-                border.width: 0.5
-                border.color: "black"
-                color: "transparent"
-                width: 30
-                height: 30
+            Row {
+                visible: conversionToTs
 
-                TextInput {
-                    id: stringSeparator
-                    text: "\""
-                    anchors.centerIn: parent
+                Text {
+                    text: "TS version:"
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+
+                Rectangle {
+                    border.width: 0.5
+                    border.color: "black"
+                    color: "transparent"
+                    width: 30
+                    height: 30
+
+                    TextInput {
+                        id: tsVersion
+                        text: "2.1"
+                        anchors.centerIn: parent
+                    }
                 }
             }
         }
@@ -145,7 +177,7 @@ Window {
             onClicked: {
                 converter.convert(comboType.currentIndex, sourceInput.text,
                                   sourceOutput.text, fieldSeparator.text,
-                                  stringSeparator.text)
+                                  stringSeparator.text, tsVersion.text)
                 finishDialog.visible = true
             }
         }
