@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.10)
 
-project(qTsConverter LANGUAGES CXX VERSION "4.0.0")
+project(qTsConverter LANGUAGES CXX VERSION "4.1.0")
 
 include(cmake/StaticAnalyzers.cmake)
 
