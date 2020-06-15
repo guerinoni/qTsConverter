@@ -11,8 +11,8 @@ void tst_Ts2Csv::checkScenario1()
 {
     const auto inputFile{ FILESPATH + std::string("/scenario1.ts") };
     auto conv = ConverterFactory::make_converter(
-        ConverterFactory::ConversionType::Ts2Csv, inputFile, m_outputFile, ";",
-        "\"", "2.1");
+        ConverterFactory::ConversionType::Ts2Csv, inputFile.c_str(),
+        m_outputFile.c_str(), ";", "\"", "2.1");
     conv->process();
     QFile out(m_outputFile.c_str());
     QVERIFY(out.exists());

@@ -2,6 +2,8 @@
 
 #include "CsvProperty.hpp"
 
+#include <QString>
+
 struct InOutParameter {
     InOutParameter()                       = default;
     InOutParameter(const InOutParameter &) = default;
@@ -11,8 +13,8 @@ struct InOutParameter {
     InOutParameter &operator=(const InOutParameter &) = default;
     InOutParameter &operator=(InOutParameter &&) = default;
 
-    std::string inputFile;
-    std::string outputFile;
-    std::string tsVersion;
+    QString inputFile;
+    QString outputFile;
+    QString tsVersion;
     CsvProperty csvProperty;
 };

@@ -9,7 +9,7 @@ XlsxParser::XlsxParser(InOutParameter &&parameter) : Parser{ std::move(parameter
 
 std::pair<Translations, QString> XlsxParser::parse() const
 {
-    QXlsx::Document xlsx(m_ioParameter.inputFile.c_str());
+    QXlsx::Document xlsx(m_ioParameter.inputFile);
 
     if (xlsx.read(1, 1) != TitleHeader::Context ||
         xlsx.read(1, 2) != TitleHeader::Source ||

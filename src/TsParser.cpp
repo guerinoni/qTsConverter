@@ -8,7 +8,7 @@ TsParser::TsParser(InOutParameter &&parameter) : Parser{ std::move(parameter) } 
 std::pair<Translations, QString> TsParser::parse() const
 {
     QDomDocument doc;
-    QFile file(m_ioParameter.inputFile.c_str());
+    QFile file(m_ioParameter.inputFile);
 
     if (!file.open(QIODevice::ReadOnly) || !doc.setContent(&file)) {
         qDebug() << "can't open file";

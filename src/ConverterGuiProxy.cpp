@@ -14,9 +14,8 @@ void ConverterGuiProxy::convert(QConversionType type, QString input,
     output = QUrl::fromUserInput(output).toLocalFile();
 
     auto converter = ConverterFactory::make_converter(
-        static_cast<ConverterFactory::ConversionType>(type),
-        input.toStdString(), output.toStdString(), fieldSeparator.toStdString(),
-        stringSeparator.toStdString(), tsVersion.toStdString());
+        static_cast<ConverterFactory::ConversionType>(type), input, output,
+        fieldSeparator, stringSeparator, tsVersion);
 
     const auto results = converter->process();
     setConversionInfo(results.success, results.message,

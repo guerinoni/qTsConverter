@@ -38,7 +38,7 @@ bool XlsxBuilder::build(const Translations &trs) const
         }
     }
 
-    if (!xlsx.saveAs(m_ioParameter.outputFile.c_str())) {
+    if (!xlsx.saveAs(m_ioParameter.outputFile)) {
         qWarning() << "error writing file";
         return false;
     }

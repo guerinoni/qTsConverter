@@ -31,10 +31,9 @@ bool CsvBuilder::build(const Translations &trs) const
         }
     }
 
-    if (!QtCSV::Writer::write(
-            m_ioParameter.outputFile.c_str(), strData,
-            m_ioParameter.csvProperty.field_separator.c_str(),
-            m_ioParameter.csvProperty.string_separator.c_str())) {
+    if (!QtCSV::Writer::write(m_ioParameter.outputFile, strData,
+                              m_ioParameter.csvProperty.field_separator,
+                              m_ioParameter.csvProperty.string_separator)) {
         qWarning() << "error writing file";
         return false;
     }

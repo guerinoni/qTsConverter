@@ -10,9 +10,9 @@
 #include <cassert>
 
 std::unique_ptr<Converter> ConverterFactory::make_converter(
-    ConverterFactory::ConversionType type, const std::string &in,
-    const std::string &out, const std::string &fieldSep,
-    const std::string &stringSep, const std::string &tsVersion)
+    ConverterFactory::ConversionType type, const QString &in,
+    const QString &out, const QString &fieldSep, const QString &stringSep,
+    const QString &tsVersion)
 {
     switch (type) {
         case ConversionType::Ts2Csv:

@@ -1,13 +1,11 @@
 #pragma once
 
-#include <string>
+#include <QString>
 
 struct CsvProperty {
     CsvProperty() = default;
-    explicit CsvProperty(const std::string &field_sep,
-                         const std::string &string_sep) :
-        field_separator{ field_sep },
-        string_separator{ string_sep }
+    explicit CsvProperty(const QString &field_sep, const QString &string_sep) :
+        field_separator{ field_sep }, string_separator{ string_sep }
     {
     }
     CsvProperty(const CsvProperty &) = default;
@@ -17,6 +15,6 @@ struct CsvProperty {
     CsvProperty &operator=(const CsvProperty &) = default;
     CsvProperty &operator=(CsvProperty &&) = default;
 
-    std::string field_separator;
-    std::string string_separator;
+    QString field_separator;
+    QString string_separator;
 };

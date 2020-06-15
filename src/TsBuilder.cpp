@@ -8,7 +8,7 @@ TsBuilder::TsBuilder(InOutParameter parameter) : Builder{ std::move(parameter) }
 
 bool TsBuilder::build(const Translations &trs) const
 {
-    QFile output(m_ioParameter.outputFile.c_str());
+    QFile output(m_ioParameter.outputFile);
     if (!output.open(QFile::WriteOnly | QFile::Truncate)) {
         qDebug() << "can't open file" << output.fileName();
         return false;
@@ -17,7 +17,7 @@ bool TsBuilder::build(const Translations &trs) const
     QDomDocument doc(QStringLiteral("TS"));
 
     auto root = doc.createElement(QStringLiteral("TS"));
-    root.setAttribute(QStringLiteral("version"), m_ioParameter.tsVersion.c_str());
+    root.setAttribute(QStringLiteral("version"), m_ioParameter.tsVersion);
 
     for (const auto &ctxs : trs) {
         auto context = doc.createElement(QStringLiteral("context"));
