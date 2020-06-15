@@ -8,7 +8,12 @@
 #include <include/qtcsv/stringdata.h>
 #include <include/qtcsv/writer.h>
 
-CsvBuilder::CsvBuilder(InOutParameter &&parameter) : Builder{ parameter } {}
+CsvBuilder::CsvBuilder(InOutParameter &&parameter) : Builder{ parameter }
+{
+    if (!m_ioParameter.outputFile.endsWith("csv")) {
+        m_ioParameter.outputFile += ".csv";
+    }
+}
 
 bool CsvBuilder::build(const Translations &trs) const
 {

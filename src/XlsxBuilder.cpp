@@ -10,6 +10,9 @@
 XlsxBuilder::XlsxBuilder(InOutParameter parameter) :
     Builder{ std::move(parameter) }
 {
+    if (!m_ioParameter.outputFile.endsWith("xlsx")) {
+        m_ioParameter.outputFile += ".xlsx";
+    }
 }
 
 bool XlsxBuilder::build(const Translations &trs) const

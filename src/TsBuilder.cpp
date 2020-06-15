@@ -4,6 +4,9 @@
 
 TsBuilder::TsBuilder(InOutParameter parameter) : Builder{ std::move(parameter) }
 {
+    if (!m_ioParameter.outputFile.endsWith("ts")) {
+        m_ioParameter.outputFile += ".ts";
+    }
 }
 
 bool TsBuilder::build(const Translations &trs) const
