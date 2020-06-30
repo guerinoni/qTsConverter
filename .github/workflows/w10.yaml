@@ -1,4 +1,4 @@
-name: linux
+name: w10
 
 on: [push, pull_request]
 
@@ -7,7 +7,7 @@ jobs:
     strategy:
       matrix:
         qt_version: [5.14.2]
-        platform: [ubuntu-18.04, ubuntu-20.04]
+        platform: [windows-latest]
         arch: [x64]
       fail-fast: false
     runs-on: ${{ matrix.platform }}
@@ -27,7 +27,6 @@ jobs:
       - name: Build
         shell: bash
         run: |
-          sudo apt install libgl-dev libx11-dev libxkbcommon-x11-dev
           mkdir build
           cd build
           cmake ..
