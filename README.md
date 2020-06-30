@@ -1,5 +1,7 @@
 # qTsConverter
 ![linux](https://github.com/guerinoni/qTsConverter/workflows/linux/badge.svg?branch=master)
+![macos](https://github.com/guerinoni/qTsConverter/workflows/macos/badge.svg?branch=master)
+![w10](https://github.com/guerinoni/qTsConverter/workflows/w10/badge.svg)
 
 [![Contact me on Codementor](https://www.codementor.io/m-badges/guerinonifederico/contact-me.svg)](https://www.codementor.io/@guerinonifederico?refer=badge)
 
