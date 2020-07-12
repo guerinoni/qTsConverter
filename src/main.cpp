@@ -1,7 +1,7 @@
 #include "ConverterGuiProxy.hpp"
 #include "ConversionModel.hpp"
 
-#include <QGuiApplication>
+#include <QApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <QQuickWindow>
@@ -15,7 +15,7 @@ int main(int argc, char **argv)
     QQuickWindow::setTextRenderType(QQuickWindow::TextRenderType::NativeTextRendering);
 #endif
 
-    QGuiApplication app(argc, argv);
+    QApplication app(argc, argv);
     app.setOrganizationName(QStringLiteral("Federico Guerinoni"));
     app.setOrganizationDomain(QStringLiteral("Federico Guerinoni"));
     app.setApplicationName(QStringLiteral("qTsConverter"));
