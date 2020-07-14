@@ -378,3 +378,6 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.gitignore.io/api/c,qt,qml,c++,cmake,linux,clion,macos,windows,clion+all,qtcreator
+
+.clangd
+compile_commands.json

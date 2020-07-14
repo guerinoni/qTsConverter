@@ -3,7 +3,9 @@
 #include <QFile>
 #include <QtXml>
 
-TsParser::TsParser(InOutParameter &&parameter) : Parser{ std::move(parameter) } {}
+TsParser::TsParser(InOutParameter &&parameter) : Parser{ std::move(parameter) }
+{
+}
 
 std::pair<Translations, QString> TsParser::parse() const
 {
@@ -31,8 +33,10 @@ std::pair<Translations, QString> TsParser::parse() const
             }
 
             TranslationMessage msg;
-            msg.source      = nodeMsg.firstChildElement(QStringLiteral("source")).text();
-            msg.translation = nodeMsg.firstChildElement(QStringLiteral("translation")).text();
+            msg.source =
+                nodeMsg.firstChildElement(QStringLiteral("source")).text();
+            msg.translation =
+                nodeMsg.firstChildElement(QStringLiteral("translation")).text();
             msg.locations.emplace_back(wrapLocation(nodeMsg));
             context.messages.emplace_back(msg);
         }

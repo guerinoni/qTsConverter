@@ -18,7 +18,7 @@ class ConversionModel final : public QAbstractListModel
     Q_INVOKABLE void setInput(const QString &value);
     Q_INVOKABLE void setOutput(const QString &value);
 
-Q_SIGNALS:
+  Q_SIGNALS:
     void setComboBoxIndex(int index);
 
   private:
@@ -27,4 +27,5 @@ Q_SIGNALS:
     QString m_output;
 
     void deduceInputOutput() noexcept;
+    int currentIndex;
 };

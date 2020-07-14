@@ -56,7 +56,8 @@ void ConversionModel::deduceInputOutput() noexcept
             Q_EMIT setComboBoxIndex(ConverterFactory::Ts2Csv);
         }
 
-        if (m_output.endsWith(QStringLiteral(".xls")) || m_output.endsWith(QStringLiteral(".xlsx"))) {
+        if (m_output.endsWith(QStringLiteral(".xls")) ||
+            m_output.endsWith(QStringLiteral(".xlsx"))) {
             Q_EMIT setComboBoxIndex(ConverterFactory::Ts2Xlsx);
         }
     }
@@ -67,7 +68,8 @@ void ConversionModel::deduceInputOutput() noexcept
         }
     }
 
-    if (m_input.endsWith(QStringLiteral(".xls")) || m_input.endsWith(QStringLiteral(".xlsx"))) {
+    if (m_input.endsWith(QStringLiteral(".xls")) ||
+        m_input.endsWith(QStringLiteral(".xlsx"))) {
         if (m_output.endsWith(QStringLiteral(".ts"))) {
             Q_EMIT setComboBoxIndex(ConverterFactory::Xlsx2Ts);
         }

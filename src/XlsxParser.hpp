@@ -10,8 +10,8 @@ class XlsxParser : public Parser
     XlsxParser() = default;
     explicit XlsxParser(InOutParameter &&parameter);
     XlsxParser(const XlsxParser &) = delete;
-    XlsxParser(XlsxParser &&) = delete;
-    virtual ~XlsxParser() = default;
+    XlsxParser(XlsxParser &&)      = delete;
+    virtual ~XlsxParser()          = default;
 
     XlsxParser &operator=(const XlsxParser &) = delete;
     XlsxParser &operator=(XlsxParser &&) = delete;

@@ -9,8 +9,8 @@ class Builder
     Builder() = default;
     explicit Builder(InOutParameter parameter);
     Builder(const Builder &) = delete;
-    Builder(Builder &&) = delete;
-    virtual ~Builder() = default;
+    Builder(Builder &&)      = delete;
+    virtual ~Builder()       = default;
 
     Builder &operator=(const Builder &) = delete;
     Builder &operator=(Builder &&) = delete;

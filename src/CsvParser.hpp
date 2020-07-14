@@ -8,7 +8,7 @@ class CsvParser : public Parser
     CsvParser() = default;
     explicit CsvParser(InOutParameter parameter);
     CsvParser(const CsvParser &) = delete;
-    CsvParser(CsvParser &&) = delete;
+    CsvParser(CsvParser &&)      = delete;
 
     virtual ~CsvParser() = default;
 

@@ -5,7 +5,10 @@
 #include <QtDebug>
 #include <xlsx/xlsxdocument.h>
 
-XlsxParser::XlsxParser(InOutParameter &&parameter) : Parser{ std::move(parameter) } {}
+XlsxParser::XlsxParser(InOutParameter &&parameter) :
+    Parser{ std::move(parameter) }
+{
+}
 
 std::pair<Translations, QString> XlsxParser::parse() const
 {
