@@ -18,6 +18,9 @@ class ConversionModel final : public QAbstractListModel
     Q_INVOKABLE void setInput(const QString &value);
     Q_INVOKABLE void setOutput(const QString &value);
 
+    Q_INVOKABLE QStringList getLoadFT();
+    Q_INVOKABLE QStringList getSaveFT();
+
   Q_SIGNALS:
     void setComboBoxIndex(int index);
 

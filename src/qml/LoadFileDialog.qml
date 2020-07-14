@@ -3,6 +3,6 @@ import Qt.labs.platform 1.1
 
 FileDialog {
     title: qsTr("Select File")
-    nameFilters: []
+    nameFilters: conversionModel.getLoadFT()
     fileMode: FileDialog.OpenFile
 }
