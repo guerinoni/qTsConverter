@@ -93,6 +93,11 @@ Window {
             ComboBox {
                 id: comboType
                 model: conversionModel
+                onActivated: {
+                    conversionModel.setIndex(comboType.currentIndex)
+                    loadFileDialog.nameFilters = conversionModel.getLoadFT();
+                    saveFileDialog.nameFilters = conversionModel.getSaveFT();
+                }
             }
 
             Row {

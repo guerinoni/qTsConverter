@@ -21,6 +21,8 @@ class ConversionModel final : public QAbstractListModel
     Q_INVOKABLE QStringList getLoadFT();
     Q_INVOKABLE QStringList getSaveFT();
 
+    Q_INVOKABLE void setIndex(const int &newIndex);
+
   Q_SIGNALS:
     void setComboBoxIndex(int index);
 
@@ -30,5 +32,5 @@ class ConversionModel final : public QAbstractListModel
     QString m_output;
 
     void deduceInputOutput() noexcept;
-    int currentIndex;
+    int currentIndex = 4;
 };

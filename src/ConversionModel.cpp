@@ -56,9 +56,11 @@ QStringList ConversionModel::getSaveFT()
         return QStringList({ "CSV files (*.csv)" });
     }
 
-    if (currentIndex == ConverterFactory::Xlsx2Ts) {
+    if (currentIndex == ConverterFactory::Ts2Xlsx) {
         return QStringList({ "Excel files (*.xls, *.xlsx)" });
     }
+
+    return QStringList({ "All files (*)" });
 }
 
 QStringList ConversionModel::getLoadFT()
@@ -75,6 +77,8 @@ QStringList ConversionModel::getLoadFT()
     if (currentIndex == ConverterFactory::Xlsx2Ts) {
         return QStringList({ "Excel files (*.xls, *.xlsx)" });
     }
+
+    return QStringList({ "All files (*)" });
 }
 
 void ConversionModel::deduceInputOutput() noexcept
@@ -110,4 +114,9 @@ void ConversionModel::deduceInputOutput() noexcept
             Q_EMIT setComboBoxIndex(currentIndex);
         }
     }
+}
+
+void ConversionModel::setIndex(const int &newIndex)
+{
+    currentIndex = newIndex;
 }
