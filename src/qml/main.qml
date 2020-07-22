@@ -210,8 +210,12 @@ Window {
     }
 
     Connections {
+        function onSetComboBoxIndex(index) {
+            comboType.currentIndex = index;
+            conversionModel.setIndex(comboType.currentIndex);
+            console.log(index)
+        }
         target: conversionModel
-        onSetComboBoxIndex: comboType.currentIndex = index
     }
 
     Component.onCompleted: comboType.currentIndex = ConverterGuiProxy.Dummy
