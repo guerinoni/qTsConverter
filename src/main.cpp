@@ -20,7 +20,7 @@ int main(int argc, char **argv)
     app.setOrganizationName(QStringLiteral("Federico Guerinoni"));
     app.setOrganizationDomain(QStringLiteral("Federico Guerinoni"));
     app.setApplicationName(QStringLiteral("qTsConverter"));
-    app.setWindowIcon(QIcon(QStringLiteral("qrc:/assets/logos/profile.png")));
+    app.setWindowIcon(QIcon(":/assets/logos/profile.png"));
 
     QFontDatabase::addApplicationFont(
         QStringLiteral(":/assets/fonts/Roboto-Light.ttf"));
