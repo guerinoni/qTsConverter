@@ -29,6 +29,24 @@ Dialog {
                 color: Material.color(Material.BlueGrey)
             }
 
+            RowLayout {
+                Button {
+                    text: qsTr("Open output")
+                    onClicked: conversionModel.openOutput()
+                    highlighted: true
+                    Material.background: Material.Orange
+                    Layout.fillWidth: true
+                }
+
+                Button {
+                    text: qsTr("Open output folder")
+                    onClicked: conversionModel.openOutputFolder()
+                    highlighted: true
+                    Material.background: Material.Orange
+                    Layout.fillWidth: true
+                }
+            }
+
             Button {
                 text: qsTr("Ok!")
                 onClicked: messageDialog.close()
@@ -36,6 +54,7 @@ Dialog {
                 Material.background: Material.Orange
                 Layout.fillWidth: true
             }
+
         }
     }
 }

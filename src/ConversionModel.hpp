@@ -23,6 +23,9 @@ class ConversionModel final : public QAbstractListModel
 
     Q_INVOKABLE void setIndex(const int &newIndex);
 
+    Q_INVOKABLE void openOutput();
+    Q_INVOKABLE void openOutputFolder();
+
   Q_SIGNALS:
     void setComboBoxIndex(int index);
 

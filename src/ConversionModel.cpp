@@ -2,6 +2,9 @@
 
 #include "ConverterFactory.hpp"
 
+#include <QDesktopServices>
+#include <QUrl>
+
 ConversionModel::ConversionModel(QObject *parent) :
     QAbstractListModel(parent), m_conversions{ "TS => CSV", "CSV => TS",
                                                "TS => XLSX", "XLSX => TS",
@@ -117,4 +120,20 @@ void ConversionModel::deduceInputOutput() noexcept
 void ConversionModel::setIndex(const int &newIndex)
 {
     currentIndex = newIndex;
+}
+
+void ConversionModel::openOutput()
+{
+    QString replaced = m_output;
+    replaced.replace(0, 7, "");
+    QDesktopServices::openUrl(QUrl::fromLocalFile(replaced));
+}
+
+void ConversionModel::openOutputFolder()
+{
+    QString replaced = m_output;
+    replaced.replace(0, 7, "");
+    int pos = replaced.lastIndexOf(QRegExp("/.*"));
+    replaced.replace(pos, replaced.length() - pos, "");
+    QDesktopServices::openUrl(QUrl::fromLocalFile(replaced));
 }
