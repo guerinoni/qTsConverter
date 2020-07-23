@@ -90,23 +90,17 @@ void ConversionModel::deduceInputOutput() noexcept
     if (m_input.endsWith(QStringLiteral(".ts"))) {
         if (m_output.endsWith(QStringLiteral(".csv"))) {
             currentIndex = ConverterFactory::Ts2Csv;
-            Q_EMIT setComboBoxIndex(currentIndex);
-            return;
         }
 
         if (m_output.endsWith(QStringLiteral(".xls")) ||
             m_output.endsWith(QStringLiteral(".xlsx"))) {
             currentIndex = ConverterFactory::Ts2Xlsx;
-            Q_EMIT setComboBoxIndex(currentIndex);
-            return;
         }
     }
 
     if (m_input.endsWith(QStringLiteral(".csv"))) {
         if (m_output.endsWith(QStringLiteral(".ts"))) {
             currentIndex = ConverterFactory::Csv2Ts;
-            Q_EMIT setComboBoxIndex(currentIndex);
-            return;
         }
     }
 
@@ -114,10 +108,10 @@ void ConversionModel::deduceInputOutput() noexcept
         m_input.endsWith(QStringLiteral(".xlsx"))) {
         if (m_output.endsWith(QStringLiteral(".ts"))) {
             currentIndex = ConverterFactory::Xlsx2Ts;
-            Q_EMIT setComboBoxIndex(currentIndex);
-            return;
         }
     }
+
+    Q_EMIT setComboBoxIndex(currentIndex);
 }
 
 void ConversionModel::setIndex(const int &newIndex)

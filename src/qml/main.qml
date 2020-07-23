@@ -58,8 +58,9 @@ Window {
                 text: "Browse"
                 highlighted: true
                 onClicked: {
-                    loadFileDialog.folder = settings.lastSourceInput
-                    loadFileDialog.open()
+                    loadFileDialog.nameFilters = conversionModel.getLoadFT();
+                    loadFileDialog.folder = settings.lastSourceInput;
+                    loadFileDialog.open();
                 }
             }
         }
@@ -81,8 +82,9 @@ Window {
                 text: "Browse"
                 highlighted: true
                 onClicked: {
-                    saveFileDialog.folder = settings.lastSourceOutput
-                    saveFileDialog.open()
+                    saveFileDialog.nameFilters = conversionModel.getSaveFT();
+                    saveFileDialog.folder = settings.lastSourceOutput;
+                    saveFileDialog.open();
                 }
             }
         }
@@ -94,7 +96,7 @@ Window {
                 id: comboType
                 model: conversionModel
                 onActivated: {
-                    conversionModel.setIndex(comboType.currentIndex)
+                    conversionModel.setIndex(comboType.currentIndex);
                     loadFileDialog.nameFilters = conversionModel.getLoadFT();
                     saveFileDialog.nameFilters = conversionModel.getSaveFT();
                 }
@@ -213,7 +215,6 @@ Window {
         function onSetComboBoxIndex(index) {
             comboType.currentIndex = index;
             conversionModel.setIndex(comboType.currentIndex);
-            console.log(index)
         }
         target: conversionModel
     }
