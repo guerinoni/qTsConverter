@@ -219,5 +219,10 @@ Window {
         target: conversionModel
     }
 
+    Shortcut {
+        sequence: "Ctrl+Q"
+        onActivated: Qt.quit()
+    }
+
     Component.onCompleted: comboType.currentIndex = ConverterGuiProxy.Dummy
 }
