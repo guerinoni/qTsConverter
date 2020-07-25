@@ -42,10 +42,24 @@ void ConversionModel::setInput(const QString &value)
     deduceInputOutput();
 }
 
-void ConversionModel::setOutput(const QString &value)
+QString ConversionModel::setOutput(const QString &value)
 {
     m_output = value;
+    QString temp =
+        m_output.right(m_output.length() - 1 - m_output.lastIndexOf("/"));
+
+    if (!temp.contains(QRegExp("\\S+\\.\\S+"))) {
+        if (currentIndex == ConverterFactory::Ts2Xlsx) {
+            m_output += ".xlsx";
+        } else if (currentIndex == ConverterFactory::Ts2Csv) {
+            m_output += ".csv";
+        } else if (currentIndex != ConverterFactory::Dummy) {
+            m_output += ".ts";
+        }
+    }
+
     deduceInputOutput();
+    return m_output;
 }
 
 QStringList ConversionModel::getSaveFT()
@@ -99,16 +113,12 @@ void ConversionModel::deduceInputOutput() noexcept
             m_output.endsWith(QStringLiteral(".xlsx"))) {
             currentIndex = ConverterFactory::Ts2Xlsx;
         }
-    }
-
-    if (m_input.endsWith(QStringLiteral(".csv"))) {
+    } else if (m_input.endsWith(QStringLiteral(".csv"))) {
         if (m_output.endsWith(QStringLiteral(".ts"))) {
             currentIndex = ConverterFactory::Csv2Ts;
         }
-    }
-
-    if (m_input.endsWith(QStringLiteral(".xls")) ||
-        m_input.endsWith(QStringLiteral(".xlsx"))) {
+    } else if (m_input.endsWith(QStringLiteral(".xls")) ||
+               m_input.endsWith(QStringLiteral(".xlsx"))) {
         if (m_output.endsWith(QStringLiteral(".ts"))) {
             currentIndex = ConverterFactory::Xlsx2Ts;
         }

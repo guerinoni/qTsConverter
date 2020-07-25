@@ -16,7 +16,7 @@ class ConversionModel final : public QAbstractListModel
     QHash<int, QByteArray> roleNames() const override;
 
     Q_INVOKABLE void setInput(const QString &value);
-    Q_INVOKABLE void setOutput(const QString &value);
+    Q_INVOKABLE QString setOutput(const QString &value);
 
     Q_INVOKABLE QStringList getLoadFT();
     Q_INVOKABLE QStringList getSaveFT();

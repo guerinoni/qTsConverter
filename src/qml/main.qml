@@ -75,7 +75,7 @@ Window {
                 id: sourceOutput
                 color: Material.color(Material.Grey)
                 Layout.fillWidth: true
-                onTextChanged: conversionModel.setOutput(text)
+                onTextChanged: sourceOutput.text = conversionModel.setOutput(text)
             }
 
             Button {
