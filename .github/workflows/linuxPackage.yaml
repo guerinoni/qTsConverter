@@ -5,9 +5,14 @@ on:
     types: [published]
 
 jobs:
-  universalPakage:
-    name: packages
-    runs-on: "ubuntu-latest"
+  universalPackage:
+    strategy:
+      matrix:
+        qt_version: [5.14.2]
+        platform: [ubuntu-20.04]
+        arch: [x64]
+      fail-fast: false
+    runs-on: ${{ matrix.platform }}
 
     steps:
       - name: Checkout
@@ -33,9 +38,10 @@ jobs:
           cd scripts
           ./compile.sh
 
-      - name: universalPakage
+      - name: universalPackage
         shell: bash
         run: |
+          cd scripts
           sudo ./createPackage.sh
 
       - uses: marvinpinto/action-automatic-releases@latest
@@ -43,4 +49,4 @@ jobs:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           prerelease: false
           files: |
-            *.zip
+            qTsConverter_universal.zip

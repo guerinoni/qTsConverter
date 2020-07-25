@@ -1,8 +1,6 @@
 #!/bin/sh
 
-[ -z "$1" ] && echo "please provide a version tag" && exit
-
-RELEASEDIR="qTsConverter_universal_$1"
+RELEASEDIR="qTsConverter_universal"
 
 # creating package dir
 mkdir "../../$RELEASEDIR"
