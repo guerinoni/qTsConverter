@@ -1,0 +1,12 @@
+[Desktop Entry]
+Name=qTsConverter
+GenericName=ts csv xls converter
+Comment= A simple tool to convert qt translation file (ts) to other format (xlsx / csv) and vice versa
+Exec=/usr/bin/qTsConverter
+Icon=qTsConverter
+StartupNotify=false
+StartupWMClass=qTsConverter
+Terminal=false
+Type=Application
+Categories=Utility;
+Keywords=qt;linguist;translation;converter;
