@@ -5,7 +5,7 @@ on:
     types: [published]
 
 jobs:
-  universalPackage:
+  packaging:
     strategy:
       matrix:
         qt_version: [5.14.2]
@@ -42,11 +42,18 @@ jobs:
         shell: bash
         run: |
           cd scripts
-          sudo ./createPackage.sh
+          ./createPackage.sh
+
+      - name: debianPackage
+        shell: bash
+        run: |
+          cd scripts
+          ./debian.sh
 
       - uses: marvinpinto/action-automatic-releases@latest
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           prerelease: false
           files: |
-            qTsConverter_universal.zip
+            ../*.zip
+            ../*.deb
