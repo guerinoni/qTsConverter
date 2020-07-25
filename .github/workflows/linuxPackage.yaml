@@ -1,0 +1,46 @@
+name: linuxPackages
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  universalPakage:
+    name: packages
+    runs-on: "ubuntu-latest"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          submodules: 'recursive'
+
+      - name: Dependencies
+        shell: bash
+        run: |
+          sudo apt install libgl-dev libx11-dev libxkbcommon-x11-dev
+
+      - name: Installing Qt
+        uses: jurplel/install-qt-action@v2.6.2
+        with:
+          version: ${{ matrix.qt_version }}
+          arch: ${{ matrix.qtarch }}
+          cached: ${{ steps.cache-qt.outputs.cache-hit }}
+
+      - name: Build
+        shell: bash
+        run: |
+          cd scripts
+          ./compile.sh
+
+      - name: universalPakage
+        shell: bash
+        run: |
+          sudo ./createPackage.sh
+
+      - uses: marvinpinto/action-automatic-releases@latest
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          prerelease: false
+          files: |
+            *.zip
