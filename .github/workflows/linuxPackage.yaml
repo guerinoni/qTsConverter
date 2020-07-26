@@ -38,22 +38,47 @@ jobs:
           cd scripts
           ./compile.sh
 
-      - name: universalPackage
+      - name: makeUniversal
         shell: bash
         run: |
           cd scripts
           ./createPackage.sh
 
-      - name: debianPackage
+      - name: makeDebian
         shell: bash
         run: |
           cd scripts
           ./debian.sh
 
-      - uses: marvinpinto/action-automatic-releases@latest
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
           prerelease: false
-          files: |
-            ../*.zip
-            ../*.deb
+
+      - name: uploadUniversal
+        id: universal-asset
+        uses: actions/upload-release-asset@latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ../qTsConverter_universal.zip
+          asset_name: "universal package"
+          asset_content_type: application/zip
+
+      - name: uploadDebian
+        id: debian-asset
+        uses: actions/upload-release-asset@latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ../qTsConverter.deb
+          asset_name: "debian package"
+          asset_content_type: application/vnd.debian.binary-package
