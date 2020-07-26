@@ -50,35 +50,22 @@ jobs:
           cd scripts
           ./debian.sh
 
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@latest
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: UploadUniversal
+        uses: svenstaro/upload-release-action@v2
         with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          draft: false
-          prerelease: false
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: ../qTsConverter_universal.zip
+          asset_name: qTsConverter_universal.zip
+          tag: ${{ github.ref }}
+          overwrite: true
+          body: "linux universal binary release"
 
-      - name: uploadUniversal
-        id: universal-asset
-        uses: actions/upload-release-asset@latest
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: UploadDebian
+        uses: svenstaro/upload-release-action@v2
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ../qTsConverter_universal.zip
-          asset_name: "universal package"
-          asset_content_type: application/zip
-
-      - name: uploadDebian
-        id: debian-asset
-        uses: actions/upload-release-asset@latest
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ../qTsConverter.deb
-          asset_name: "debian package"
-          asset_content_type: application/vnd.debian.binary-package
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: ../qTsConverter.deb
+          asset_name: qTsConverter.deb
+          tag: ${{ github.ref }}
+          overwrite: true
+          body: "debian package release"
