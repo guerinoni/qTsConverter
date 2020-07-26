@@ -1,6 +1,9 @@
-#!/bin/sh
+#!/bin/bash
 
-RELEASEDIR="qTsConverter_universal"
+[ -z "$1" ] && echo "please provide a version tag" && exit
+
+echo "version tag: $1"
+RELEASEDIR="qTsConverter_universal_$1"
 
 # creating package dir
 mkdir "../../$RELEASEDIR"
@@ -29,7 +32,7 @@ echo "cd qTsConverter/scripts/" >> install.sh
 echo "./install.sh" >> install.sh
 
 cd ..
-rm "${RELEASEDIR}.zip"
-zip -r "${RELEASEDIR}.zip" "$RELEASEDIR"
-echo "universal package created: ${RELEASEDIR}.zip"
+rm "$RELEASEDIR.zip"
+zip -r "$RELEASEDIR.zip" "$RELEASEDIR"
+echo "universal package created: $RELEASEDIR.zip"
 

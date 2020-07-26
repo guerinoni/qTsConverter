@@ -1,6 +1,9 @@
-#!/bin/sh
+#!/bin/bash
 
-RELEASEDIR="qTsConverter_debian"
+[ -z "$1" ] && echo "please provide a version tag" && exit
+
+echo "version tag: $1"
+RELEASEDIR="qTsConverter_debian_$1"
 
 # creating package dir
 mkdir "../../$RELEASEDIR"
@@ -26,7 +29,7 @@ cp ../qTsConverter/scripts/qTsConverter.desktop usr/share/applications/qTsConver
 # debian stff
 mkdir DEBIAN
 echo "Package: qTsConverter" > DEBIAN/control
-echo "Version: 5.0.0" >> DEBIAN/control
+echo "Version: $$1" >> DEBIAN/control
 echo "Section: custom" >> DEBIAN/control
 echo "Priority: optional" >> DEBIAN/control
 echo "Architecture: all" >> DEBIAN/control
@@ -36,4 +39,3 @@ echo "Description: A simple tool to convert qt translation file (ts) to other fo
 
 cd ..
 dpkg-deb --build "$RELEASEDIR"
-mv "$RELEASEDIR.deb" qTsConverter.deb
