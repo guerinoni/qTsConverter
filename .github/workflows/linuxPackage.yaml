@@ -35,6 +35,7 @@ jobs:
       - name: SetEnv
         run: echo ::set-env name=RELEASE_VERSION::${GITHUB_REF#refs/*/}
 
+
       - name: Build
         shell: bash
         run: |
@@ -46,23 +47,19 @@ jobs:
         run: |
           cd scripts
           ./universal.sh $RELEASE_VERSION
-        env:
-          VERSIONTAG: ${{ github.ref }}
 
       - name: makeDebian
         shell: bash
         run: |
           cd scripts
           ./debian.sh $RELEASE_VERSION
-        env:
-          VERSIONTAG: ${{ github.ref }}
 
       - name: UploadUniversal
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: ../qTsConverter_universal_${{ RELEASE_VERSION }}.zip
-          asset_name: qTsConverter_universal_${{ RELEASE_VERSION }}.zip
+          file_glob: true
+          file: ../qTsConverter_universal_*.zip
           tag: ${{ github.ref }}
           overwrite: true
           body: "linux universal binary release"
@@ -71,8 +68,8 @@ jobs:
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: ../qTsConverter_debian_${{ RELEASE_VERSION }}.zip
-          asset_name: qTsConverter_debian_${{ RELEASE_VERSION }}.zip
+          file_glob: true
+          file: ../qTsConverter_debian_*.deb
           tag: ${{ github.ref }}
           overwrite: true
           body: "debian package release"
