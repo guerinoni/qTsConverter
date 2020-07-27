@@ -11,7 +11,7 @@ Dialog {
                                            "Conversion failed")
     contentItem: Rectangle {
         implicitWidth: 400
-        implicitHeight: 150
+        implicitHeight: 250
         ColumnLayout {
             anchors.fill: parent
             anchors.margins: 40
