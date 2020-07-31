@@ -9,7 +9,7 @@ jobs:
   packaging:
     strategy:
       matrix:
-        qt_version: [5.14.2]
+        qt_version: [5.15.0]
         platform: [ubuntu-20.04]
         arch: [x64]
       fail-fast: false
