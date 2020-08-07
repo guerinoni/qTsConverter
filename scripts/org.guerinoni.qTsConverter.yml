@@ -1,0 +1,13 @@
+id: org.guerinoni.qTsConverter
+command: qTsConverter
+modules:
+  - name: qTsConverter
+    buildsystem: cmake
+    builddir: true
+    sources:
+      - type: git
+        url: https://github.com/guerinoni/qTsConverter
+        tag: 4.3.1
+runtime: org.kde.Platform
+runtime-version: '5.14'
+sdk: org.kde.Sdk
