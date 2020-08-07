@@ -1,4 +1,4 @@
 #!/bin/sh
 
 cd ../../
-flatpak-builder --force-clean qTsConverter_flatpak qTsConverter/scripts/org.guerinoni.qTsConverter.yml
+exec flatpak-builder -y --force-clean --install-deps-from=flathub --user --install flatpak_build qTsConverter/scripts/org.guerinoni.qTsConverter.yml
