@@ -11,7 +11,10 @@ finish-args:
   - --socket=x11
   - --share=ipc
 modules:
-  - name: converter
+  - name: qTsConverter
+    config-opts:
+      - "-DCMAKE_INSTALL_PREFIX=/app"
+      - "-DCMAKE_BUILD_TYPE=Release"
     buildsystem: cmake
     sources:
       - type: git
