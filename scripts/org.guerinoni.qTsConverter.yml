@@ -1,13 +1,19 @@
-id: org.guerinoni.qTsConverter
+app-id: org.guerinoni.qTsConverter
+branch: 4.3.1
+runtime: org.kde.Platform
+runtime-version: '5.14'
+sdk: org.kde.Sdk
 command: qTsConverter
+finish-args:
+  - --device=dri
+  - --filesystem=host
+  - --socket=wayland
+  - --socket=x11
+  - --share=ipc
 modules:
-  - name: qTsConverter
+  - name: converter
     buildsystem: cmake
-    builddir: true
     sources:
       - type: git
         url: https://github.com/guerinoni/qTsConverter
         tag: 4.3.1
-runtime: org.kde.Platform
-runtime-version: '5.14'
-sdk: org.kde.Sdk
