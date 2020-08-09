@@ -18,3 +18,8 @@ add_subdirectory(src)
 if(NOT ${CMAKE_BUILD_TYPE} STREQUAL "Release")
 add_subdirectory(tests)
 endif(NOT ${CMAKE_BUILD_TYPE} STREQUAL "Release")
+
+install(TARGETS ${CMAKE_PROJECT_NAME}
+    RUNTIME
+    DESTINATION ${CMAKE_INSTALL_PREFIX}/bin
+    CONFIGURATIONS Release)
