@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 NPROC="$(grep -E -c "^processor" /proc/cpuinfo)"
 
