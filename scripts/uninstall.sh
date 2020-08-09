@@ -1,6 +1,6 @@
 #!/bin/sh
 
-rm /usr/bin/qTsConverter
+rm /usr/local/bin/qTsConverter
 rm -r /usr/share/licenses/qTsConverter
 rm -r /usr/share/doc/qTsConverter
 rm /usr/share/applications/qTsConverter.desktop
