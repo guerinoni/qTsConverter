@@ -5,5 +5,5 @@ NPROC="$(grep -E -c "^processor" /proc/cpuinfo)"
 mkdir ../../build
 cd ../../build
 
-cmake -B. -S../qTsConverter
+cmake -DCMAKE_BUILD_TYPE=Release -B. -S../qTsConverter
 make "-j$NPROC"
