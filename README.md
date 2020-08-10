@@ -30,7 +30,6 @@ Compile from source and install:
 $ git clone https://github.com/guerinoni/qTsConverter.git
 $ cd scripts/
 $ ./compile.sh
-$ sudo ./install.sh
 $ cd ../../build
 $ sudo make install
 ```

@@ -34,7 +34,9 @@ install(FILES ${CMAKE_SOURCE_DIR}/scripts/qTsConverter.desktop
     DESTINATION share/applications)
 
 install(FILES ${CMAKE_SOURCE_DIR}/src/qml/assets/logos/vector/isolated-layout.svg
-    DESTINATION share/pixmaps)
+    DESTINATION share/pixmaps
+    RENAME qTsConverter.svg)
 
 install(FILES ${CMAKE_SOURCE_DIR}/src/qml/assets/logos/profile.png
-    DESTINATION share/pixmaps)
+    DESTINATION share/pixmaps
+    RENAME qTsConverter.png)
