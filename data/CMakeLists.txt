@@ -7,6 +7,9 @@ install(FILES ${CMAKE_SOURCE_DIR}/LICENSE
 install(FILES ${CMAKE_SOURCE_DIR}/data/org.guerinoni.qTsConverter.desktop
     DESTINATION share/applications)
 
+install(FILES ${CMAKE_SOURCE_DIR}/data/qTsConverter.desktop
+    DESTINATION share/applications)
+
 install(FILES ${CMAKE_SOURCE_DIR}/src/qml/assets/logos/vector/isolated-layout.svg
     DESTINATION share/pixmaps
     RENAME qTsConverter.svg)

@@ -2,7 +2,7 @@
 Name=qTsConverter
 GenericName=ts csv xls converter
 Comment=A simple tool to convert qt translation file (ts) to other format (xlsx / csv) and vice versa
-Exec=/usr/bin/flatpak run org.guerinoni.qTsConverter
+Exec=/usr/local/bin/qTsConverter
 Icon=qTsConverter
 StartupNotify=false
 StartupWMClass=qTsConverter
