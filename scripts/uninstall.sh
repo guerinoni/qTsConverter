@@ -1,29 +1,30 @@
 #!/bin/sh
 
-rm /usr/local/bin/qTsConverter
 rm -r /usr/local/include/qtcsv
-rm /usr/local/include/vxlsxabstractooxmlfile.h
-rm /usr/local/include/vxlsxabstractsheet.h
-rm /usr/local/include/vxlsxcellformula.h
-rm /usr/local/include/vxlsxcell.h
-rm /usr/local/include/vxlsxcellrange.h
-rm /usr/local/include/vxlsxcellreference.h
-rm /usr/local/include/vxlsxchart.h
-rm /usr/local/include/vxlsxchartsheet.h
-rm /usr/local/include/vxlsxconditionalformatting.h
-rm /usr/local/include/vxlsxdatavalidation.h
-rm /usr/local/include/vxlsxdocument.h
-rm /usr/local/include/vxlsxformat.h
-rm /usr/local/include/vxlsxglobal.h
-rm /usr/local/include/vxlsxrichstring.h
-rm /usr/local/include/vxlsxworkbook.h
-rm /usr/local/include/vxlsxworksheet.h
-rm -r /usr/local/cmake/QtXlsxWriter
-rm -r /usr/local/libqtcsv.a
-rm -r /usr/local/libQtXlsxWriter.so
+rm /usr/local/include/xlsxabstractooxmlfile.h
+rm /usr/local/include/xlsxabstractsheet.h
+rm /usr/local/include/xlsxcellformula.h
+rm /usr/local/include/xlsxcell.h
+rm /usr/local/include/xlsxcellrange.h
+rm /usr/local/include/xlsxcellreference.h
+rm /usr/local/include/xlsxchart.h
+rm /usr/local/include/xlsxchartsheet.h
+rm /usr/local/include/xlsxconditionalformatting.h
+rm /usr/local/include/xlsxdatavalidation.h
+rm /usr/local/include/xlsxdocument.h
+rm /usr/local/include/xlsxformat.h
+rm /usr/local/include/xlsxglobal.h
+rm /usr/local/include/xlsxrichstring.h
+rm /usr/local/include/xlsxworkbook.h
+rm /usr/local/include/xlsxworksheet.h
 
-rm -r /usr/share/licenses/qTsConverter
-rm -r /usr/share/doc/qTsConverter
-rm /usr/share/applications/qTsConverter.desktop
-rm /usr/share/pixmaps/qTsConverter.svg
-rm /usr/share/pixmaps/qTsConverter.png
+rm -r /usr/local/lib/libQtXlsxWriter.so
+rm -r /usr/local/lib/libqtcsv.a
+rm -r /usr/local/lib/cmake/QtXlsxWriter
+
+rm /usr/local/bin/qTsConverter
+rm /usr/local/share/applications/qTsConverter.desktop
+rm -r /usr/local/share/doc/qTsConverter
+rm -r /usr/local/share/licenses/qTsConverter
+rm /usr/local/share/pixmaps/qTsConverter.*
+rm -r /usr/local/share/qtcsv
