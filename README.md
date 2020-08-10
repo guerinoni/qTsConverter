@@ -40,3 +40,17 @@ If qTsConverter was installed with ``-DCMAKE_INSTALL_PREFIX=/usr/local`` (like
 ``/usr/local/lib`` and ``/usr/local/bin`` should be in the ``PATH`` variable.
 This allows to locate libraries that qTsConverter depends on and run it from any
 path.
+
+To be able to open the output file and the output directory, ``xdg-mime`` must
+be set for the following filetypes:
+
+- ``application/excel``
+- ``application/csv``
+- ``text/csv``
+- ``text/xml``
+
+For example:
+
+```bash
+xdg-mime default libreoffice-calc.desktop application/csv
+```
