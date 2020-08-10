@@ -11,9 +11,9 @@ install(FILES ${CMAKE_SOURCE_DIR}/data/qTsConverter.desktop
     DESTINATION share/applications)
 
 install(FILES ${CMAKE_SOURCE_DIR}/src/qml/assets/logos/vector/isolated-layout.svg
-    DESTINATION share/pixmaps
-    RENAME qTsConverter.svg)
+    DESTINATION share/icons/hicolor/512x512/apps/
+    RENAME org.guerinoni.qTsConverter.svg)
 
 install(FILES ${CMAKE_SOURCE_DIR}/src/qml/assets/logos/profile.png
-    DESTINATION share/pixmaps
-    RENAME qTsConverter.png)
+    DESTINATION share/icons/hicolor/512x512/apps/
+    RENAME org.guerinoni.qTsConverter.png)

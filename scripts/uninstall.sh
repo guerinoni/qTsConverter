@@ -26,5 +26,5 @@ rm /usr/local/bin/qTsConverter
 rm /usr/local/share/applications/qTsConverter.desktop
 rm -r /usr/local/share/doc/qTsConverter
 rm -r /usr/local/share/licenses/qTsConverter
-rm /usr/local/share/pixmaps/qTsConverter.*
+rm -r /usr/local/share/icons/hicolor/512x512/apps/org.guerinoni.qTsConverter.*
 rm -r /usr/local/share/qtcsv
