@@ -18,5 +18,4 @@ modules:
     buildsystem: cmake
     sources:
       - type: git
-        url: https://github.com/guerinoni/qTsConverter
-        tag: 4.3.1
+        url: https://github.com/Stivvo/qTsConverter
