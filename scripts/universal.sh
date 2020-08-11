@@ -46,12 +46,12 @@ cp ../$ASSET/vector/isolated-layout.svg $ASSET/vector/isolated-layout.svg
 
 # copying dependencies
 mkdir -p build/3rd-party/qtxlsx
-cp ../build/3rd-party/qtxlsx/libQtXlsxWriter.so build/3rd-party/qtxlsx/libQtXlsxWriter.so
+cp ../build/3rd-party/qtxlsx/libQtXlsxWriter*.so build/3rd-party/qtxlsx/
 
 # creating install.sh that runs wayPreview/scripts/install.sh
 echo "#!/bin/sh" > install.sh
 echo "${C}755 build/src/$N $FIX/bin/$N" >> install.sh
-echo "${C}755 build/3rd-party/qtxlsx/libQtXlsxWriter.so $FIX/lib/libQtXlsxWriter.so" >> install.sh
+echo "${C}755 build/3rd-party/qtxlsx/libQtXlsxWriter*.so $FIX/lib/" >> install.sh
 echo "${C}644 $N/LICENSE $FIX/share/licenses/$N/LICENSE" >> install.sh
 echo "${C}644 $N/README.md $FIX/share/doc/$N/README.md" >> install.sh
 echo "${C}644 $N/data/$N.desktop $FIX/share/applications/$N.desktop" >> install.sh
