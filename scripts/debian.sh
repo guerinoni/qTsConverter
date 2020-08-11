@@ -24,7 +24,7 @@ mkdir -p usr/share/pixmaps/
 cp ../qTsConverter/src/qml/assets/logos/profile.png usr/share/pixmaps/qTsConverter.png
 cp ../qTsConverter/src/qml/assets/logos/vector/isolated-layout.svg usr/share/pixmaps/qTsConverter.svg
 mkdir -p usr/share/applications
-cp ../qTsConverter/scripts/qTsConverter.desktop usr/share/applications/qTsConverter.desktop
+cp ../qTsConverter/data/qTsConverter.desktop usr/share/applications/qTsConverter.desktop
 
 # debian stff
 mkdir DEBIAN

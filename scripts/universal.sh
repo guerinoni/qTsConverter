@@ -21,7 +21,7 @@ cp ../qTsConverter/scripts/uninstall.sh uninstall.sh
 # copying documentation, license, desktop, icons
 cp ../qTsConverter/README.md qTsConverter/README.md
 cp ../qTsConverter/LICENSE qTsConverter/LICENSE
-cp ../qTsConverter/scripts/qTsConverter.desktop qTsConverter/scripts/qTsConverter.desktop
+cp ../qTsConverter/data/qTsConverter.desktop qTsConverter/scripts/qTsConverter.desktop
 mkdir -p qTsConverter/src/qml/assets/logos/vector
 cp ../qTsConverter/src/qml/assets/logos/profile.png qTsConverter/src/qml/assets/logos/profile.png
 cp ../qTsConverter/src/qml/assets/logos/vector/isolated-layout.svg qTsConverter/src/qml/assets/logos/vector/isolated-layout.svg
