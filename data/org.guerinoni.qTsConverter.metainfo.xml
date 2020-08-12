@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+    <id>org.guerinoni.qTsConverter</id>
+    <name>qTsConverter</name>
+    <summary>A simple tool to convert qt translation file (ts) to other format (xlsx / csv) and vice versa.</summary>
+    <description>
+        <p>A simple tool to convert qt translation file (ts) to other format (xlsx / csv) and vice versa.</p>
+    </description>
+    <url type="homepage">https://github.com/guerinoni/qTsConverter</url>
+    <url type="bugtracker">https://github.com/guerinoni/qTsConverter/issues</url>
+    <launchable type="desktop-id">org.guerinoni.qTsConverter.desktop</launchable>
+    <metadata_license>MIT</metadata_license>
+    <project_license>MIT</project_license>
+    <developer_name>Federico Guerinoni</developer_name>
+    <content_rating type="oars-1.1" />
+    <releases>
+        <release version="4.3.3" timestamp="2020-08-13"/>
+    </releases>
+</component>
