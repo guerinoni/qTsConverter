@@ -18,12 +18,12 @@ rm /usr/local/include/xlsxrichstring.h
 rm /usr/local/include/xlsxworkbook.h
 rm /usr/local/include/xlsxworksheet.h
 
-rm -r /usr/local/lib/libQtXlsxWriter.so
+rm -r /usr/local/lib/libQtXlsxWriter*.so
 rm -r /usr/local/lib/libqtcsv.a
 rm -r /usr/local/lib/cmake/QtXlsxWriter
 
 rm /usr/local/bin/qTsConverter
-rm /usr/local/share/applications/qTsConverter.desktop
+rm /usr/local/share/applications/org.guerinoni.qTsConverter.desktop
 rm -r /usr/local/share/doc/qTsConverter
 rm -r /usr/local/share/licenses/qTsConverter
 rm -r /usr/local/share/icons/hicolor/512x512/apps/org.guerinoni.qTsConverter.*
