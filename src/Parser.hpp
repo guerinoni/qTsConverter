@@ -10,8 +10,7 @@ class Parser
     explicit Parser(InOutParameter &&parameter);
     Parser(const Parser &) = delete;
     Parser(Parser &&)      = delete;
-
-    virtual ~Parser() = default;
+    virtual ~Parser()      = default;
 
     Parser &operator=(const Parser &) = delete;
     Parser &operator=(Parser &&) = delete;

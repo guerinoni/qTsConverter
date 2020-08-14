@@ -11,7 +11,7 @@ class XlsxParser : public Parser
     explicit XlsxParser(InOutParameter &&parameter);
     XlsxParser(const XlsxParser &) = delete;
     XlsxParser(XlsxParser &&)      = delete;
-    virtual ~XlsxParser()          = default;
+    ~XlsxParser() override         = default;
 
     XlsxParser &operator=(const XlsxParser &) = delete;
     XlsxParser &operator=(XlsxParser &&) = delete;

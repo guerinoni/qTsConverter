@@ -16,7 +16,14 @@ class ConverterGuiProxy : public QObject
     // clang-format on
 
   public:
+    ConverterGuiProxy() = delete;
     explicit ConverterGuiProxy(QObject *parent = nullptr);
+    ConverterGuiProxy(const ConverterGuiProxy &) = delete;
+    ConverterGuiProxy(ConverterGuiProxy &&)      = delete;
+    ~ConverterGuiProxy() override                = default;
+
+    ConverterGuiProxy operator=(const ConverterGuiProxy &) = delete;
+    ConverterGuiProxy operator=(ConverterGuiProxy &&) = delete;
 
     enum QConversionType {
         Ts2Csv  = ConverterFactory::Ts2Csv,

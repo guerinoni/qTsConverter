@@ -7,7 +7,14 @@ class ConversionModel final : public QAbstractListModel
     Q_OBJECT
 
   public:
+    ConversionModel() = delete;
     explicit ConversionModel(QObject *parent = nullptr);
+    ConversionModel(const ConversionModel &) = delete;
+    ConversionModel(ConversionModel &&)      = delete;
+    ~ConversionModel() override              = default;
+
+    ConversionModel &operator=(const ConversionModel &) = delete;
+    ConversionModel &operator=(ConversionModel &&) = delete;
 
     enum Roles { String = Qt::UserRole + 1 };
 

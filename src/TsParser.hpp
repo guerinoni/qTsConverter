@@ -11,7 +11,7 @@ class TsParser : public Parser
     explicit TsParser(InOutParameter &&parameter);
     TsParser(const TsParser &) = delete;
     TsParser(TsParser &&)      = delete;
-    virtual ~TsParser()        = default;
+    ~TsParser() override       = default;
 
     TsParser &operator=(const TsParser &) = delete;
     TsParser &operator=(TsParser &&) = delete;

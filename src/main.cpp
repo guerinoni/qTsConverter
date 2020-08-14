@@ -29,11 +29,11 @@ int main(int argc, char **argv)
 
     QQmlApplicationEngine engine;
 
-    ConversionModel cm;
+    ConversionModel cm(nullptr);
     engine.rootContext()->setContextProperty(QStringLiteral("conversionModel"),
                                              &cm);
 
-    ConverterGuiProxy cgp;
+    ConverterGuiProxy cgp(nullptr);
     qmlRegisterUncreatableType<ConverterGuiProxy>("app", 1, 0,
                                                   "ConverterGuiProxy", {});
     engine.rootContext()->setContextProperty(QStringLiteral("converter"), &cgp);
