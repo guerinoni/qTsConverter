@@ -15,7 +15,7 @@
     <screenshots>
         <screenshot type="default">
             <caption>The main window</caption>
-            <image type="source" width="820" height="275">https://github.com/guerinoni/qTsConverter/blob/master/doc/Screenshot.png</image>
+            <image type="source" width="820" height="275">https://raw.githubusercontent.com/guerinoni/qTsConverter/master/doc/Screenshot.png</image>
         </screenshot>
     </screenshots>
     <content_rating type="oars-1.1" />
