@@ -17,3 +17,6 @@ install(FILES ${CMAKE_SOURCE_DIR}/src/qml/assets/logos/vector/isolated-layout.sv
 install(FILES ${CMAKE_SOURCE_DIR}/src/qml/assets/logos/profile.png
     DESTINATION share/icons/hicolor/512x512/apps/
     RENAME org.guerinoni.qTsConverter.png)
+
+install(FILES ${CMAKE_SOURCE_DIR}/data/org.guerinoni.qTsConverter.appdata.xml
+    DESTINATION share/metainfo)
