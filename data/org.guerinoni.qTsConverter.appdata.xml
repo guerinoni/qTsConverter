@@ -12,6 +12,12 @@
     <metadata_license>MIT</metadata_license>
     <project_license>MIT</project_license>
     <developer_name>Federico Guerinoni</developer_name>
+    <screenshots>
+        <screenshot type="default">
+            <caption>The main window</caption>
+            <image type="source" width="820" height="275">https://github.com/guerinoni/qTsConverter/blob/master/doc/Screenshot.png</image>
+        </screenshot>
+    </screenshots>
     <content_rating type="oars-1.1" />
     <releases>
         <release version="4.3.3" timestamp="2020-08-13"/>
