@@ -29,7 +29,7 @@ editable using an office suite.
 Compile from source and install:
 
 ```
-$ git clone https://github.com/guerinoni/qTsConverter.git
+$ git clone --recursive https://github.com/guerinoni/qTsConverter.git
 $ cd scripts/
 $ ./compile.sh
 $ cd ../../build
