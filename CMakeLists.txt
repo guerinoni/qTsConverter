@@ -4,7 +4,9 @@ project(qTsConverter LANGUAGES CXX
                      VERSION "4.3.4"
                      DESCRIPTION "Tool used to convert `.ts` file of Qt translation in other format more editable using an office suite.")
 
-include(cmake/StaticAnalyzers.cmake)
+SET(CMAKE_CXX_STANDARD_REQUIRED ON)
+SET(CMAKE_CXX_EXTENSIONS OFF)
+SET(CMAKE_CXX_STANDARD 20)
 
 include(cmake/Sanitizers.cmake)
 
@@ -22,7 +24,7 @@ add_subdirectory(3rd-party/qtxlsx)
 add_subdirectory(src)
 
 if(NOT ${CMAKE_BUILD_TYPE} STREQUAL "Release")
-  add_subdirectory(tests)
+    add_subdirectory(tests)
 endif(NOT ${CMAKE_BUILD_TYPE} STREQUAL "Release")
 
 add_subdirectory(data)
