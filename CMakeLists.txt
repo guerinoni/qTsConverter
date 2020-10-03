@@ -1,9 +1,8 @@
 cmake_minimum_required(VERSION 3.10)
 
-project(
-  qTsConverter
-  LANGUAGES CXX
-  VERSION "4.3.4")
+project(qTsConverter LANGUAGES CXX
+                     VERSION "4.3.4"
+                     DESCRIPTION "Tool used to convert `.ts` file of Qt translation in other format more editable using an office suite.")
 
 include(cmake/StaticAnalyzers.cmake)
 
