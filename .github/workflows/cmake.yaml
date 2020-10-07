@@ -16,7 +16,7 @@ jobs:
        
       - name: Install cmake-format
         run: pip3 install cmake-format
-        i
+        
       - name: Run cmake-lint
         run:
           - cmake-lint CMakeLists.txt
