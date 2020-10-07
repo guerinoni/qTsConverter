@@ -1,0 +1,38 @@
+name: cmake
+
+on: [push, pull_request]
+
+jobs:
+  cmake:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          submodules: 'recursive'
+
+      - name: Install Python
+        uses: actions/setup-python@master
+       
+      - name: Install cmake-format
+        run: pip3 install cmake-format
+        i
+      - name: Run cmake-lint
+        run:
+          - cmake-lint CMakeLists.txt
+          - cmake-lint src/CMakeLists.txt
+          - cmake-lint tests/CMakeLists.txt
+          - cmake-lint data/CMakeLists.txt
+          - cmake-lint cmake/CompilerWarnings.cmake
+          - cmake-lint cmake/Sanitizers.cmake
+          - cmake-lint cmake/StaticAnalyzers.cmake
+
+      - name: Run cmake-format
+        run:
+          - cmake-lint CMakeLists.txt
+          - cmake-lint src/CMakeLists.txt
+          - cmake-lint tests/CMakeLists.txt
+          - cmake-lint data/CMakeLists.txt
+          - cmake-lint cmake/CompilerWarnings.cmake
+          - cmake-lint cmake/Sanitizers.cmake
+          - cmake-lint cmake/StaticAnalyzers.cmake
