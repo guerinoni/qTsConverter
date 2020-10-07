@@ -1,29 +1,39 @@
-#include "tst_Ts2csv.hpp"
-
 #include "../src/ConverterFactory.hpp"
 
-void tst_Ts2Csv::cleanup()
+#include <QFile>
+
+const std::string m_outputFile{ FILESPATH + std::string("/output.csv") };
+
+void cleanup()
 {
     QFile::remove(m_outputFile.c_str());
 }
 
-void tst_Ts2Csv::checkScenario1()
+bool scenario1()
 {
     const auto inputFile{ FILESPATH + std::string("/scenario1.ts") };
     auto conv = ConverterFactory::make_converter(
         ConverterFactory::ConversionType::Ts2Csv, inputFile.c_str(),
         m_outputFile.c_str(), ";", "\"", "2.1");
     conv->process();
-    QFile out(m_outputFile.c_str());
-    QVERIFY(out.exists());
+    QFile output(m_outputFile.c_str());
+    if (!output.exists()) {
+        return false;
+    }
 
     QFile expected(FILESPATH + QString("/scenario1.csv"));
     expected.open(QIODevice::ReadOnly);
-    out.open(QIODevice::ReadOnly);
+    output.open(QIODevice::ReadOnly);
 
-    const auto o = out.readAll();
+    const auto o = output.readAll();
     const auto e = expected.readAll();
 
-    QCOMPARE(o.size(), e.size());
-    QCOMPARE(o, e);
+    return o.size() == e.size() && o == e;
+}
+
+int main()
+{
+    int ret = !scenario1();
+    cleanup();
+    return ret;
 }

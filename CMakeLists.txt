@@ -6,7 +6,7 @@ project(qTsConverter LANGUAGES CXX
 
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
-set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_FLAGS_INIT "-Werror
                           -Wall
                           -Wextra
@@ -48,8 +48,9 @@ add_subdirectory(3rd-party/qtcsv)
 add_subdirectory(3rd-party/qtxlsx)
 add_subdirectory(src)
 
-if(NOT ${CMAKE_BUILD_TYPE} STREQUAL "Release")
+#if(NOT ${CMAKE_BUILD_TYPE} STREQUAL "Release")
+    enable_testing()
     add_subdirectory(tests)
-endif(NOT ${CMAKE_BUILD_TYPE} STREQUAL "Release")
+#endif(NOT ${CMAKE_BUILD_TYPE} STREQUAL "Release")
 
 add_subdirectory(data)

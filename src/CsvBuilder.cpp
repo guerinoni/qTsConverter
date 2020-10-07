@@ -2,9 +2,9 @@
 
 #include "TitleHeaders.hpp"
 
-#include <QDebug>
 #include <QFile>
 #include <QTextStream>
+#include <QtDebug>
 #include <include/qtcsv/stringdata.h>
 #include <include/qtcsv/writer.h>
 
