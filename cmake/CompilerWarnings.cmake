@@ -62,7 +62,7 @@ function(set_project_warnings project_name)
                  # (ie printf)
   )
 
-  if (WARNINGS_AS_ERRORS)
+  if(WARNINGS_AS_ERRORS)
     set(CLANG_WARNINGS ${CLANG_WARNINGS} -Werror)
     set(MSVC_WARNINGS ${MSVC_WARNINGS} /WX)
   endif()
@@ -85,7 +85,9 @@ function(set_project_warnings project_name)
   elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
     set(PROJECT_WARNINGS ${GCC_WARNINGS})
   else()
-    message(AUTHOR_WARNING "No compiler warnings set for '${CMAKE_CXX_COMPILER_ID}' compiler.")
+    message(
+      AUTHOR_WARNING
+        "No compiler warnings set for '${CMAKE_CXX_COMPILER_ID}' compiler.")
   endif()
 
   target_compile_options(${project_name} INTERFACE ${PROJECT_WARNINGS})
