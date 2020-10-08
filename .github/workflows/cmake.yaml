@@ -19,22 +19,16 @@ jobs:
       - name: Install cmake-format
         run: pip3 install cmake-format
 
-      - name: Run cmake-lint
-        run:
-          - cmake-lint CMakeLists.txt
-          - cmake-lint src/CMakeLists.txt
-          - cmake-lint tests/CMakeLists.txt
-          - cmake-lint data/CMakeLists.txt
-          - cmake-lint cmake/CompilerWarnings.cmake
-          - cmake-lint cmake/Sanitizers.cmake
-          - cmake-lint cmake/StaticAnalyzers.cmake
+      # - name: Run cmake-lint
+        # run: |
+          # cmake-lint CMakeLists.txt
 
       - name: Run cmake-format
-        run:
-          - cmake-format --check CMakeLists.txt
-          - cmake-format --check src/CMakeLists.txt
-          - cmake-format --check tests/CMakeLists.txt
-          - cmake-format --check data/CMakeLists.txt
-          - cmake-format --check cmake/CompilerWarnings.cmake
-          - cmake-format --check cmake/Sanitizers.cmake
-          - cmake-format --check cmake/StaticAnalyzers.cmake
+        run: |
+          cmake-format --check CMakeLists.txt
+          # - cmake-format --check src/CMakeLists.txt
+          # - cmake-format --check tests/CMakeLists.txt
+          # - cmake-format --check data/CMakeLists.txt
+          # - cmake-format --check cmake/CompilerWarnings.cmake
+          # - cmake-format --check cmake/Sanitizers.cmake
+          # - cmake-format --check cmake/StaticAnalyzers.cmake
