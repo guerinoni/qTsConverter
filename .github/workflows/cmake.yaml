@@ -11,11 +11,20 @@ jobs:
         with:
           submodules: 'recursive'
 
-      - name: Install Python
-        uses: actions/setup-python@master
+      - name: Setup Python
+        uses: actions/setup-python@v2
 
       - name: Install cmake-format
         run: pip install cmake-format
 
       - name: Run cmake-format
-        run: cmake-format --check ./**/CMakeLists.txt
+        run: |
+          cmake-format -i ./CMakeLists.txt
+          cmake-format -i ./src/CMakeLists.txt
+          cmake-format -i ./tests/CMakeLists.txt
+          cmake-format -i ./data/CMakeLists.txt
+
+      - name: Add & Commit
+        uses: EndBug/add-and-commit@v5.1.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
