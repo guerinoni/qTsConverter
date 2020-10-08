@@ -29,6 +29,8 @@ jobs:
 
       - name: Add & Commit
         uses: EndBug/add-and-commit@v5.1.0
-        message: 'Format cmake files'
+         with:
+          signoff: true
+          message: 'Format cmake files'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
