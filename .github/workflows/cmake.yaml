@@ -5,30 +5,12 @@ on: [push]
 jobs:
   cmake-format:
     runs-on: ubuntu-latest
+    container: cheshirekow/cmake-format
     steps:
       - name: Checkout
         uses: actions/checkout@v2
         with:
           submodules: 'recursive'
 
-      - name: Install Python
-        uses: actions/setup-python@master
-        with:
-          python-version: "3.x"
-
-      - name: Install cmake-format
-        run: pip3 install cmake-format
-
-      # - name: Run cmake-lint
-        # run: |
-          # cmake-lint CMakeLists.txt
-
       - name: Run cmake-format
-        run: |
-          cmake-format --check CMakeLists.txt
-          # - cmake-format --check src/CMakeLists.txt
-          # - cmake-format --check tests/CMakeLists.txt
-          # - cmake-format --check data/CMakeLists.txt
-          # - cmake-format --check cmake/CompilerWarnings.cmake
-          # - cmake-format --check cmake/Sanitizers.cmake
-          # - cmake-format --check cmake/StaticAnalyzers.cmake
+        run: cmake-format -i ./**/CMakeLists.txt
