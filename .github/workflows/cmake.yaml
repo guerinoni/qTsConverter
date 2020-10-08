@@ -5,12 +5,17 @@ on: [push]
 jobs:
   cmake-format:
     runs-on: ubuntu-latest
-    container: cheshirekow/cmake-format
     steps:
       - name: Checkout
         uses: actions/checkout@v2
         with:
           submodules: 'recursive'
+
+      - name: Install Python
+        uses: actions/setup-python@master
+
+      - name: Install cmake-format
+        run: pip install cmake-format
 
       - name: Run cmake-format
         run: cmake-format -i ./**/CMakeLists.txt
