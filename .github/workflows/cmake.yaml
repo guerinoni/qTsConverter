@@ -23,6 +23,9 @@ jobs:
           cmake-format -i ./src/CMakeLists.txt
           cmake-format -i ./tests/CMakeLists.txt
           cmake-format -i ./data/CMakeLists.txt
+          cmake-format -i ./cmake/CompilerWarnings.cmake
+          cmake-format -i ./cmake/Sanitizers.cmake
+          cmake-format -i ./cmake/StaticAnalyzers.cmake
 
       - name: Add & Commit
         uses: EndBug/add-and-commit@v5.1.0
