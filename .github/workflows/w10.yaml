@@ -31,3 +31,4 @@ jobs:
           cd build
           cmake ..
           cmake --build . --parallel
+          ctest --output-on-failure
