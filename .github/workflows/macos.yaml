@@ -6,7 +6,7 @@ jobs:
   build:
     strategy:
       matrix:
-        qt_version: [5.15.0]
+        qt_version: [5.15.1]
         platform: [macos-latest]
         arch: [x64]
       fail-fast: false
@@ -18,7 +18,7 @@ jobs:
           submodules: 'recursive'
 
       - name: Installing Qt
-        uses: jurplel/install-qt-action@v2.6.2
+        uses: jurplel/install-qt-action@v2
         with:
           version: ${{ matrix.qt_version }}
           arch: ${{ matrix.qtarch }}
