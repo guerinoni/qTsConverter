@@ -2,6 +2,8 @@
 
 #include "Builder.hpp"
 
+class QFile;
+
 class TsBuilder : public Builder
 {
   public:
@@ -15,4 +17,7 @@ class TsBuilder : public Builder
     TsBuilder operator=(TsBuilder &&) = delete;
 
     bool build(const Translations &trs) const override;
+
+  private:
+    void removeSlashInDoctype(QFile *f) const;
 };
