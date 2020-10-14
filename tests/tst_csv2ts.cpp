@@ -22,8 +22,8 @@ bool scenario1()
     }
 
     QFile expected(FILESPATH + QString("/scenario1.ts"));
-    expected.open(QIODevice::ReadOnly);
-    output.open(QIODevice::ReadOnly);
+    expected.open(QIODevice::ReadOnly | QIODevice::Text);
+    output.open(QIODevice::ReadOnly | QIODevice::Text);
 
     const auto o = output.readAll();
     const auto e = expected.readAll();
