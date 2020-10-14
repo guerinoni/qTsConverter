@@ -52,9 +52,7 @@ add_subdirectory(3rd-party/qtcsv)
 add_subdirectory(3rd-party/qtxlsx)
 add_subdirectory(src)
 
-# if(NOT ${CMAKE_BUILD_TYPE} STREQUAL "Release")
 enable_testing()
 add_subdirectory(tests)
-# endif(NOT ${CMAKE_BUILD_TYPE} STREQUAL "Release")
 
 add_subdirectory(data)
