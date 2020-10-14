@@ -28,6 +28,9 @@ bool scenario1()
     const auto o = output.readAll();
     const auto e = expected.readAll();
 
+    expected.close();
+    output.close();
+
     return o.size() == e.size() && o == e;
 }
 
