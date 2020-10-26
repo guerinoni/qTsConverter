@@ -1,6 +1,6 @@
-Context,Source,Translation,Location,,
-ThemeWidget,Series ,,../themewidget.cpp - 289,../themewidget.cpp - 290,../themewidget.cpp - 291
-ThemeWidgetForm,Theme:,,../themewidget.ui - 19,,
-ThemeWidgetForm,Animation:,,../themewidget.ui - 29,,
-ThemeWidgetForm,Legend:,,../themewidget.ui - 39,,
-ThemeWidgetForm,Anti-aliasing,,../themewidget.ui - 49,,
+"Context";"Source";"Translation";"Location"
+"ThemeWidget";"Series";"";"../themewidget.cpp - 289";"../themewidget.cpp - 290";"../themewidget.cpp - 291"
+"ThemeWidgetForm";"Theme:";"";"../themewidget.ui - 19"
+"ThemeWidgetForm";"Animation:";"";"../themewidget.ui - 29"
+"ThemeWidgetForm";"Legend:";"";"../themewidget.ui - 39"
+"ThemeWidgetForm";"Anti-aliasing";"";"../themewidget.ui - 49"

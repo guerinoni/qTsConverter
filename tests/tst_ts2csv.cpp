@@ -32,6 +32,8 @@ bool scenario1()
     expected.close();
     output.close();
 
+    qDebug() << "e size: " << e.size() << ", e:\n" << e;
+    qDebug() << "o size: " << o.size() << ", o:\n" << o;
     return o.size() == e.size() && o == e;
 }
 bool scenario2()
@@ -63,7 +65,8 @@ bool scenario2()
 
 int main()
 {
-    int ret = !scenario1() || !scenario2();
+    int ret  = !scenario1();
+    int ret2 = !scenario2();
     //    cleanup();
-    return ret;
+    return ret && ret2;
 }

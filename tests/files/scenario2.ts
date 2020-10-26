@@ -7,7 +7,7 @@
         <location filename="../themewidget.cpp" line="289"/>
         <location filename="../themewidget.cpp" line="290"/>
         <location filename="../themewidget.cpp" line="291"/>
-        <source>Series </source>
+        <source>Series</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -35,3 +35,4 @@
     </message>
 </context>
 </TS>
+

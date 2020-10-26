@@ -28,6 +28,7 @@ bool CsvBuilder::build(const Translations &trs) const
         for (const auto &msg : tr.messages) {
             strList.clear();
             strList << tr.name << msg.source << msg.translation;
+
             for (const auto &loc : msg.locations) {
                 strList << QString(loc.first + " - " +
                                    QString::number(loc.second));
