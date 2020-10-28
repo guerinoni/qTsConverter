@@ -19,7 +19,9 @@ std::pair<Translations, QString> CsvParser::parse() const
     }
 
     removeEmptyFrontBack(list);
+
     splitMergedString(list);
+
     splitByRow(list);
 
     Translations translations;
@@ -27,13 +29,19 @@ std::pair<Translations, QString> CsvParser::parse() const
     TranslationMessage msg;
 
     list.pop_front();
+
     removeQuote(list);
+    qDebug() << "list: " << list;
 
     for (const auto &l : qAsConst(list)) {
         context.name    = l.at(0);
         msg.source      = l.at(1);
         msg.translation = l.at(2);
         msg.locations.emplace_back(decodeLocation(l.at(3)));
+
+        for (int i = 4; i < l.size(); i++) {
+            msg.locations.emplace_back(decodeLocation(l.at(i)));
+        }
 
         auto it =
             std::find_if(translations.begin(), translations.end(),
@@ -42,6 +50,7 @@ std::pair<Translations, QString> CsvParser::parse() const
             context.messages.clear();
             context.messages.emplace_back(msg);
             translations.emplace_back(context);
+
         } else {
             context.messages.emplace_back(msg);
             translations.at(std::distance(translations.begin(), it)) = context;
@@ -92,17 +101,33 @@ void CsvParser::splitByRow(QList<QStringList> &list) const
 {
     QList<QStringList> ret;
     for (int i = 0; i < list.size(); ++i) {
-        if (list[i].size() == 8) {
+        if (list[i].size() >= 8) {
             QStringList qsl;
-            qsl << list[i][0] << list[i][1] << list[i][2] << list[i][3];
+            int j;
+            for (j = 0; j < list[i].size(); j++) {
+                if (j < m_minimumSize) {
+                    qsl << list[i][j];
+                } else {
+                    //                    if (!list[i][j].contains(" - ")) {
+                    //                        break;
+                    //                    }
+                    if (!checkLocation(list[i][j])) {
+                        break;
+                    } /*else if (list[i][j].contains("Location")) {
+                        //                        j++;
+                        break;
+                    }*/
+                    qsl << list[i][j];
+                }
+            }
             ret.push_back(qsl);
             qsl.clear();
 
-            qsl << list[i][4] << list[i][5] << list[i][6] << list[i][7];
+            for (int k = j; k < list[i].size(); k++) {
+                qsl << list[i][k];
+            }
             ret.push_back(qsl);
-            continue;
         }
-        ret.push_back(list[i]);
     }
     list = ret;
 }
@@ -114,4 +139,13 @@ void CsvParser::removeQuote(QList<QStringList> &list) const
             ll = ll.replace('"', QString{});
         }
     }
+}
+
+bool CsvParser::checkLocation(QString value) const
+{
+    if (value.contains("Location") ||
+        value.contains(QRegExp("\\.\\.\\/.+-.[0-9]+"))) {
+        return true;
+    }
+    return false;
 }

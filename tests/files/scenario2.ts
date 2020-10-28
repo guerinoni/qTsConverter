@@ -1,38 +1,38 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE TS>
 <TS version="2.1">
-<context>
+  <context>
     <name>ThemeWidget</name>
     <message>
-        <location filename="../themewidget.cpp" line="289"/>
-        <location filename="../themewidget.cpp" line="290"/>
-        <location filename="../themewidget.cpp" line="291"/>
-        <source>Series</source>
-        <translation type="unfinished"></translation>
+      <location line="289" filename="../themewidget.cpp"/>
+      <location line="290" filename="../themewidget.cpp"/>
+      <location line="291" filename="../themewidget.cpp"/>
+      <source>Series</source>
+      <translation></translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>ThemeWidgetForm</name>
     <message>
-        <location filename="../themewidget.ui" line="19"/>
-        <source>Theme:</source>
-        <translation type="unfinished"></translation>
+      <location line="19" filename="../themewidget.ui"/>
+      <source>Theme:</source>
+      <translation></translation>
     </message>
     <message>
-        <location filename="../themewidget.ui" line="29"/>
-        <source>Animation:</source>
-        <translation type="unfinished"></translation>
+      <location line="29" filename="../themewidget.ui"/>
+      <source>Animation:</source>
+      <translation></translation>
     </message>
     <message>
-        <location filename="../themewidget.ui" line="39"/>
-        <source>Legend:</source>
-        <translation type="unfinished"></translation>
+      <location line="39" filename="../themewidget.ui"/>
+      <source>Legend:</source>
+      <translation></translation>
     </message>
     <message>
-        <location filename="../themewidget.ui" line="49"/>
-        <source>Anti-aliasing</source>
-        <translation type="unfinished"></translation>
+      <location line="49" filename="../themewidget.ui"/>
+      <source>Anti-aliasing</source>
+      <translation></translation>
     </message>
-</context>
+  </context>
 </TS>
 
