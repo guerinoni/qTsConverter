@@ -1,6 +1,5 @@
 #include "CsvParser.hpp"
 
-#include <QDebug>
 #include <QFile>
 #include <include/qtcsv/reader.h>
 

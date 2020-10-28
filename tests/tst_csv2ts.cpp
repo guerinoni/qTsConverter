@@ -1,6 +1,5 @@
 #include "ConverterFactory.hpp"
 
-#include <QDebug>
 #include <QFile>
 
 const std::string m_outputFile{ FILESPATH + std::string("/output.ts") };
@@ -53,7 +52,6 @@ bool scenario_multiLine()
 
     const auto o = output.readAll();
     const auto e = expected.readAll();
-    //    qDebug() << "o: " << o << "\ne: " << e;
 
     expected.close();
     output.close();
@@ -63,8 +61,8 @@ bool scenario_multiLine()
 
 int main()
 {
-    //    int ret = !scenario1();
+    int ret  = !scenario1();
     int ret2 = !scenario_multiLine();
-    //    cleanup();
-    return /*ret &&*/ ret2;
+    cleanup();
+    return ret && ret2;
 }
