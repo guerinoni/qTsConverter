@@ -57,8 +57,7 @@ std::pair<Translations, QString> TsParser::parse() const
 std::pair<QString, int> TsParser::wrapLocation(const QDomNode &node) const
 {
     auto location = node.toElement();
-    //    auto location = node.firstChildElement(QStringLiteral("location"));
-    auto fn   = location.attributeNode(QStringLiteral("filename")).value();
-    auto line = location.attributeNode(QStringLiteral("line")).value();
+    auto fn       = location.attributeNode(QStringLiteral("filename")).value();
+    auto line     = location.attributeNode(QStringLiteral("line")).value();
     return std::make_pair(fn, line.toInt());
 }

@@ -1,4 +1,4 @@
-#include "ConverterFactory.hpp"
+#include "../src/ConverterFactory.hpp"
 
 #include <QFile>
 
@@ -11,9 +11,9 @@ void cleanup()
 
 bool scenario1()
 {
-    const auto inputFile{ FILESPATH + std::string("/scenario1.csv") };
+    const auto inputFile{ FILESPATH + std::string("/scenario1.xlsx") };
     auto conv = ConverterFactory::make_converter(
-        ConverterFactory::ConversionType::Csv2Ts, inputFile.c_str(),
+        ConverterFactory::ConversionType::Xlsx2Ts, inputFile.c_str(),
         m_outputFile.c_str(), ";", "\"", "2.1");
     conv->process();
     QFile output(m_outputFile.c_str());
@@ -37,9 +37,9 @@ bool scenario1()
 bool scenario_multiLocation()
 {
     const auto inputFile{ FILESPATH +
-                          std::string("/scenario_multiLocation.csv") };
+                          std::string("/scenario_multiLocation.xlsx") };
     auto conv = ConverterFactory::make_converter(
-        ConverterFactory::ConversionType::Csv2Ts, inputFile.c_str(),
+        ConverterFactory::ConversionType::Xlsx2Ts, inputFile.c_str(),
         m_outputFile.c_str(), ";", "\"", "2.1");
     conv->process();
     QFile output(m_outputFile.c_str());
@@ -64,6 +64,6 @@ int main()
 {
     int ret  = !scenario1();
     int ret2 = !scenario_multiLocation();
-    cleanup();
+    //    cleanup();
     return ret && ret2;
 }

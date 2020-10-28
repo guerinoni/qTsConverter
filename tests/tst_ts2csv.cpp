@@ -1,7 +1,6 @@
 #include "ConverterFactory.hpp"
 
 #include <QFile>
-#include <QtDebug>
 
 const std::string m_outputFile{ FILESPATH + std::string("/output.csv") };
 
@@ -32,13 +31,12 @@ bool scenario1()
     expected.close();
     output.close();
 
-    qDebug() << "e size: " << e.size() << ", e:\n" << e;
-    qDebug() << "o size: " << o.size() << ", o:\n" << o;
     return o.size() == e.size() && o == e;
 }
-bool scenario2()
+bool scenario_multiLocation()
 {
-    const auto inputFile{ FILESPATH + std::string("/scenario2.ts") };
+    const auto inputFile{ FILESPATH +
+                          std::string("/scenario_multiLocation.ts") };
     auto conv = ConverterFactory::make_converter(
         ConverterFactory::ConversionType::Ts2Csv, inputFile.c_str(),
         m_outputFile.c_str(), ";", "\"", "2.1");
@@ -48,7 +46,7 @@ bool scenario2()
         return false;
     }
 
-    QFile expected(FILESPATH + QString("/scenario2.csv"));
+    QFile expected(FILESPATH + QString("/scenario_multiLocation.csv"));
     expected.open(QIODevice::ReadOnly | QIODevice::Text);
     output.open(QIODevice::ReadOnly | QIODevice::Text);
 
@@ -57,16 +55,13 @@ bool scenario2()
 
     expected.close();
     output.close();
-
-    qDebug() << "e size: " << e.size() << ", e:\n" << e;
-    qDebug() << "o size: " << o.size() << ", o:\n" << o;
     return o.size() == e.size() && o == e;
 }
 
 int main()
 {
     int ret  = !scenario1();
-    int ret2 = !scenario2();
-    //    cleanup();
+    int ret2 = !scenario_multiLocation();
+    cleanup();
     return ret && ret2;
 }
