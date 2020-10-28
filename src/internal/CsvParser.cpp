@@ -31,7 +31,6 @@ std::pair<Translations, QString> CsvParser::parse() const
     list.pop_front();
 
     removeQuote(list);
-    qDebug() << "list: " << list;
 
     for (const auto &l : qAsConst(list)) {
         context.name    = l.at(0);
@@ -101,33 +100,22 @@ void CsvParser::splitByRow(QList<QStringList> &list) const
 {
     QList<QStringList> ret;
     for (int i = 0; i < list.size(); ++i) {
+        QStringList qsl;
+        int j = 0;
         if (list[i].size() >= 8) {
-            QStringList qsl;
-            int j;
             for (j = 0; j < list[i].size(); j++) {
-                if (j < m_minimumSize) {
-                    qsl << list[i][j];
-                } else {
-                    //                    if (!list[i][j].contains(" - ")) {
-                    //                        break;
-                    //                    }
-                    if (!checkLocation(list[i][j])) {
-                        break;
-                    } /*else if (list[i][j].contains("Location")) {
-                        //                        j++;
-                        break;
-                    }*/
-                    qsl << list[i][j];
+                if (j >= m_minimumSize && !isLocation(list[i][j])) {
+                    break;
                 }
+                qsl << list[i][j];
             }
             ret.push_back(qsl);
             qsl.clear();
-
-            for (int k = j; k < list[i].size(); k++) {
-                qsl << list[i][k];
-            }
-            ret.push_back(qsl);
         }
+        for (int k = j; k < list[i].size(); k++) {
+            qsl << list[i][k];
+        }
+        ret.push_back(qsl);
     }
     list = ret;
 }
@@ -141,7 +129,7 @@ void CsvParser::removeQuote(QList<QStringList> &list) const
     }
 }
 
-bool CsvParser::checkLocation(QString value) const
+bool CsvParser::isLocation(QString value) const
 {
     if (value.contains("Location") ||
         value.contains(QRegExp("\\.\\.\\/.+-.[0-9]+"))) {

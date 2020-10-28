@@ -12,6 +12,16 @@
     </message>
   </context>
   <context>
+    <name>Test</name>
+    <message>
+      <location line="89" filename="../themewidget.cpp"/>
+      <location line="90" filename="../themewidget.cpp"/>
+      <location line="91" filename="../themewidget.cpp"/>
+      <source>SourceValue</source>
+      <translation></translation>
+    </message>
+  </context>
+  <context>
     <name>ThemeWidgetForm</name>
     <message>
       <location line="19" filename="../themewidget.ui"/>
