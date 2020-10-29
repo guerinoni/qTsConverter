@@ -64,6 +64,8 @@ int main()
 {
     int ret  = !scenario1();
     int ret2 = !scenario_multiLocation();
-    //    cleanup();
+    cleanup();
+    return ret2;
+    return ret;
     return ret && ret2;
 }
