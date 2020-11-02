@@ -5,8 +5,6 @@
 ![GitHub](https://img.shields.io/github/license/guerinoni/qTsConverter)
 ![GitHub stars](https://img.shields.io/github/stars/guerinoni/qTsConverter)
 
-[![Contact me on Codementor](https://www.codementor.io/m-badges/guerinonifederico/contact-me.svg)](https://www.codementor.io/@guerinonifederico?refer=badge)
-
 This tool was born to convert `.ts` file of Qt translation in other format more
 editable using an office suite.
 
