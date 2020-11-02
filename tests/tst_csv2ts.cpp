@@ -1,4 +1,4 @@
-#include "../src/ConverterFactory.hpp"
+#include "ConverterFactory.hpp"
 
 #include <QFile>
 
