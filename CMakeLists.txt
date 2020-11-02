@@ -12,10 +12,10 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_FLAGS_INIT
-    "-Werror
-                          -Wall
-                          -Wextra
-                          -Wpedantic"
+    "-Werror"
+    "-Wall"
+    "-Wextra"
+    "-Wpedantic"
     "-Warray-bounds"
     "-Wdouble-promotion"
     "-Weffc++"
@@ -38,7 +38,6 @@ set(CMAKE_CXX_FLAGS_INIT
     "-Wuninitialized")
 
 include(cmake/Sanitizers.cmake)
-
 include(cmake/CompilerWarnings.cmake)
 
 set(BUILD_TESTS
@@ -51,8 +50,6 @@ set(STATIC_LIB
 add_subdirectory(3rd-party/qtcsv)
 add_subdirectory(3rd-party/qtxlsx)
 add_subdirectory(src)
-
 enable_testing()
 add_subdirectory(tests)
-
 add_subdirectory(data)
