@@ -52,4 +52,5 @@ std::unique_ptr<Converter> ConverterFactory::make_converter(
     }
 
     assert(false);
+    return {};
 }
