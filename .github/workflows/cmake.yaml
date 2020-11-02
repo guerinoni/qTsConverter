@@ -21,6 +21,7 @@ jobs:
         run: |
           cmake-format -i ./CMakeLists.txt
           cmake-format -i ./src/CMakeLists.txt
+          cmake-format -i ./src/internal/CMakeLists.txt
           cmake-format -i ./tests/CMakeLists.txt
           cmake-format -i ./data/CMakeLists.txt
           cmake-format -i ./cmake/CompilerWarnings.cmake

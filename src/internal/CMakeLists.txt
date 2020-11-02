@@ -39,8 +39,7 @@ add_library(
   TranslationObject.hpp
   CsvProperty.hpp
   InOutParameter.hpp
-  TitleHeaders.hpp
-)
+  TitleHeaders.hpp)
 
 target_link_libraries(
   internal
