@@ -33,8 +33,6 @@ bool scenario1()
     expected.close();
     output.close();
 
-    qDebug() << "o: " << o << "e: " << e;
-
     return o.size() == e.size() && o == e;
 }
 bool scenario_multiLocation()
@@ -50,28 +48,31 @@ bool scenario_multiLocation()
 
     int rowCount    = xlsx.dimension().rowCount();
     int columnCount = xlsx.dimension().columnCount();
+
     if (rowCount != 7 || columnCount != 6) {
+        qDebug() << "The column size or the row size is wrong";
         return false;
     }
 
     if (xlsx.read(2, 2) != "Series" ||
+        xlsx.read(2, 4) != "../themewidget.cpp - 289" ||
         xlsx.read(2, 5) != "../themewidget.cpp - 290" ||
+        xlsx.read(2, 6) != "../themewidget.cpp - 291" ||
         xlsx.read(3, 6) != "../themewidget.cpp - 91" ||
-        xlsx.read(6, 4) != "../themewidget.ui - 39") {
+        xlsx.read(7, 2) != "Anti-aliasing" ||
+        xlsx.read(7, 4) != "../themewidget.ui - 49") {
+        qWarning() << "Can't find one or more strings in the output file";
+        return false;
     }
 
-    qDebug() << xlsx.dimension().rowCount()
-             << ", col: " << xlsx.dimension().columnCount();
-
-    return true; // o.size() == e.size() && o == e;
+    return true;
 }
 
 int main()
 {
-    //    int ret = !scenario1();
-    //    int ret = !scenario1();
+    int ret  = !scenario1();
     int ret2 = !scenario_multiLocation();
     cleanup();
     return ret2;
-    //    return ret && ret2;
+    return ret && ret2;
 }
