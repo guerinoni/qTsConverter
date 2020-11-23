@@ -62,8 +62,8 @@ bool scenario_multiLocation()
 
 int main()
 {
-    int ret  = !scenario1();
-    int ret2 = !scenario_multiLocation();
+    int ret = !scenario1();
+    ret |= !scenario_multiLocation();
     cleanup();
-    return ret && ret2;
+    return ret;
 }
