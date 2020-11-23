@@ -24,4 +24,9 @@ class CsvParser : public Parser
     void removeQuote(QList<QStringList> &list) const;
     const int m_minimumSize{ 4 };
     bool isLocation(QString value) const;
+
+    const int kNameIndex{ 0 };
+    const int kSourceIndex{ 1 };
+    const int kTranslationIndex{ 2 };
+    const int kLocationsIndex{ 3 };
 };

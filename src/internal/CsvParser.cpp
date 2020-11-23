@@ -24,18 +24,17 @@ std::pair<Translations, QString> CsvParser::parse() const
     Translations translations;
     TranslationContext context;
     TranslationMessage msg;
-
     list.pop_front();
     removeQuote(list);
 
     for (const QStringList &l : qAsConst(list)) {
-        int iter = 0;
         for (auto value : l)
-            context.name = l.at(iter++);
-        msg.source      = l.at(iter++);
-        msg.translation = l.at(iter++);
-        msg.locations.emplace_back(decodeLocation(l.at(iter++)));
-        for (int i = iter++; i < l.size(); i++) {
+            context.name = l.at(kNameIndex);
+        msg.source      = l.at(kSourceIndex);
+        msg.translation = l.at(kTranslationIndex);
+        msg.locations.emplace_back(decodeLocation(l.at(kLocationsIndex)));
+
+        for (int i = kLocationsIndex + 1; i < l.size(); i++) {
             msg.locations.emplace_back(decodeLocation(l.at(i)));
         }
 
