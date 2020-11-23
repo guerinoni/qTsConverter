@@ -32,6 +32,7 @@ std::pair<Translations, QString> TsParser::parse() const
             if (nodeMsg.nodeName() != QStringLiteral("message")) {
                 continue;
             }
+
             TranslationMessage msg;
 
             msg.source =

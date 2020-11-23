@@ -24,6 +24,7 @@ std::pair<Translations, QString> CsvParser::parse() const
     Translations translations;
     TranslationContext context;
     TranslationMessage msg;
+
     list.pop_front();
     removeQuote(list);
 
@@ -45,7 +46,6 @@ std::pair<Translations, QString> CsvParser::parse() const
             context.messages.clear();
             context.messages.emplace_back(msg);
             translations.emplace_back(context);
-
         } else {
             context.messages.emplace_back(msg);
             translations.at(std::distance(translations.begin(), it)) = context;
@@ -69,6 +69,7 @@ void CsvParser::removeEmptyFrontBack(QList<QStringList> &list) const
         if (v.first().isEmpty()) {
             v.pop_front();
         }
+
         if (v.back().isEmpty()) {
             v.pop_back();
         }
