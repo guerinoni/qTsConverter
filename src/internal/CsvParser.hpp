@@ -22,6 +22,6 @@ class CsvParser : public Parser
     void splitMergedString(QList<QStringList> &list) const;
     void splitByRow(QList<QStringList> &list) const;
     void removeQuote(QList<QStringList> &list) const;
-    int m_minimumSize{ 4 };
+    const int m_minimumSize{ 4 };
     bool isLocation(QString value) const;
 };

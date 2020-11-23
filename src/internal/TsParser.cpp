@@ -42,7 +42,6 @@ std::pair<Translations, QString> TsParser::parse() const
             for (int k = 0; k < locations.size(); k++) {
                 if (locations.at(k).nodeName() == "location") {
                     auto locMsg = locations.item(k);
-
                     msg.locations.emplace_back(wrapLocation(locMsg));
                 }
             }

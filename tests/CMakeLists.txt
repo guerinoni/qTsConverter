@@ -36,5 +36,5 @@ add_definitions(-DFILESPATH=\"${CMAKE_CURRENT_SOURCE_DIR}/files\")
 
 add_test("tst_ts2csv" tst_ts2csv)
 add_test("tst_csv2ts" tst_csv2ts)
-add_test("tst_xlsx2ts" tst_xlsx2ts)
 add_test("tst_ts2xlsx" tst_ts2xlsx)
+add_test("tst_xlsx2ts" tst_xlsx2ts)
