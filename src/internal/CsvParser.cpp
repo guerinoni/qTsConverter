@@ -98,7 +98,7 @@ void CsvParser::splitByRow(QList<QStringList> &list) const
     for (int i = 0; i < list.size(); ++i) {
         QStringList qsl;
         int j = 0;
-        if (list[i].size() >= 8) {
+        if (list[i].size() >= kRowSize) {
             for (j = 0; j < list[i].size(); j++) {
                 if (j >= m_minimumSize && !isLocation(list[i][j])) {
                     break;
