@@ -34,9 +34,36 @@ bool scenario1()
     return o.size() == e.size() && o == e;
 }
 
+bool scenario_multiLocation()
+{
+    const auto inputFile{ FILESPATH +
+                          std::string("/scenario_multiLocation.csv") };
+    auto conv = ConverterFactory::make_converter(
+        ConverterFactory::ConversionType::Csv2Ts, inputFile.c_str(),
+        m_outputFile.c_str(), ";", "\"", "2.1");
+    conv->process();
+    QFile output(m_outputFile.c_str());
+    if (!output.exists()) {
+        return false;
+    }
+
+    QFile expected(FILESPATH + QString("/scenario_multiLocation.ts"));
+    expected.open(QIODevice::ReadOnly | QIODevice::Text);
+    output.open(QIODevice::ReadOnly | QIODevice::Text);
+
+    const auto o = output.readAll();
+    const auto e = expected.readAll();
+
+    expected.close();
+    output.close();
+
+    return o.size() == e.size() && o == e;
+}
+
 int main()
 {
     int ret = !scenario1();
+    ret |= !scenario_multiLocation();
     cleanup();
     return ret;
 }

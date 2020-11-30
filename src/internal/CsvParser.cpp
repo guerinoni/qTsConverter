@@ -1,6 +1,5 @@
 #include "CsvParser.hpp"
 
-#include <QDebug>
 #include <QFile>
 #include <include/qtcsv/reader.h>
 
@@ -29,11 +28,16 @@ std::pair<Translations, QString> CsvParser::parse() const
     list.pop_front();
     removeQuote(list);
 
-    for (const auto &l : qAsConst(list)) {
-        context.name    = l.at(0);
-        msg.source      = l.at(1);
-        msg.translation = l.at(2);
-        msg.locations.emplace_back(decodeLocation(l.at(3)));
+    for (const QStringList &l : qAsConst(list)) {
+        for (auto value : l)
+            context.name = l.at(kNameIndex);
+        msg.source      = l.at(kSourceIndex);
+        msg.translation = l.at(kTranslationIndex);
+        msg.locations.emplace_back(decodeLocation(l.at(kLocationsIndex)));
+
+        for (int i = kLocationsIndex + 1; i < l.size(); i++) {
+            msg.locations.emplace_back(decodeLocation(l.at(i)));
+        }
 
         auto it =
             std::find_if(translations.begin(), translations.end(),
@@ -92,17 +96,22 @@ void CsvParser::splitByRow(QList<QStringList> &list) const
 {
     QList<QStringList> ret;
     for (int i = 0; i < list.size(); ++i) {
-        if (list[i].size() == 8) {
-            QStringList qsl;
-            qsl << list[i][0] << list[i][1] << list[i][2] << list[i][3];
+        QStringList qsl;
+        int j = 0;
+        if (list[i].size() >= kRowSize) {
+            for (j = 0; j < list[i].size(); j++) {
+                if (j >= m_minimumSize && !isLocation(list[i][j])) {
+                    break;
+                }
+                qsl << list[i][j];
+            }
             ret.push_back(qsl);
             qsl.clear();
-
-            qsl << list[i][4] << list[i][5] << list[i][6] << list[i][7];
-            ret.push_back(qsl);
-            continue;
         }
-        ret.push_back(list[i]);
+        for (int k = j; k < list[i].size(); k++) {
+            qsl << list[i][k];
+        }
+        ret.push_back(qsl);
     }
     list = ret;
 }
@@ -114,4 +123,10 @@ void CsvParser::removeQuote(QList<QStringList> &list) const
             ll = ll.replace('"', QString{});
         }
     }
+}
+
+bool CsvParser::isLocation(QString value) const
+{
+    return value.contains("Location") ||
+           value.contains(QRegExp("\\.\\.\\/.+-.[0-9]+"));
 }

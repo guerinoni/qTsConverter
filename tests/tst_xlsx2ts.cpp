@@ -2,7 +2,7 @@
 
 #include <QFile>
 
-const std::string m_outputFile{ FILESPATH + std::string("/output.csv") };
+const std::string m_outputFile{ FILESPATH + std::string("/output.ts") };
 
 void cleanup()
 {
@@ -11,9 +11,9 @@ void cleanup()
 
 bool scenario1()
 {
-    const auto inputFile{ FILESPATH + std::string("/scenario1.ts") };
+    const auto inputFile{ FILESPATH + std::string("/scenario1.xlsx") };
     auto conv = ConverterFactory::make_converter(
-        ConverterFactory::ConversionType::Ts2Csv, inputFile.c_str(),
+        ConverterFactory::ConversionType::Xlsx2Ts, inputFile.c_str(),
         m_outputFile.c_str(), ";", "\"", "2.1");
     conv->process();
     QFile output(m_outputFile.c_str());
@@ -21,7 +21,7 @@ bool scenario1()
         return false;
     }
 
-    QFile expected(FILESPATH + QString("/scenario1.csv"));
+    QFile expected(FILESPATH + QString("/scenario1.ts"));
     expected.open(QIODevice::ReadOnly | QIODevice::Text);
     output.open(QIODevice::ReadOnly | QIODevice::Text);
 
@@ -33,12 +33,13 @@ bool scenario1()
 
     return o.size() == e.size() && o == e;
 }
+
 bool scenario_multiLocation()
 {
     const auto inputFile{ FILESPATH +
-                          std::string("/scenario_multiLocation.ts") };
+                          std::string("/scenario_multiLocation.xlsx") };
     auto conv = ConverterFactory::make_converter(
-        ConverterFactory::ConversionType::Ts2Csv, inputFile.c_str(),
+        ConverterFactory::ConversionType::Xlsx2Ts, inputFile.c_str(),
         m_outputFile.c_str(), ";", "\"", "2.1");
     conv->process();
     QFile output(m_outputFile.c_str());
@@ -46,7 +47,7 @@ bool scenario_multiLocation()
         return false;
     }
 
-    QFile expected(FILESPATH + QString("/scenario_multiLocation.csv"));
+    QFile expected(FILESPATH + QString("/scenario_multiLocation.ts"));
     expected.open(QIODevice::ReadOnly | QIODevice::Text);
     output.open(QIODevice::ReadOnly | QIODevice::Text);
 
@@ -55,6 +56,7 @@ bool scenario_multiLocation()
 
     expected.close();
     output.close();
+
     return o.size() == e.size() && o == e;
 }
 
@@ -63,5 +65,6 @@ int main()
     int ret  = !scenario1();
     int ret2 = !scenario_multiLocation();
     cleanup();
+
     return ret && ret2;
 }

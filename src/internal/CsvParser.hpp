@@ -22,4 +22,12 @@ class CsvParser : public Parser
     void splitMergedString(QList<QStringList> &list) const;
     void splitByRow(QList<QStringList> &list) const;
     void removeQuote(QList<QStringList> &list) const;
+    const int m_minimumSize{ 4 };
+    bool isLocation(const QString value) const;
+
+    const int kNameIndex{ 0 };
+    const int kSourceIndex{ 1 };
+    const int kTranslationIndex{ 2 };
+    const int kLocationsIndex{ 3 };
+    const int kRowSize{ 8 };
 };

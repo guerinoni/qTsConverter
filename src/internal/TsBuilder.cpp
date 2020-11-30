@@ -35,8 +35,8 @@ bool TsBuilder::build(const Translations &trs) const
         for (const auto &msg : ctxs.messages) {
             s.writeStartElement("message");
 
-            s.writeEmptyElement("location");
             for (const auto &loc : msg.locations) {
+                s.writeEmptyElement("location");
                 s.writeAttribute("line", QString::number(loc.second));
                 s.writeAttribute("filename", loc.first);
             }

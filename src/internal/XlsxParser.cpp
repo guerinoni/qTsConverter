@@ -37,7 +37,10 @@ std::pair<Translations, QString> XlsxParser::parse() const
 
         for (auto col = 4; col <= lastColumn; ++col) {
             const auto loc = xlsx.read(row, col).toString();
-            auto list      = loc.split(QStringLiteral(" - "));
+            if (loc.isEmpty()) {
+                break;
+            }
+            auto list = loc.split(QStringLiteral(" - "));
             msg.locations.emplace_back(
                 std::make_pair(list.first(), list.last().toInt()));
         }
