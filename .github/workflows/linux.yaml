@@ -6,8 +6,8 @@ jobs:
   build:
     strategy:
       matrix:
-        qt_version: [5.15.1]
-        platform: [ubuntu-18.04, ubuntu-20.04]
+        qt_version: [5.15.2]
+        platform: [ubuntu-latest]
         arch: [x64]
       fail-fast: false
     runs-on: ${{ matrix.platform }}
@@ -18,7 +18,7 @@ jobs:
           submodules: 'recursive'
 
       - name: Installing Qt
-        uses: jurplel/install-qt-action@v2
+        uses: jurplel/install-qt-action@v2.13.0
         with:
           version: ${{ matrix.qt_version }}
           arch: ${{ matrix.qtarch }}
