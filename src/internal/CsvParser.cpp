@@ -10,15 +10,14 @@ CsvParser::CsvParser(InOutParameter parameter) : Parser{ std::move(parameter) }
 std::pair<Translations, QString> CsvParser::parse() const
 {
     auto list = QtCSV::Reader::readToList(
-        m_ioParameter.inputFile, m_ioParameter.csvProperty.field_separator,
-        m_ioParameter.csvProperty.string_separator);
+        m_ioParameter.inputFile, m_ioParameter.csvProperty.string_separator,
+        m_ioParameter.csvProperty.field_separator);
 
     if (list.isEmpty()) {
         return std::make_pair(Translations(), "Source file empty!");
     }
 
     removeEmptyFrontBack(list);
-    splitMergedString(list);
     splitByRow(list);
 
     Translations translations;

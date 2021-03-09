@@ -1,67 +1,19 @@
 #include "ConverterFactory.hpp"
+#include "util.hpp"
 
-#include <QFile>
-
-const std::string m_outputFile{ FILESPATH + std::string("/output.csv") };
-
-void cleanup()
+auto main() -> int
 {
-    QFile::remove(m_outputFile.c_str());
-}
+    bool ret = false;
 
-bool scenario1()
-{
-    const auto inputFile{ FILESPATH + std::string("/scenario1.ts") };
-    auto conv = ConverterFactory::make_converter(
-        ConverterFactory::ConversionType::Ts2Csv, inputFile.c_str(),
-        m_outputFile.c_str(), ";", "\"", "2.1");
-    conv->process();
-    QFile output(m_outputFile.c_str());
-    if (!output.exists()) {
-        return false;
-    }
+    ret |= !test_conversion("scenario_simple.ts", "scenario_simple.csv",
+                            ConverterFactory::ConversionType::Ts2Csv);
 
-    QFile expected(FILESPATH + QString("/scenario1.csv"));
-    expected.open(QIODevice::ReadOnly | QIODevice::Text);
-    output.open(QIODevice::ReadOnly | QIODevice::Text);
+    ret |= !test_conversion("scenario_multilocation.ts",
+                            "scenario_multilocation.csv",
+                            ConverterFactory::ConversionType::Ts2Csv);
 
-    const auto o = output.readAll();
-    const auto e = expected.readAll();
+    ret |= !test_conversion("scenario_multiline.ts", "scenario_multiline.csv",
+                            ConverterFactory::ConversionType::Ts2Csv);
 
-    expected.close();
-    output.close();
-
-    return o.size() == e.size() && o == e;
-}
-bool scenario_multiLocation()
-{
-    const auto inputFile{ FILESPATH +
-                          std::string("/scenario_multiLocation.ts") };
-    auto conv = ConverterFactory::make_converter(
-        ConverterFactory::ConversionType::Ts2Csv, inputFile.c_str(),
-        m_outputFile.c_str(), ";", "\"", "2.1");
-    conv->process();
-    QFile output(m_outputFile.c_str());
-    if (!output.exists()) {
-        return false;
-    }
-
-    QFile expected(FILESPATH + QString("/scenario_multiLocation.csv"));
-    expected.open(QIODevice::ReadOnly | QIODevice::Text);
-    output.open(QIODevice::ReadOnly | QIODevice::Text);
-
-    const auto o = output.readAll();
-    const auto e = expected.readAll();
-
-    expected.close();
-    output.close();
-    return o.size() == e.size() && o == e;
-}
-
-int main()
-{
-    int ret  = !scenario1();
-    int ret2 = !scenario_multiLocation();
-    cleanup();
-    return ret && ret2;
+    return static_cast<int>(ret);
 }
