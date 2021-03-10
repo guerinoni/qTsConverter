@@ -1,50 +1,21 @@
 #include "ConverterFactory.hpp"
+#include "util.hpp"
 
-#include <QDebug>
 #include <QFile>
+#include <QtDebug>
 #include <xlsx/xlsxdocument.h>
 
-const std::string m_outputFile{ FILESPATH + std::string("/output.xlsx") };
-
-void cleanup()
+auto scenario_multiLocation() -> bool
 {
-    QFile::remove(m_outputFile.c_str());
-}
-
-bool scenario1()
-{
-    const auto inputFile{ FILESPATH + std::string("/scenario1.ts") };
-    auto conv = ConverterFactory::make_converter(
-        ConverterFactory::ConversionType::Ts2Xlsx, inputFile.c_str(),
-        m_outputFile.c_str(), ";", "\"", "2.1");
-    conv->process();
-    QFile output(m_outputFile.c_str());
-    if (!output.exists()) {
-        return false;
-    }
-
-    QFile expected(FILESPATH + QString("/scenario1.xlsx"));
-    expected.open(QIODevice::ReadOnly | QIODevice::Text);
-    output.open(QIODevice::ReadOnly | QIODevice::Text);
-
-    const auto o = output.readAll();
-    const auto e = expected.readAll();
-
-    expected.close();
-    output.close();
-
-    return o.size() == e.size() && o == e;
-}
-bool scenario_multiLocation()
-{
+    auto output = FILESPATH + std::string("/output.xlsx");
     const auto inputFile{ FILESPATH +
-                          std::string("/scenario_multiLocation.ts") };
+                          std::string("/scenario_multilocation.ts") };
     auto conv = ConverterFactory::make_converter(
         ConverterFactory::ConversionType::Ts2Xlsx, inputFile.c_str(),
-        m_outputFile.c_str(), ";", "\"", "2.1");
+        output.c_str(), ";", "\"", "2.1");
     conv->process();
 
-    QXlsx::Document xlsx(m_outputFile.c_str());
+    QXlsx::Document xlsx(output.c_str());
 
     int rowCount    = xlsx.dimension().rowCount();
     int columnCount = xlsx.dimension().columnCount();
@@ -68,12 +39,14 @@ bool scenario_multiLocation()
     return true;
 }
 
-int main()
+auto main() -> int
 {
-    //    int ret  = !scenario1();
-    //    int ret2 = !scenario_multiLocation();
-    //    cleanup();
-    //    return ret2;
-    //    return ret && ret2;
-    return 0;
+    bool ret = false;
+
+    //    ret |= !test_conversion("scenario_simple.ts", "scenario_simple.xlsx",
+    //                            ConverterFactory::ConversionType::Ts2Xlsx);
+
+    ret |= !scenario_multiLocation();
+
+    return static_cast<int>(ret);
 }

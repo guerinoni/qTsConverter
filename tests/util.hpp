@@ -15,6 +15,10 @@ auto test_conversion(std::string &&input, std::string &&expect, ConverterFactory
         output += ".csv";
         break;
 
+    case ConverterFactory::ConversionType::Ts2Xlsx:
+        output += ".xlsx";
+        break;
+
     default:
         break;
     }
