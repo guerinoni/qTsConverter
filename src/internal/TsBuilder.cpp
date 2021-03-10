@@ -21,7 +21,7 @@ bool TsBuilder::build(const Translations &trs) const
 
     QXmlStreamWriter s(&output);
     s.setAutoFormatting(true);
-    s.setAutoFormattingIndent(2);
+    s.setAutoFormattingIndent(4);
     s.writeStartDocument();
 
     s.writeEmptyElement("!DOCTYPE TS");
@@ -37,8 +37,8 @@ bool TsBuilder::build(const Translations &trs) const
 
             for (const auto &loc : msg.locations) {
                 s.writeEmptyElement("location");
-                s.writeAttribute("line", QString::number(loc.second));
                 s.writeAttribute("filename", loc.first);
+                s.writeAttribute("line", QString::number(loc.second));
             }
 
             s.writeTextElement("source", msg.source);

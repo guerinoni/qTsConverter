@@ -7,18 +7,17 @@ CsvParser::CsvParser(InOutParameter parameter) : Parser{ std::move(parameter) }
 {
 }
 
-std::pair<Translations, QString> CsvParser::parse() const
+auto CsvParser::parse() const -> std::pair<Translations, QString>
 {
     auto list = QtCSV::Reader::readToList(
-        m_ioParameter.inputFile, m_ioParameter.csvProperty.field_separator,
-        m_ioParameter.csvProperty.string_separator);
+        m_ioParameter.inputFile, m_ioParameter.csvProperty.string_separator,
+        m_ioParameter.csvProperty.field_separator);
 
     if (list.isEmpty()) {
         return std::make_pair(Translations(), "Source file empty!");
     }
 
     removeEmptyFrontBack(list);
-    splitMergedString(list);
     splitByRow(list);
 
     Translations translations;
@@ -29,8 +28,10 @@ std::pair<Translations, QString> CsvParser::parse() const
     removeQuote(list);
 
     for (const QStringList &l : qAsConst(list)) {
-        for (auto value : l)
+        for (const auto &value : l) {
             context.name = l.at(kNameIndex);
+        }
+
         msg.source      = l.at(kSourceIndex);
         msg.translation = l.at(kTranslationIndex);
         msg.locations.emplace_back(decodeLocation(l.at(kLocationsIndex)));
@@ -56,16 +57,15 @@ std::pair<Translations, QString> CsvParser::parse() const
     return std::make_pair(translations, "");
 }
 
-std::pair<QString, int> CsvParser::decodeLocation(const QString &str) const
+auto CsvParser::decodeLocation(const QString &str) -> std::pair<QString, int>
 {
     auto list = str.split(QStringLiteral(" - "));
     return std::make_pair(list.first(), list.last().toInt());
 }
 
-void CsvParser::removeEmptyFrontBack(QList<QStringList> &list) const
+void CsvParser::removeEmptyFrontBack(QList<QStringList> &list)
 {
-    for (int i = 0; i < list.size(); ++i) {
-        decltype(auto) v = list[i];
+    for (auto &v : list) {
         if (v.first().isEmpty()) {
             v.pop_front();
         }
@@ -76,47 +76,34 @@ void CsvParser::removeEmptyFrontBack(QList<QStringList> &list) const
     }
 }
 
-void CsvParser::splitMergedString(QList<QStringList> &list) const
-{
-    for (auto &l : list) {
-        for (int i = 0; i < l.size(); ++i) {
-            auto pair = l[i].split(QStringLiteral("\n"));
-            if (pair.size() == 1) {
-                continue;
-            }
-
-            l.removeAt(i);
-            l.insert(i, pair.first());
-            l.insert(i + 1, pair.last());
-        }
-    }
-}
-
 void CsvParser::splitByRow(QList<QStringList> &list) const
 {
     QList<QStringList> ret;
-    for (int i = 0; i < list.size(); ++i) {
+    for (auto &i : list) {
         QStringList qsl;
         int j = 0;
-        if (list[i].size() >= kRowSize) {
-            for (j = 0; j < list[i].size(); j++) {
-                if (j >= m_minimumSize && !isLocation(list[i][j])) {
+        if (i.size() >= kRowSize) {
+            for (j = 0; j < i.size(); j++) {
+                if (j >= m_minimumSize && !isLocation(i[j])) {
                     break;
                 }
-                qsl << list[i][j];
+
+                qsl << i[j];
             }
             ret.push_back(qsl);
             qsl.clear();
         }
-        for (int k = j; k < list[i].size(); k++) {
-            qsl << list[i][k];
+
+        for (int k = j; k < i.size(); k++) {
+            qsl << i[k];
         }
+
         ret.push_back(qsl);
     }
     list = ret;
 }
 
-void CsvParser::removeQuote(QList<QStringList> &list) const
+void CsvParser::removeQuote(QList<QStringList> &list)
 {
     for (auto &l : list) {
         for (auto &ll : l) {
@@ -125,8 +112,8 @@ void CsvParser::removeQuote(QList<QStringList> &list) const
     }
 }
 
-bool CsvParser::isLocation(QString value) const
+auto CsvParser::isLocation(const QString &value) -> bool
 {
     return value.contains("Location") ||
-           value.contains(QRegExp("\\.\\.\\/.+-.[0-9]+"));
+           value.contains(QRegExp(R"(\.\.\/.+-.[0-9]+)"));
 }

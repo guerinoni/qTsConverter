@@ -1,56 +1,62 @@
 #include "ConverterFactory.hpp"
 
-#include <QDebug>
 #include <QFile>
+#include <QtDebug>
 #include <xlsx/xlsxdocument.h>
 
-const std::string m_outputFile{ FILESPATH + std::string("/output.xlsx") };
-
-void cleanup()
+auto scenario_simple() -> bool
 {
-    QFile::remove(m_outputFile.c_str());
-}
-
-bool scenario1()
-{
-    const auto inputFile{ FILESPATH + std::string("/scenario1.ts") };
+    auto output = FILESPATH + std::string("/output.xlsx");
+    const auto inputFile{ FILESPATH + std::string("/scenario_simple.ts") };
     auto conv = ConverterFactory::make_converter(
         ConverterFactory::ConversionType::Ts2Xlsx, inputFile.c_str(),
-        m_outputFile.c_str(), ";", "\"", "2.1");
+        output.c_str(), ";", "\"", "2.1");
     conv->process();
-    QFile output(m_outputFile.c_str());
-    if (!output.exists()) {
+
+    QXlsx::Document xlsx(output.c_str());
+
+    int rowCount    = xlsx.dimension().rowCount();
+    int columnCount = xlsx.dimension().columnCount();
+
+    if (rowCount != 5 || columnCount != 4) {
+        qDebug() << "The column size or the row size is wrong";
+        QFile::remove(output.c_str());
         return false;
     }
 
-    QFile expected(FILESPATH + QString("/scenario1.xlsx"));
-    expected.open(QIODevice::ReadOnly | QIODevice::Text);
-    output.open(QIODevice::ReadOnly | QIODevice::Text);
+    if (xlsx.read(2, 2) != "text" || xlsx.read(3, 2) != "map" ||
+        xlsx.read(4, 2) != "cam" || xlsx.read(5, 2) != "checklist" ||
+        xlsx.read(2, 4) != "../src/app/qml/MenuBar.qml - 17" ||
+        xlsx.read(3, 4) != "../src/app/qml/MenuBar.qml - 28" ||
+        xlsx.read(4, 4) != "../src/app/qml/MenuBar.qml - 43" ||
+        xlsx.read(5, 4) != "../src/app/qml/MenuBar.qml - 58") {
+        qWarning() << "Can't find one or more strings in the output file";
+        QFile::remove(output.c_str());
+        return false;
+    }
 
-    const auto o = output.readAll();
-    const auto e = expected.readAll();
-
-    expected.close();
-    output.close();
-
-    return o.size() == e.size() && o == e;
+    QFile::remove(output.c_str());
+    return true;
 }
-bool scenario_multiLocation()
+
+auto scenario_multiLocation() -> bool
 {
+    auto output = FILESPATH + std::string("/output.xlsx");
     const auto inputFile{ FILESPATH +
-                          std::string("/scenario_multiLocation.ts") };
+                          std::string("/scenario_multilocation.ts") };
     auto conv = ConverterFactory::make_converter(
         ConverterFactory::ConversionType::Ts2Xlsx, inputFile.c_str(),
-        m_outputFile.c_str(), ";", "\"", "2.1");
+        output.c_str(), ";", "\"", "2.1");
     conv->process();
 
-    QXlsx::Document xlsx(m_outputFile.c_str());
+    QXlsx::Document xlsx(output.c_str());
 
     int rowCount    = xlsx.dimension().rowCount();
     int columnCount = xlsx.dimension().columnCount();
 
     if (rowCount != 7 || columnCount != 6) {
         qDebug() << "The column size or the row size is wrong";
+        QFile::remove(output.c_str());
         return false;
     }
 
@@ -62,17 +68,21 @@ bool scenario_multiLocation()
         xlsx.read(7, 2) != "Anti-aliasing" ||
         xlsx.read(7, 4) != "../themewidget.ui - 49") {
         qWarning() << "Can't find one or more strings in the output file";
+        QFile::remove(output.c_str());
         return false;
     }
 
+    QFile::remove(output.c_str());
     return true;
 }
 
-int main()
+auto main() -> int
 {
-    int ret  = !scenario1();
-    int ret2 = !scenario_multiLocation();
-    cleanup();
-    return ret2;
-    return ret && ret2;
+    bool ret = false;
+
+    ret |= !scenario_simple();
+
+    ret |= !scenario_multiLocation();
+
+    return static_cast<int>(ret);
 }
