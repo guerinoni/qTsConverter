@@ -20,6 +20,7 @@ auto scenario_simple() -> bool
 
     if (rowCount != 5 || columnCount != 4) {
         qDebug() << "The column size or the row size is wrong";
+        QFile::remove(output.c_str());
         return false;
     }
 
@@ -30,9 +31,11 @@ auto scenario_simple() -> bool
         xlsx.read(4, 4) != "../src/app/qml/MenuBar.qml - 43" ||
         xlsx.read(5, 4) != "../src/app/qml/MenuBar.qml - 58") {
         qWarning() << "Can't find one or more strings in the output file";
+        QFile::remove(output.c_str());
         return false;
     }
 
+    QFile::remove(output.c_str());
     return true;
 }
 
@@ -53,6 +56,7 @@ auto scenario_multiLocation() -> bool
 
     if (rowCount != 7 || columnCount != 6) {
         qDebug() << "The column size or the row size is wrong";
+        QFile::remove(output.c_str());
         return false;
     }
 
@@ -64,9 +68,11 @@ auto scenario_multiLocation() -> bool
         xlsx.read(7, 2) != "Anti-aliasing" ||
         xlsx.read(7, 4) != "../themewidget.ui - 49") {
         qWarning() << "Can't find one or more strings in the output file";
+        QFile::remove(output.c_str());
         return false;
     }
 
+    QFile::remove(output.c_str());
     return true;
 }
 
