@@ -16,11 +16,11 @@ int main(int argc, char **argv)
         QQuickWindow::TextRenderType::NativeTextRendering);
 #endif
 
-    QApplication app(argc, argv);
-    app.setOrganizationName(QStringLiteral("Federico Guerinoni"));
-    app.setOrganizationDomain(QStringLiteral("Federico Guerinoni"));
-    app.setApplicationName(QStringLiteral("qTsConverter"));
-    app.setWindowIcon(QIcon(":/assets/logos/profile.png"));
+    QGuiApplication app(argc, argv);
+    QApplication::setOrganizationName(QStringLiteral("Federico Guerinoni"));
+    QApplication::setOrganizationDomain(QStringLiteral("Federico Guerinoni"));
+    QApplication::setApplicationName(QStringLiteral("qTsConverter"));
+    QApplication::setWindowIcon(QIcon(":/assets/logos/profile.png"));
 
     QFontDatabase::addApplicationFont(
         QStringLiteral(":/assets/fonts/Roboto-Light.ttf"));
