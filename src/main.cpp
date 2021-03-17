@@ -16,7 +16,7 @@ int main(int argc, char **argv)
         QQuickWindow::TextRenderType::NativeTextRendering);
 #endif
 
-    QGuiApplication app(argc, argv);
+    QApplication app(argc, argv);
     QApplication::setOrganizationName(QStringLiteral("Federico Guerinoni"));
     QApplication::setOrganizationDomain(QStringLiteral("Federico Guerinoni"));
     QApplication::setApplicationName(QStringLiteral("qTsConverter"));
