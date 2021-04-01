@@ -36,10 +36,14 @@ QHash<int, QByteArray> ConversionModel::roleNames() const
     return { { Roles::String, "stringRole" } };
 }
 
-void ConversionModel::setInput(const QString &value)
+void ConversionModel::clearInput()
 {
-    m_input = value;
-    deduceInputOutput();
+    m_input.clear();
+}
+
+void ConversionModel::addInput(QString value)
+{
+    m_input.push_back(value);
 }
 
 QString ConversionModel::setOutput(const QString &value)

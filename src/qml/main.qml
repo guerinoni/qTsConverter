@@ -192,9 +192,24 @@ Window {
 
     LoadFileDialog {
         id: loadFileDialog
-        objectName: "loadFileDialog"
 
-        onAccepted: sourceInput.text = loadFileDialog.file
+        objectName: "loadFileDialog"
+        onAccepted: {
+            conversionModel.clearInput()
+
+            if (loadFileDialog.files.length > 1) {
+                sourceInput.text = "<multiple files selected>"
+                sourceOutput.text = "<names automatically assigned>"
+            }
+
+            if (loadFileDialog.files.length === 1) {
+                sourceInput.text = loadFileDialog.file
+            }
+
+            for (var i = 0; i < loadFileDialog.files.length; i++) {
+                conversionModel.addInput(loadFileDialog.files[i])
+            }
+        }
     }
 
     SaveFileDialog {

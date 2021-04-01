@@ -22,7 +22,8 @@ class ConversionModel final : public QAbstractListModel
     QVariant data(const QModelIndex &index, int role) const override;
     QHash<int, QByteArray> roleNames() const override;
 
-    Q_INVOKABLE void setInput(const QString &value);
+    Q_INVOKABLE void clearInput();
+    Q_INVOKABLE void addInput(QString value);
     Q_INVOKABLE QString setOutput(const QString &value);
 
     Q_INVOKABLE QStringList getLoadFT();
@@ -38,7 +39,7 @@ class ConversionModel final : public QAbstractListModel
 
   private:
     QVector<QString> m_conversions;
-    QString m_input;
+    QList<QString> m_input;
     QString m_output;
 
     void deduceInputOutput() noexcept;
