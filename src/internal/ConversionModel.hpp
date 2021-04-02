@@ -6,6 +6,8 @@ class ConversionModel final : public QAbstractListModel
 {
     Q_OBJECT
 
+    Q_PROPERTY(QString sourceMsg READ sourceMsg NOTIFY sourceMsgChanged)
+
   public:
     ConversionModel() = delete;
     explicit ConversionModel(QObject *parent = nullptr);
@@ -34,13 +36,18 @@ class ConversionModel final : public QAbstractListModel
     Q_INVOKABLE void openOutput();
     Q_INVOKABLE void openOutputFolder();
 
-  Q_SIGNALS:
+    QString sourceMsg() const;
+
+  signals:
     void setComboBoxIndex(int index);
+    void sourceMsgChanged();
 
   private:
     QVector<QString> m_conversions;
     QList<QString> m_input;
     QString m_output;
+
+    QString m_sourceMsg;
 
     void deduceInputOutput() noexcept;
     int currentIndex = 4;

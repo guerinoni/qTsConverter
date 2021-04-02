@@ -44,6 +44,18 @@ void ConversionModel::clearInput()
 void ConversionModel::addInput(QString value)
 {
     m_input.push_back(value);
+
+    if (m_input.size() == 1) {
+        m_sourceMsg = m_input.front();
+        emit sourceMsgChanged();
+        return;
+    }
+
+    if (m_input.size() > 1) {
+        m_sourceMsg = QString::number(m_input.size()) + " files selected";
+        emit sourceMsgChanged();
+        return;
+    }
 }
 
 QString ConversionModel::setOutput(const QString &value)
@@ -150,4 +162,9 @@ void ConversionModel::openOutputFolder()
     int pos = replaced.lastIndexOf(QRegExp("/.*"));
     replaced.replace(pos, replaced.length() - pos, "");
     QDesktopServices::openUrl(QUrl::fromLocalFile(replaced));
+}
+
+QString ConversionModel::sourceMsg() const
+{
+    return m_sourceMsg;
 }

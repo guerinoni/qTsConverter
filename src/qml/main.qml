@@ -50,6 +50,7 @@ Window {
                 id: sourceInput
 
                 color: Material.color(Material.Grey)
+                text: conversionModel.sourceMsg
                 Layout.fillWidth: true
             }
 
@@ -193,12 +194,10 @@ Window {
             conversionModel.clearInput()
 
             if (loadFileDialog.files.length > 1) {
-                sourceInput.text = "<" + loadFileDialog.files.length + " files selected>"
                 saveFileDialog.selectFolder = true
             }
 
             if (loadFileDialog.files.length === 1) {
-                sourceInput.text = loadFileDialog.file
                 saveFileDialog.selectFolder = false
             }
 
