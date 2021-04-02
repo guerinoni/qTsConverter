@@ -51,7 +51,6 @@ Window {
 
                 color: Material.color(Material.Grey)
                 Layout.fillWidth: true
-                onTextChanged: conversionModel.setInput(text)
             }
 
             Button {
@@ -81,11 +80,7 @@ Window {
             Button {
                 text: "Browse"
                 highlighted: true
-                onClicked: {
-                    saveFileDialog.nameFilters = conversionModel.getSaveFT();
-                    saveFileDialog.folder = settings.lastSourceOutput;
-                    saveFileDialog.open();
-                }
+                onClicked: saveFileDialog.visible = true
             }
         }
 
@@ -198,12 +193,13 @@ Window {
             conversionModel.clearInput()
 
             if (loadFileDialog.files.length > 1) {
-                sourceInput.text = "<multiple files selected>"
-                sourceOutput.text = "<names automatically assigned>"
+                sourceInput.text = "<" + loadFileDialog.files.length + " files selected>"
+                saveFileDialog.selectFolder = true
             }
 
             if (loadFileDialog.files.length === 1) {
                 sourceInput.text = loadFileDialog.file
+                saveFileDialog.selectFolder = false
             }
 
             for (var i = 0; i < loadFileDialog.files.length; i++) {
@@ -214,15 +210,20 @@ Window {
 
     SaveFileDialog {
         id: saveFileDialog
-        objectName: "saveFileDialog"
 
-        onAccepted: sourceOutput.text = saveFileDialog.file
+        objectName: "saveFileDialog"
+        selectFolder: false
+        visible: false
+        onOk: {
+            sourceOutput.text = path
+            visible = false
+        }
     }
 
     FinishDialog {
         id: finishDialog
-        objectName: "finishDialog"
 
+        objectName: "finishDialog"
         onAccepted: visible = false
     }
 
