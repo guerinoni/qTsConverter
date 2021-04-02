@@ -4,6 +4,7 @@
 
 #include <QDesktopServices>
 #include <QUrl>
+#include <algorithm>
 
 ConversionModel::ConversionModel(QObject *parent) :
     QAbstractListModel(parent), m_conversions{ "TS => CSV", "CSV => TS",
@@ -51,11 +52,14 @@ void ConversionModel::addInput(QString value)
         return;
     }
 
-    if (m_input.size() > 1) {
-        m_sourceMsg = QString::number(m_input.size()) + " files selected";
+    if (m_input.size() > 1 && !inputHaveSameExtension()) {
+        m_sourceMsg = "source files should have same extension";
         emit sourceMsgChanged();
         return;
     }
+
+    m_sourceMsg = QString::number(m_input.size()) + " files selected";
+    emit sourceMsgChanged();
 }
 
 QString ConversionModel::setOutput(const QString &value)
@@ -141,6 +145,14 @@ void ConversionModel::deduceInputOutput() noexcept
     }
 
     Q_EMIT setComboBoxIndex(currentIndex);
+}
+
+bool ConversionModel::inputHaveSameExtension() noexcept
+{
+    const auto extension = m_input.first().split(".")[1];
+    return std::all_of(m_input.cbegin(), m_input.cend(), [&](const auto &s) {
+        return s.split(".")[1] == extension;
+    });
 }
 
 void ConversionModel::setIndex(const int &newIndex)

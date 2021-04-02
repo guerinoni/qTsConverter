@@ -50,5 +50,6 @@ class ConversionModel final : public QAbstractListModel
     QString m_sourceMsg;
 
     void deduceInputOutput() noexcept;
+    bool inputHaveSameExtension() noexcept;
     int currentIndex = 4;
 };
