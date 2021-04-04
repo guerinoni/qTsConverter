@@ -58,7 +58,6 @@ Window {
                 text: "Browse"
                 highlighted: true
                 onClicked: {
-                    loadFileDialog.nameFilters = conversionModel.getLoadFT();
                     loadFileDialog.folder = settings.lastSourceInput;
                     loadFileDialog.open();
                 }
@@ -91,11 +90,7 @@ Window {
             ComboBox {
                 id: comboType
                 model: conversionModel
-                onActivated: {
-                    conversionModel.setIndex(comboType.currentIndex);
-                    loadFileDialog.nameFilters = conversionModel.getLoadFT();
-                    saveFileDialog.nameFilters = conversionModel.getSaveFT();
-                }
+                onActivated: conversionModel.setIndex(comboType.currentIndex)
             }
 
             Row {

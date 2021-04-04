@@ -28,9 +28,6 @@ class ConversionModel final : public QAbstractListModel
     Q_INVOKABLE void addInput(QString value);
     Q_INVOKABLE QString setOutput(const QString &value);
 
-    Q_INVOKABLE QStringList getLoadFT();
-    Q_INVOKABLE QStringList getSaveFT();
-
     Q_INVOKABLE void setIndex(const int &newIndex);
 
     Q_INVOKABLE void openOutput();

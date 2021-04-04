@@ -82,42 +82,6 @@ QString ConversionModel::setOutput(const QString &value)
     return m_output;
 }
 
-QStringList ConversionModel::getSaveFT()
-{
-    if (currentIndex == ConverterFactory::Csv2Ts ||
-        currentIndex == ConverterFactory::Xlsx2Ts) {
-        return QStringList({ "Translation files (*.ts)" });
-    }
-
-    if (currentIndex == ConverterFactory::Ts2Csv) {
-        return QStringList({ "CSV files (*.csv)" });
-    }
-
-    if (currentIndex == ConverterFactory::Ts2Xlsx) {
-        return QStringList({ "Excel files (*.xls, *.xlsx)" });
-    }
-
-    return QStringList({ "All files (*)" });
-}
-
-QStringList ConversionModel::getLoadFT()
-{
-    if (currentIndex == ConverterFactory::Ts2Csv ||
-        currentIndex == ConverterFactory::Ts2Xlsx) {
-        return QStringList({ "Translation files (*.ts)" });
-    }
-
-    if (currentIndex == ConverterFactory::Csv2Ts) {
-        return QStringList({ "CSV files (*.csv)" });
-    }
-
-    if (currentIndex == ConverterFactory::Xlsx2Ts) {
-        return QStringList({ "Excel files (*.xls, *.xlsx)" });
-    }
-
-    return QStringList({ "All files (*)" });
-}
-
 void ConversionModel::deduceInputOutput() noexcept
 {
     if (m_input.isEmpty() || m_output.isEmpty()) {
