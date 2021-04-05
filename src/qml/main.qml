@@ -50,15 +50,14 @@ Window {
                 id: sourceInput
 
                 color: Material.color(Material.Grey)
+                text: conversionModel.sourceMsg
                 Layout.fillWidth: true
-                onTextChanged: conversionModel.setInput(text)
             }
 
             Button {
                 text: "Browse"
                 highlighted: true
                 onClicked: {
-                    loadFileDialog.nameFilters = conversionModel.getLoadFT();
                     loadFileDialog.folder = settings.lastSourceInput;
                     loadFileDialog.open();
                 }
@@ -73,19 +72,15 @@ Window {
 
             Text {
                 id: sourceOutput
+
                 color: Material.color(Material.Grey)
                 Layout.fillWidth: true
-                onTextChanged: sourceOutput.text = conversionModel.setOutput(text)
             }
 
             Button {
                 text: "Browse"
                 highlighted: true
-                onClicked: {
-                    saveFileDialog.nameFilters = conversionModel.getSaveFT();
-                    saveFileDialog.folder = settings.lastSourceOutput;
-                    saveFileDialog.open();
-                }
+                onClicked: saveFileDialog.visible = true
             }
         }
 
@@ -95,11 +90,7 @@ Window {
             ComboBox {
                 id: comboType
                 model: conversionModel
-                onActivated: {
-                    conversionModel.setIndex(comboType.currentIndex);
-                    loadFileDialog.nameFilters = conversionModel.getLoadFT();
-                    saveFileDialog.nameFilters = conversionModel.getSaveFT();
-                }
+                onActivated: conversionModel.setIndex(comboType.currentIndex)
             }
 
             Row {
@@ -182,7 +173,7 @@ Window {
                      && fieldSeparator.text.length !== 0
                      && stringSeparator.text.length !== 0
             onClicked: {
-                converter.convert(comboType.currentIndex, sourceInput.text,
+                converter.convert(comboType.currentIndex, conversionModel.input(),
                                   sourceOutput.text, fieldSeparator.text,
                                   stringSeparator.text, tsVersion.text)
                 finishDialog.visible = true
@@ -192,22 +183,42 @@ Window {
 
     LoadFileDialog {
         id: loadFileDialog
-        objectName: "loadFileDialog"
 
-        onAccepted: sourceInput.text = loadFileDialog.file
+        objectName: "loadFileDialog"
+        onAccepted: {
+            conversionModel.clearInput()
+
+            if (loadFileDialog.files.length > 1) {
+                saveFileDialog.selectFolder = true
+            }
+
+            if (loadFileDialog.files.length === 1) {
+                saveFileDialog.selectFolder = false
+            }
+
+            for (var i = 0; i < loadFileDialog.files.length; i++) {
+                conversionModel.addInput(loadFileDialog.files[i])
+            }
+        }
     }
 
     SaveFileDialog {
         id: saveFileDialog
-        objectName: "saveFileDialog"
 
-        onAccepted: sourceOutput.text = saveFileDialog.file
+        objectName: "saveFileDialog"
+        selectFolder: false
+        visible: false
+        onOk: {
+            conversionModel.setOutput(path)
+            sourceOutput.text = path
+            visible = false
+        }
     }
 
     FinishDialog {
         id: finishDialog
-        objectName: "finishDialog"
 
+        objectName: "finishDialog"
         onAccepted: visible = false
     }
 

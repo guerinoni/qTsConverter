@@ -15,7 +15,7 @@ CsvBuilder::CsvBuilder(InOutParameter &&parameter) : Builder{ parameter }
     }
 }
 
-bool CsvBuilder::build(const Translations &trs) const
+auto CsvBuilder::build(const Translations &trs) const -> bool
 {
     QStringList strList;
     strList << TitleHeader::Context << TitleHeader::Source

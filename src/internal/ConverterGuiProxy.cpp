@@ -1,38 +1,63 @@
 #include "ConverterGuiProxy.hpp"
 
-#include <QDebug>
-
 ConverterGuiProxy::ConverterGuiProxy(QObject *parent) : QObject(parent) {}
 
-void ConverterGuiProxy::convert(QConversionType type, QString input,
+void ConverterGuiProxy::convert(QConversionType type, QStringList input,
                                 QString output, const QString &fieldSeparator,
                                 const QString &stringSeparator,
                                 const QString &tsVersion)
 {
-    // Remove file:// on linux and file:/// on windows
-    input  = QUrl::fromUserInput(input).toLocalFile();
+    const auto convType = static_cast<ConverterFactory::ConversionType>(type);
+
+    std::for_each(input.begin(), input.end(),
+                  [](auto &in) { in = QUrl::fromUserInput(in).toLocalFile(); });
+
     output = QUrl::fromUserInput(output).toLocalFile();
 
-    auto converter = ConverterFactory::make_converter(
-        static_cast<ConverterFactory::ConversionType>(type), input, output,
-        fieldSeparator, stringSeparator, tsVersion);
+    auto result = Converter::CoversionResult(
+        true, QStringLiteral("Conversion successfull!"), {});
 
-    const auto results = converter->process();
-    setConversionInfo(results.success, results.message,
-                      results.detailedMessage);
+    const auto inputDim           = input.size();
+    const auto multipleConversion = inputDim > 1;
+
+    QStringList out;
+    if (multipleConversion) {
+        for (const auto &i : input) {
+            auto n    = i.right(i.length() - 1 - i.lastIndexOf("/"));
+            n         = n.left(n.lastIndexOf("."));
+            auto name = output + "/" + n + ConverterFactory::toString(convType);
+            out.append(name);
+        }
+    }
+
+    for (int i = 0; i < inputDim; ++i) {
+        const auto o = multipleConversion ? out[i] : output;
+
+        auto converter = ConverterFactory::make_converter(
+            convType, input[i], o, fieldSeparator, stringSeparator, tsVersion);
+
+        const auto tmpResult = converter->process();
+        if (!tmpResult.success) {
+            setConversionInfo(tmpResult.success, tmpResult.message,
+                              tmpResult.detailedMessage);
+            return;
+        }
+    }
+
+    setConversionInfo(result.success, result.message, result.detailedMessage);
 }
 
-bool ConverterGuiProxy::convSuccessfull() const
+auto ConverterGuiProxy::convSuccessfull() const -> bool
 {
     return m_convSuccessfull;
 }
 
-QString ConverterGuiProxy::convMsg() const
+auto ConverterGuiProxy::convMsg() const -> QString
 {
     return m_convMsg;
 }
 
-QString ConverterGuiProxy::detailedConvMsg() const
+auto ConverterGuiProxy::detailedConvMsg() const -> QString
 {
     return m_detailedConvMsg;
 }
@@ -44,7 +69,7 @@ void ConverterGuiProxy::setConversionInfo(bool convSuccessfull,
     m_convSuccessfull = convSuccessfull;
     m_convMsg         = errorMsg;
     m_detailedConvMsg = detailedConvMsg;
-    Q_EMIT conversionCompleted();
+    emit conversionCompleted();
 }
 
 static_assert(static_cast<int>(ConverterGuiProxy::QConversionType::Dummy) ==

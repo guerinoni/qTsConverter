@@ -38,13 +38,14 @@ class ConverterGuiProxy : public QObject
     QString convMsg() const;
     QString detailedConvMsg() const;
 
+    Q_INVOKABLE void convert(ConverterGuiProxy::QConversionType type,
+                             QStringList input, QString output,
+                             const QString &fieldSeparator,
+                             const QString &stringSeparator,
+                             const QString &tsVersion);
+
   signals:
     void conversionCompleted();
-
-  public slots:
-    void convert(ConverterGuiProxy::QConversionType type, QString input,
-                 QString output, const QString &fieldSeparator,
-                 const QString &stringSeparator, const QString &tsVersion);
 
   private:
     bool m_convSuccessfull{ false };
@@ -52,6 +53,6 @@ class ConverterGuiProxy : public QObject
     QString m_detailedConvMsg{};
 
     void setConversionInfo(bool convSuccessfull,
-                           const QString &convMsg         = QString(),
+                           const QString &errorMsg        = QString(),
                            const QString &detailedConvMsg = QString());
 };

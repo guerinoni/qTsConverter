@@ -6,6 +6,7 @@ import QtQuick.Controls.Material 2.12
 
 Dialog {
     id: messageDialog
+
     visible: false
     title: converter.convSuccessfull ? qsTr("Conversion completed") : qsTr(
                                            "Conversion failed")

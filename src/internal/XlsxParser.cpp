@@ -10,7 +10,7 @@ XlsxParser::XlsxParser(InOutParameter &&parameter) :
 {
 }
 
-std::pair<Translations, QString> XlsxParser::parse() const
+auto XlsxParser::parse() const -> std::pair<Translations, QString>
 {
     QXlsx::Document xlsx(m_ioParameter.inputFile);
 
