@@ -13,10 +13,11 @@ editable using an office suite.
 - conversion `.ts` -> `.csv` (and vice-versa)
 - conversion `.ts` -> `.xlsx` (and vice-versa)
 - automatically detect conversion type
+- convert multiple file in input
 
 ## Usage
-- browse input filename
-- choose output filename
+- browse input filename (or multiple input)
+- choose output filename (or folder in case of multi input)
 - click convert button
 
 ### To generate output.csv
