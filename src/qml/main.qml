@@ -72,9 +72,9 @@ Window {
 
             Text {
                 id: sourceOutput
+
                 color: Material.color(Material.Grey)
                 Layout.fillWidth: true
-                onTextChanged: sourceOutput.text = conversionModel.setOutput(text)
             }
 
             Button {
@@ -209,6 +209,7 @@ Window {
         selectFolder: false
         visible: false
         onOk: {
+            conversionModel.setOutput(path)
             sourceOutput.text = path
             visible = false
         }

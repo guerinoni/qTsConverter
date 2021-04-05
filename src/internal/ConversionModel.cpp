@@ -43,7 +43,7 @@ void ConversionModel::clearInput()
     m_input.clear();
 }
 
-void ConversionModel::addInput(QString value)
+void ConversionModel::addInput(const QString &value)
 {
     m_input.push_back(value);
 
@@ -63,13 +63,17 @@ void ConversionModel::addInput(QString value)
     emit sourceMsgChanged();
 }
 
-QString ConversionModel::setOutput(const QString &value)
+void ConversionModel::setOutput(const QString &value)
 {
     m_output = value;
 
+    m_output = m_output.remove(0, 8);
+    m_output.push_front("/");
     if (QFileInfo(m_output).isDir()) {
-        return m_output;
+        return;
     }
+
+    m_output = value;
 
     QString temp =
         m_output.right(m_output.length() - 1 - m_output.lastIndexOf("/"));
@@ -83,8 +87,6 @@ QString ConversionModel::setOutput(const QString &value)
             m_output += ".ts";
         }
     }
-
-    return m_output;
 }
 
 QStringList ConversionModel::input() noexcept
@@ -114,6 +116,11 @@ void ConversionModel::openOutput()
 
 void ConversionModel::openOutputFolder()
 {
+    if (QFileInfo(m_output).isDir()) {
+        QDesktopServices::openUrl(QUrl(m_output));
+        return;
+    }
+
     QString replaced = m_output;
     replaced.replace(0, 7, "");
     int pos = replaced.lastIndexOf(QRegExp("/.*"));
