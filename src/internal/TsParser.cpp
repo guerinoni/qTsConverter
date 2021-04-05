@@ -7,7 +7,7 @@ TsParser::TsParser(InOutParameter &&parameter) : Parser{ std::move(parameter) }
 {
 }
 
-std::pair<Translations, QString> TsParser::parse() const
+auto TsParser::parse() const -> std::pair<Translations, QString>
 {
     QDomDocument doc;
     QFile file(m_ioParameter.inputFile);
@@ -53,8 +53,7 @@ std::pair<Translations, QString> TsParser::parse() const
     return std::make_pair(translations, "");
 }
 
-auto TsParser::wrapLocation(const QDomNode &node) const
-    -> std::pair<QString, int>
+auto TsParser::wrapLocation(const QDomNode &node) -> std::pair<QString, int>
 {
     auto location = node.toElement();
     auto fn       = location.attributeNode(QStringLiteral("filename")).value();

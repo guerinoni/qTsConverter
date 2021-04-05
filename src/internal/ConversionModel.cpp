@@ -14,13 +14,13 @@ ConversionModel::ConversionModel(QObject *parent) :
 {
 }
 
-int ConversionModel::rowCount(const QModelIndex &parent) const
+auto ConversionModel::rowCount(const QModelIndex &parent) const -> int
 {
     Q_UNUSED(parent)
     return m_conversions.size();
 }
 
-QVariant ConversionModel::data(const QModelIndex &index, int role) const
+auto ConversionModel::data(const QModelIndex &index, int role) const -> QVariant
 {
     if (!index.isValid()) {
         return {};
@@ -33,7 +33,7 @@ QVariant ConversionModel::data(const QModelIndex &index, int role) const
     return {};
 }
 
-QHash<int, QByteArray> ConversionModel::roleNames() const
+auto ConversionModel::roleNames() const -> QHash<int, QByteArray>
 {
     return { { Roles::String, "stringRole" } };
 }
@@ -67,7 +67,8 @@ void ConversionModel::setOutput(const QString &value)
 {
     m_output = value;
 
-    m_output = m_output.remove(0, 8);
+    const auto uselessCharsForFolder = 8; // file:///
+    m_output = m_output.remove(0, uselessCharsForFolder);
     m_output.push_front("/");
     if (QFileInfo(m_output).isDir()) {
         return;
@@ -78,7 +79,7 @@ void ConversionModel::setOutput(const QString &value)
     QString temp =
         m_output.right(m_output.length() - 1 - m_output.lastIndexOf("/"));
 
-    if (!temp.contains(QRegExp("\\S+\\.\\S+"))) {
+    if (!temp.contains(QRegExp(R"(\S+\.\S+)"))) {
         if (currentIndex == ConverterFactory::Ts2Xlsx) {
             m_output += ".xlsx";
         } else if (currentIndex == ConverterFactory::Ts2Csv) {
@@ -89,12 +90,12 @@ void ConversionModel::setOutput(const QString &value)
     }
 }
 
-QStringList ConversionModel::input() noexcept
+auto ConversionModel::input() noexcept -> QStringList
 {
     return m_input;
 }
 
-bool ConversionModel::inputHaveSameExtension() noexcept
+auto ConversionModel::inputHaveSameExtension() noexcept -> bool
 {
     const auto extension = m_input.first().split(".")[1];
     return std::all_of(m_input.cbegin(), m_input.cend(), [&](const auto &s) {
@@ -128,7 +129,7 @@ void ConversionModel::openOutputFolder()
     QDesktopServices::openUrl(QUrl::fromLocalFile(replaced));
 }
 
-QString ConversionModel::sourceMsg() const
+auto ConversionModel::sourceMsg() const -> QString
 {
     return m_sourceMsg;
 }

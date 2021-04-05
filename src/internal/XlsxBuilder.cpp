@@ -15,7 +15,7 @@ XlsxBuilder::XlsxBuilder(InOutParameter parameter) :
     }
 }
 
-bool XlsxBuilder::build(const Translations &trs) const
+auto XlsxBuilder::build(const Translations &trs) const -> bool
 {
     QXlsx::Document xlsx;
     xlsx.write(1, 1, TitleHeader::Context);

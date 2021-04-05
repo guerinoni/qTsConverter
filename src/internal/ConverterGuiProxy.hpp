@@ -53,6 +53,6 @@ class ConverterGuiProxy : public QObject
     QString m_detailedConvMsg{};
 
     void setConversionInfo(bool convSuccessfull,
-                           const QString &convMsg         = QString(),
+                           const QString &errorMsg        = QString(),
                            const QString &detailedConvMsg = QString());
 };

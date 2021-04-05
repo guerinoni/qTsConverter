@@ -7,7 +7,7 @@ Converter::Converter(std::unique_ptr<Parser> parser,
 {
 }
 
-Converter::CoversionResult Converter::process() const
+auto Converter::process() const -> Converter::CoversionResult
 {
     const auto result = m_parser->parse();
     if (result.first.empty()) {
@@ -15,10 +15,10 @@ Converter::CoversionResult Converter::process() const
                                result.second);
     }
 
-    if (m_builder->build(result.first)) {
-        return CoversionResult(true, QStringLiteral("Conversion successfull!"),
-                               {});
-    } else {
-        return CoversionResult(false, QStringLiteral("Conversion failed!"), {});
-    }
+    const auto ok = m_builder->build(result.first);
+
+    return ok ? CoversionResult(true, QStringLiteral("Conversion successfull!"),
+                                {})
+              : CoversionResult(false, QStringLiteral("Conversion failed!"),
+                                {});
 }

@@ -11,7 +11,7 @@ TsBuilder::TsBuilder(InOutParameter parameter) : Builder{ std::move(parameter) }
     }
 }
 
-bool TsBuilder::build(const Translations &trs) const
+auto TsBuilder::build(const Translations &trs) const -> bool
 {
     QFile output(m_ioParameter.outputFile);
     if (!output.open(QFile::WriteOnly | QFile::Truncate)) {
@@ -54,7 +54,7 @@ bool TsBuilder::build(const Translations &trs) const
     return true;
 }
 
-void TsBuilder::removeSlashInDoctype(QFile *f) const
+void TsBuilder::removeSlashInDoctype(QFile *f)
 {
     f->open(QIODevice::ReadWrite);
     auto fileData = f->readAll();

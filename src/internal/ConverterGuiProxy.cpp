@@ -47,17 +47,17 @@ void ConverterGuiProxy::convert(QConversionType type, QStringList input,
     setConversionInfo(result.success, result.message, result.detailedMessage);
 }
 
-bool ConverterGuiProxy::convSuccessfull() const
+auto ConverterGuiProxy::convSuccessfull() const -> bool
 {
     return m_convSuccessfull;
 }
 
-QString ConverterGuiProxy::convMsg() const
+auto ConverterGuiProxy::convMsg() const -> QString
 {
     return m_convMsg;
 }
 
-QString ConverterGuiProxy::detailedConvMsg() const
+auto ConverterGuiProxy::detailedConvMsg() const -> QString
 {
     return m_detailedConvMsg;
 }
@@ -69,7 +69,7 @@ void ConverterGuiProxy::setConversionInfo(bool convSuccessfull,
     m_convSuccessfull = convSuccessfull;
     m_convMsg         = errorMsg;
     m_detailedConvMsg = detailedConvMsg;
-    Q_EMIT conversionCompleted();
+    emit conversionCompleted();
 }
 
 static_assert(static_cast<int>(ConverterGuiProxy::QConversionType::Dummy) ==

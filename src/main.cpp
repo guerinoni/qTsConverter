@@ -7,7 +7,7 @@
 #include <QQmlContext>
 #include <QQuickWindow>
 
-int main(int argc, char **argv)
+auto main(int argc, char **argv) -> int
 {
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
