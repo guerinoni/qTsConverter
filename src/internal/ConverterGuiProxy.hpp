@@ -39,7 +39,7 @@ class ConverterGuiProxy : public QObject
     QString detailedConvMsg() const;
 
     Q_INVOKABLE void convert(ConverterGuiProxy::QConversionType type,
-                             QString input, QString output,
+                             QStringList input, QString output,
                              const QString &fieldSeparator,
                              const QString &stringSeparator,
                              const QString &tsVersion);

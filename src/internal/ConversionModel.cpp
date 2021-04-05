@@ -3,6 +3,7 @@
 #include "ConverterFactory.hpp"
 
 #include <QDesktopServices>
+#include <QFileInfo>
 #include <QUrl>
 #include <algorithm>
 
@@ -65,6 +66,11 @@ void ConversionModel::addInput(QString value)
 QString ConversionModel::setOutput(const QString &value)
 {
     m_output = value;
+
+    if (QFileInfo(m_output).isDir()) {
+        return m_output;
+    }
+
     QString temp =
         m_output.right(m_output.length() - 1 - m_output.lastIndexOf("/"));
 
@@ -78,37 +84,12 @@ QString ConversionModel::setOutput(const QString &value)
         }
     }
 
-    deduceInputOutput();
     return m_output;
 }
 
-void ConversionModel::deduceInputOutput() noexcept
+QStringList ConversionModel::input() noexcept
 {
-    if (m_input.isEmpty() || m_output.isEmpty()) {
-        return;
-    }
-
-    if (m_input.endsWith(QStringLiteral(".ts"))) {
-        if (m_output.endsWith(QStringLiteral(".csv"))) {
-            currentIndex = ConverterFactory::Ts2Csv;
-        }
-
-        if (m_output.endsWith(QStringLiteral(".xls")) ||
-            m_output.endsWith(QStringLiteral(".xlsx"))) {
-            currentIndex = ConverterFactory::Ts2Xlsx;
-        }
-    } else if (m_input.endsWith(QStringLiteral(".csv"))) {
-        if (m_output.endsWith(QStringLiteral(".ts"))) {
-            currentIndex = ConverterFactory::Csv2Ts;
-        }
-    } else if (m_input.endsWith(QStringLiteral(".xls")) ||
-               m_input.endsWith(QStringLiteral(".xlsx"))) {
-        if (m_output.endsWith(QStringLiteral(".ts"))) {
-            currentIndex = ConverterFactory::Xlsx2Ts;
-        }
-    }
-
-    Q_EMIT setComboBoxIndex(currentIndex);
+    return m_input;
 }
 
 bool ConversionModel::inputHaveSameExtension() noexcept

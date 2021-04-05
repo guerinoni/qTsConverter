@@ -9,6 +9,23 @@
 
 #include <cassert>
 
+QString ConverterFactory::toString(ConverterFactory::ConversionType t) noexcept
+{
+    switch (t) {
+        case Ts2Csv:
+            return ".csv";
+
+        case Ts2Xlsx:
+            return ".xlsx";
+
+        case Csv2Ts:
+        case Xlsx2Ts:
+            return ".ts";
+    }
+
+    return {};
+}
+
 std::unique_ptr<Converter> ConverterFactory::make_converter(
     ConverterFactory::ConversionType type, const QString &in,
     const QString &out, const QString &fieldSep, const QString &stringSep,

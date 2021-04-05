@@ -28,6 +28,8 @@ class ConversionModel final : public QAbstractListModel
     Q_INVOKABLE void addInput(QString value);
     Q_INVOKABLE QString setOutput(const QString &value);
 
+    Q_INVOKABLE QStringList input() noexcept;
+
     Q_INVOKABLE void setIndex(const int &newIndex);
 
     Q_INVOKABLE void openOutput();
@@ -46,7 +48,6 @@ class ConversionModel final : public QAbstractListModel
 
     QString m_sourceMsg;
 
-    void deduceInputOutput() noexcept;
     bool inputHaveSameExtension() noexcept;
     int currentIndex = 4;
 };

@@ -173,7 +173,7 @@ Window {
                      && fieldSeparator.text.length !== 0
                      && stringSeparator.text.length !== 0
             onClicked: {
-                converter.convert(comboType.currentIndex, sourceInput.text,
+                converter.convert(comboType.currentIndex, conversionModel.input(),
                                   sourceOutput.text, fieldSeparator.text,
                                   stringSeparator.text, tsVersion.text)
                 finishDialog.visible = true
