@@ -9,8 +9,8 @@ jobs:
   packaging:
     strategy:
       matrix:
-        qt_version: [5.15.0]
-        platform: [ubuntu-20.04]
+        qt_version: [5.15.2]
+        platform: [ubuntu-latest]
         arch: [x64]
       fail-fast: false
     runs-on: ${{ matrix.platform }}
@@ -27,7 +27,7 @@ jobs:
           sudo apt install libgl-dev libx11-dev libxkbcommon-x11-dev
 
       - name: Installing Qt
-        uses: jurplel/install-qt-action@v2.6.2
+        uses: jurplel/install-qt-action@v2.13.0
         with:
           version: ${{ matrix.qt_version }}
           arch: ${{ matrix.qtarch }}
