@@ -1,30 +1,30 @@
-#include <QFile>
 #include <ConverterFactory.hpp>
+#include <QFile>
 
-auto test_conversion(std::string &&input, std::string &&expect, ConverterFactory::ConversionType typeOfConvesion) -> bool
+auto test_conversion(std::string &&input, std::string &&expect,
+                     ConverterFactory::ConversionType typeOfConvesion) -> bool
 {
-
     auto output = FILESPATH + std::string("/output");
     switch (typeOfConvesion) {
-    case ConverterFactory::ConversionType::Csv2Ts:
-    case ConverterFactory::ConversionType::Xlsx2Ts:
-        output += ".ts";
-        break;
+        case ConverterFactory::ConversionType::Csv2Ts:
+        case ConverterFactory::ConversionType::Xlsx2Ts:
+            output += ".ts";
+            break;
 
-    case ConverterFactory::ConversionType::Ts2Csv:
-        output += ".csv";
-        break;
+        case ConverterFactory::ConversionType::Ts2Csv:
+            output += ".csv";
+            break;
 
-    case ConverterFactory::ConversionType::Ts2Xlsx:
-        output += ".xlsx";
-        break;
+        case ConverterFactory::ConversionType::Ts2Xlsx:
+            output += ".xlsx";
+            break;
 
-    default:
-        break;
+        default:
+            break;
     }
 
-    const auto in              = FILESPATH + std::string("/") + input;
-    auto conv                  = ConverterFactory::make_converter(
+    const auto in = FILESPATH + std::string("/") + input;
+    auto conv     = ConverterFactory::make_converter(
         typeOfConvesion, in.c_str(), output.c_str(), ";", "\"", "2.1");
 
     conv->process();

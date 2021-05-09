@@ -19,5 +19,5 @@ class TsBuilder : public Builder
     bool build(const Translations &trs) const override;
 
   private:
-    static void removeSlashInDoctype(QFile *f) ;
+    static void removeSlashInDoctype(QFile *f);
 };
