@@ -1,0 +1,61 @@
+name: w10
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        qt_version: [5.15.2]
+        platform: [windows-latest]
+        arch: [x64]
+      fail-fast: false
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          submodules: 'recursive'
+
+      - name: Installing Qt
+        uses: jurplel/install-qt-action@v2.13.0
+        with:
+          version: ${{ matrix.qt_version }}
+          arch: ${{ matrix.qtarch }}
+          cached: ${{ steps.cache-qt.outputs.cache-hit }}
+
+      - name: Build
+        shell: bash
+        run: |
+          mkdir build
+          cd build
+          cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=Release
+          cmake --build . --parallel $(nproc)
+          cmake --install .
+
+      - name: Deploy
+        shell: bash
+        run : /
+          cd Release
+          windeployqt qTsConverter.exe --no-translations
+
+      - name: Create 7z Release
+        uses: DuckSoft/create-7z-action@v1.0
+        with:
+          pathSource: ./build/Release
+          pathTarget: ./release.7z
+
+      - name: Upload
+        uses: actions/upload-artifact@master
+        with:
+          name: qTsConverter-${{ github.sha }}.Windows-${{ matrix.arch }}.qt${{ matrix.qt_version }}.7z
+          path: release.7z
+
+      - name: Upload binaries to release
+        uses: svenstaro/upload-release-action@v1-release
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: release.7z
+          asset_name: qTsConverter.${{ github.ref }}.Windows-${{ matrix.arch }}.7z
+          tag: ${{ github.ref }}
+          overwrite: true
