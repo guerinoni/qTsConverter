@@ -1,0 +1,35 @@
+name: Check Clang Format
+
+on: [push, pull_request]
+
+jobs:
+  format:
+    name: "Check Clang Format"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          submodules: 'recursive'
+
+      - name: "Install clang-format-11"
+        run: |
+          sudo apt-get update
+          sudo apt-get install clang-format-11
+
+      - name: "Format Codes"
+        run: clang-format-11 -i src/*.cpp src/*/*.cpp src/*/*.hpp tests/*.cpp tests/*.hpp
+
+      - name: Check diff
+        run: git diff --exit-code HEAD
+
+      - name: Create Pull Request
+        if: failure()
+        uses: peter-evans/create-pull-request@v2
+        with:
+          commit-message: "style: Format codes"
+          title: "style: format codes for ${{ github.ref }}"
+          labels: "auto-pr/style"
+          assignees: "${{ github.actor }}"
+          reviewers: "${{ github.actor }}"
+          branch: "auto-pr/clang-format/${{ github.ref }}"
