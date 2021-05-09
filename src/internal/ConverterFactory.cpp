@@ -9,7 +9,8 @@
 
 #include <cassert>
 
-auto ConverterFactory::toString(ConverterFactory::ConversionType t) noexcept -> QString
+auto ConverterFactory::toString(ConverterFactory::ConversionType t) noexcept
+    -> QString
 {
     switch (t) {
         case Ts2Csv:
@@ -26,10 +27,12 @@ auto ConverterFactory::toString(ConverterFactory::ConversionType t) noexcept -> 
     return {};
 }
 
-auto ConverterFactory::make_converter(
-    ConverterFactory::ConversionType type, const QString &in,
-    const QString &out, const QString &fieldSep, const QString &stringSep,
-    const QString &tsVersion) -> std::unique_ptr<Converter>
+auto ConverterFactory::make_converter(ConverterFactory::ConversionType type,
+                                      const QString &in, const QString &out,
+                                      const QString &fieldSep,
+                                      const QString &stringSep,
+                                      const QString &tsVersion)
+    -> std::unique_ptr<Converter>
 {
     switch (type) {
         case ConversionType::Ts2Csv:
