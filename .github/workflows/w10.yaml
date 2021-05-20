@@ -18,7 +18,7 @@ jobs:
           submodules: 'recursive'
 
       - name: Installing Qt
-        uses: jurplel/install-qt-action@v2.13.0
+        uses: jurplel/install-qt-action@v2.13.2
         with:
           version: ${{ matrix.qt_version }}
           arch: ${{ matrix.qtarch }}
