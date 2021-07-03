@@ -26,11 +26,7 @@ auto main(int argc, char **argv) -> int
     QApplication::setApplicationVersion(swVersion());
 
     QCommandLineParser parser;
-    parser.setApplicationDescription(
-        "Tool used to convert `.ts` file of Qt translation in other format "
-        "more editable using an office suite."); // FIXME: take this description
-                                                 // from cmake DESCRIPTION
-                                                 //    parser.addHelpOption();
+    parser.setApplicationDescription(swDescription());
     parser.addVersionOption();
 
     parser.process(app);

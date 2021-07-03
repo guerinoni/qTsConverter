@@ -5,3 +5,7 @@ char* swVersion()
     return "@SW_VERSION@";
 }
 
+char* swDescription()
+{
+    return "@SW_DESCRIPTION@";
+}
