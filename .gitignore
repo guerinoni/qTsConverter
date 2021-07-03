@@ -381,3 +381,5 @@ $RECYCLE.BIN/
 
 .clangd
 compile_commands.json
+
+src/internal/version.hpp
