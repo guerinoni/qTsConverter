@@ -5,6 +5,9 @@ find_package(
   COMPONENTS Core Gui Quick Widgets Xml
   REQUIRED)
 
+set(SW_VERSION ${PROJECT_VERSION})
+configure_file(${PROJECT_SOURCE_DIR}/src/internal/version.h.in ${PROJECT_SOURCE_DIR}/src/internal/version.hpp )
+
 add_library(
   internal
   Converter.cpp

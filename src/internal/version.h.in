@@ -1,0 +1,7 @@
+#pragma once
+
+char* swVersion()
+{
+    return "@SW_VERSION@";
+}
+

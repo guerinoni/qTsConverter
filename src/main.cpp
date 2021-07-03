@@ -1,7 +1,9 @@
 #include "ConversionModel.hpp"
 #include "ConverterGuiProxy.hpp"
+#include "version.hpp"
 
 #include <QApplication>
+#include <QCommandLineParser>
 #include <QFontDatabase>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
@@ -21,6 +23,17 @@ auto main(int argc, char **argv) -> int
     QApplication::setOrganizationDomain(QStringLiteral("Federico Guerinoni"));
     QApplication::setApplicationName(QStringLiteral("qTsConverter"));
     QApplication::setWindowIcon(QIcon(":/assets/logos/profile.png"));
+    QApplication::setApplicationVersion(swVersion());
+
+    QCommandLineParser parser;
+    parser.setApplicationDescription(
+        "Tool used to convert `.ts` file of Qt translation in other format "
+        "more editable using an office suite."); // FIXME: take this description
+                                                 // from cmake DESCRIPTION
+                                                 //    parser.addHelpOption();
+    parser.addVersionOption();
+
+    parser.process(app);
 
     QFontDatabase::addApplicationFont(
         QStringLiteral(":/assets/fonts/Roboto-Light.ttf"));
