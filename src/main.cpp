@@ -1,3 +1,4 @@
+#include "CliRunner.hpp"
 #include "ConversionModel.hpp"
 #include "ConverterGuiProxy.hpp"
 #include "version.hpp"
@@ -26,10 +27,21 @@ auto main(int argc, char **argv) -> int
     QApplication::setApplicationVersion(swVersion());
 
     QCommandLineParser parser;
+    parser.addHelpOption();
     parser.setApplicationDescription(swDescription());
     parser.addVersionOption();
 
+    parser.addPositionalArgument("in", "input file.", "[in...]");
+    parser.addPositionalArgument("out", "output file.", "[out...]");
+
     parser.process(app);
+
+    auto args = parser.positionalArguments();
+    if (!args.isEmpty()) {
+        CliRunner cli(std::move(args));
+        cli.run();
+        return 0;
+    }
 
     QFontDatabase::addApplicationFont(
         QStringLiteral(":/assets/fonts/Roboto-Light.ttf"));
