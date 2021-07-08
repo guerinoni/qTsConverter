@@ -2,6 +2,7 @@
 
 #include "ConverterFactory.hpp"
 
+#include <QDir>
 #include <QtDebug>
 
 CliRunner::CliRunner(QStringList &&args) : m_args{ args } {}
@@ -13,8 +14,12 @@ void CliRunner::run()
         return;
     }
 
-    const auto input  = m_args.at(0);
-    const auto output = m_args.at(1);
+    const auto input = m_args.at(0);
+    auto output      = m_args.at(1);
+
+    if (output.startsWith("./")) {
+        output = QDir::toNativeSeparators(QDir::currentPath() + "/" + output);
+    }
 
     using CF        = ConverterFactory;
     const auto type = CF::fromString(getSuffix(input), getSuffix(output));
