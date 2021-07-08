@@ -27,6 +27,33 @@ auto ConverterFactory::toString(ConverterFactory::ConversionType t) noexcept
     return {};
 }
 
+auto ConverterFactory::fromString(const QString &suffixInput,
+                                  const QString &suffixOutput) noexcept
+    -> ConverterFactory::ConversionType
+{
+    if (suffixInput == QStringLiteral(".ts") &&
+        suffixOutput == QStringLiteral(".csv")) {
+        return Ts2Csv;
+    }
+
+    if (suffixInput == QStringLiteral(".ts") &&
+        suffixOutput == QStringLiteral(".xlsx")) {
+        return Ts2Xlsx;
+    }
+
+    if (suffixInput == QStringLiteral(".csv") &&
+        suffixOutput == QStringLiteral(".ts")) {
+        return Csv2Ts;
+    }
+
+    if (suffixInput == QStringLiteral(".xlsx") &&
+        suffixOutput == QStringLiteral(".ts")) {
+        return Xlsx2Ts;
+    }
+
+    return Dummy;
+}
+
 auto ConverterFactory::make_converter(ConverterFactory::ConversionType type,
                                       const QString &in, const QString &out,
                                       const QString &fieldSep,

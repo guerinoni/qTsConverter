@@ -15,4 +15,6 @@ class CliRunner
 
   private:
     QStringList m_args;
+
+    static QString getSuffix(const QString &filepath);
 };
