@@ -15,13 +15,22 @@ editable using an office suite.
 - automatically detect conversion type
 - convert multiple file in input
 
-## Usage
+## Usage (GUI version)
 - browse input filename (or multiple input)
 - choose output filename (or folder in case of multi input)
 - click convert button
 
 ### To generate output.csv
 ![example conversion ts -> csv](./doc/Screenshot.png)
+
+## Usage (CLI version)
+You can check te version with `qTsConverter --version`.
+
+Perform a conversion:
+```bash
+qTsConverter ../../tests/files/scenario_multiline.ts ./lol.csv
+```
+
 
 ## Build
 
