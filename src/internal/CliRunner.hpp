@@ -11,7 +11,7 @@ class CliRunner
     CliRunner(CliRunner &&)      = delete;
     ~CliRunner()                 = default;
 
-    void run();
+    int run();
 
   private:
     QStringList m_args;

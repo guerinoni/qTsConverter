@@ -7,11 +7,11 @@
 
 CliRunner::CliRunner(QStringList &&args) : m_args{ args } {}
 
-void CliRunner::run()
+auto CliRunner::run() -> int
 {
     if (m_args.size() < 2) {
         qCritical() << "error, only 1 parameter passed as arg.";
-        return;
+        return 1;
     }
 
     const auto input = m_args.at(0);
@@ -28,6 +28,7 @@ void CliRunner::run()
     const auto tmpResult = converter->process();
     qInfo() << tmpResult.success << tmpResult.message
             << tmpResult.detailedMessage;
+    return static_cast<int>(tmpResult.success);
 }
 
 auto CliRunner::getSuffix(const QString &filepath) -> QString

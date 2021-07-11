@@ -39,8 +39,7 @@ auto main(int argc, char **argv) -> int
     auto args = parser.positionalArguments();
     if (!args.isEmpty()) {
         CliRunner cli(std::move(args));
-        cli.run();
-        return 0;
+        return cli.run();
     }
 
     QFontDatabase::addApplicationFont(
