@@ -13,7 +13,7 @@ class XlsxBuilder : public Builder
     XlsxBuilder(XlsxBuilder &&)      = delete;
     ~XlsxBuilder() override          = default;
 
-    bool build(const Translations &trs) const override;
+    bool build(const Result &res) const override;
 
   private:
     void addTsSupport(int &row, int &col, QXlsx::Document &doc) const;

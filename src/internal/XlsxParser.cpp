@@ -2,7 +2,6 @@
 
 #include "TitleHeaders.hpp"
 
-#include <QtDebug>
 #include <xlsx/xlsxdocument.h>
 
 XlsxParser::XlsxParser(InOutParameter &&parameter) :
@@ -10,7 +9,7 @@ XlsxParser::XlsxParser(InOutParameter &&parameter) :
 {
 }
 
-auto XlsxParser::parse() const -> std::pair<Translations, QString>
+auto XlsxParser::parse() const -> Result
 {
     QXlsx::Document xlsx(m_ioParameter.inputFile);
 
@@ -18,9 +17,8 @@ auto XlsxParser::parse() const -> std::pair<Translations, QString>
         xlsx.read(1, 2) != TitleHeader::Source ||
         xlsx.read(1, 3) != TitleHeader::Translation ||
         xlsx.read(1, 4) != TitleHeader::Location) {
-        qWarning() << "the xlsx file is not valid";
-        return std::make_pair(Translations(),
-                              "Invalid XLSX file, check the headers!");
+        return Result{ "Invalid XLSX file, check the headers!", Translations{},
+                       InOutParameter{ m_ioParameter } };
     }
 
     Translations translations;
@@ -59,5 +57,6 @@ auto XlsxParser::parse() const -> std::pair<Translations, QString>
         msg.locations.clear();
     }
 
-    return std::make_pair(translations, "");
+    return Result{ "", std::move(translations),
+                   InOutParameter{ m_ioParameter } };
 }

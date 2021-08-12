@@ -16,7 +16,7 @@ XlsxBuilder::XlsxBuilder(InOutParameter parameter) :
     }
 }
 
-auto XlsxBuilder::build(const Translations &trs) const -> bool
+auto XlsxBuilder::build(const Result &res) const -> bool
 {
     QXlsx::Document xlsx;
     int row{ 1 };
@@ -37,7 +37,7 @@ auto XlsxBuilder::build(const Translations &trs) const -> bool
     if (row == 1) {
         ++row;
     }
-    for (const auto &tr : trs) {
+    for (const auto &tr : res.translantions) {
         for (const auto &msg : tr.messages) {
             xlsx.write(row, col++, tr.name);
             xlsx.write(row, col++, msg.source);

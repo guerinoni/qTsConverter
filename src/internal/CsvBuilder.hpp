@@ -16,7 +16,7 @@ class CsvBuilder : public Builder
     CsvBuilder operator=(const CsvBuilder &) = delete;
     CsvBuilder operator=(CsvBuilder &&) = delete;
 
-    bool build(const Translations &trs) const override;
+    bool build(const Result &res) const override;
 
   private:
     QtCSV::StringData addTsSupport() const;

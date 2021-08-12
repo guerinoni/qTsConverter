@@ -16,7 +16,7 @@ CsvBuilder::CsvBuilder(InOutParameter &&parameter) : Builder{ parameter }
     }
 }
 
-auto CsvBuilder::build(const Translations &trs) const -> bool
+auto CsvBuilder::build(const Result &res) const -> bool
 {
     auto strData = addTsSupport();
 
@@ -26,7 +26,7 @@ auto CsvBuilder::build(const Translations &trs) const -> bool
 
     strData.addRow(strList);
 
-    for (const auto &tr : trs) {
+    for (const auto &tr : res.translantions) {
         for (const auto &msg : tr.messages) {
             strList.clear();
             strList << tr.name << msg.source << msg.translation;

@@ -10,12 +10,12 @@ Converter::Converter(std::unique_ptr<Parser> parser,
 auto Converter::process() const -> Converter::CoversionResult
 {
     const auto result = m_parser->parse();
-    if (result.first.empty()) {
+    if (!result.error.isEmpty()) {
         return CoversionResult(false, QStringLiteral("Failed to parse source!"),
-                               result.second);
+                               result.error);
     }
 
-    const auto ok = m_builder->build(result.first);
+    const auto ok = m_builder->build(result);
 
     return ok ? CoversionResult(true, QStringLiteral("Conversion successfull!"),
                                 {})

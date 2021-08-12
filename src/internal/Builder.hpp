@@ -1,7 +1,6 @@
 #pragma once
 
-#include "InOutParameter.hpp"
-#include "TranslationObject.hpp"
+#include "Result.hpp"
 
 class Builder
 {
@@ -15,7 +14,7 @@ class Builder
     Builder &operator=(const Builder &) = delete;
     Builder &operator=(Builder &&) = delete;
 
-    virtual bool build(const Translations &trs) const = 0;
+    virtual bool build(const Result &res) const = 0;
 
   protected:
     InOutParameter m_ioParameter;

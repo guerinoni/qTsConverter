@@ -11,7 +11,7 @@ TsBuilder::TsBuilder(InOutParameter parameter) : Builder{ std::move(parameter) }
     }
 }
 
-auto TsBuilder::build(const Translations &trs) const -> bool
+auto TsBuilder::build(const Result &res) const -> bool
 {
     QFile output(m_ioParameter.outputFile);
     if (!output.open(QFile::WriteOnly | QFile::Truncate)) {
@@ -28,7 +28,7 @@ auto TsBuilder::build(const Translations &trs) const -> bool
     s.writeStartElement("TS");
     s.writeAttribute("version", m_ioParameter.tsVersion);
 
-    for (const auto &ctxs : trs) {
+    for (const auto &ctxs : res.translantions) {
         s.writeStartElement("context");
         s.writeTextElement("name", ctxs.name);
 

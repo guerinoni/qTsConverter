@@ -41,7 +41,9 @@ add_library(
   InOutParameter.hpp
   TitleHeaders.hpp
   CliRunner.hpp
-  CliRunner.cpp)
+  CliRunner.cpp
+  Result.hpp
+  )
 
 target_link_libraries(
   internal

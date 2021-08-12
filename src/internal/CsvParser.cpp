@@ -7,14 +7,15 @@ CsvParser::CsvParser(InOutParameter parameter) : Parser{ std::move(parameter) }
 {
 }
 
-auto CsvParser::parse() const -> std::pair<Translations, QString>
+auto CsvParser::parse() const -> Result
 {
     auto list = QtCSV::Reader::readToList(
         m_ioParameter.inputFile, m_ioParameter.csvProperty.string_separator,
         m_ioParameter.csvProperty.field_separator);
 
     if (list.isEmpty()) {
-        return std::make_pair(Translations(), "Source file empty!");
+        return Result{ "Source file empty!", Translations{},
+                       InOutParameter{ m_ioParameter } };
     }
 
     removeEmptyFrontBack(list);
@@ -54,7 +55,8 @@ auto CsvParser::parse() const -> std::pair<Translations, QString>
         msg.locations.clear();
     }
 
-    return std::make_pair(translations, "");
+    return Result{ "", std::move(translations),
+                   InOutParameter{ m_ioParameter } };
 }
 
 auto CsvParser::decodeLocation(const QString &str) -> std::pair<QString, int>

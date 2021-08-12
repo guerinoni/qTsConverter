@@ -16,7 +16,7 @@ class TsParser : public Parser
     TsParser &operator=(const TsParser &) = delete;
     TsParser &operator=(TsParser &&) = delete;
 
-    std::pair<Translations, QString> parse() const override;
+    Result parse() const override;
 
   private:
     static std::pair<QString, int> wrapLocation(const QDomNode &node);
