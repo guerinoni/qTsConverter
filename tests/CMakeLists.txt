@@ -19,7 +19,7 @@ target_link_libraries(
 target_link_libraries(
   tst_csv2ts
   PUBLIC internal
-  PRIVATE Qt5::Core Qt5::Gui Qt5::Xml
+  PRIVATE Qt5::Core Qt5::Gui Qt5::Quick Qt5::Widgets Qt5::Xml
   PUBLIC qtcsv QtXlsxWriter)
 target_link_libraries(
   tst_ts2xlsx
