@@ -2,6 +2,8 @@
 
 #include "TitleHeaders.hpp"
 
+#include <QApplication>
+#include <QVersionNumber>
 #include <xlsx/xlsxdocument.h>
 
 XlsxParser::XlsxParser(InOutParameter &&parameter) :
@@ -13,10 +15,20 @@ auto XlsxParser::parse() const -> Result
 {
     QXlsx::Document xlsx(m_ioParameter.inputFile);
 
-    if (xlsx.read(1, 1) != TitleHeader::Context ||
-        xlsx.read(1, 2) != TitleHeader::Source ||
-        xlsx.read(1, 3) != TitleHeader::Translation ||
-        xlsx.read(1, 4) != TitleHeader::Location) {
+    auto offsetRow{ 0 };
+    const auto appVersion       = qApp->applicationVersion();
+    const auto currentVersion   = QVersionNumber::fromString(appVersion);
+    const auto TsSupportVersion = QVersionNumber(4, 5, 0);
+    InOutParameter p{ "", "", m_ioParameter.tsVersion, {} };
+    if (QVersionNumber::compare(currentVersion, TsSupportVersion) >= 0) {
+        p.tsVersion = xlsx.read(2, 1).toString();
+        offsetRow   = 2;
+    }
+
+    if (xlsx.read(offsetRow + 1, 1) != TitleHeader::Context ||
+        xlsx.read(offsetRow + 1, 2) != TitleHeader::Source ||
+        xlsx.read(offsetRow + 1, 3) != TitleHeader::Translation ||
+        xlsx.read(offsetRow + 1, 4) != TitleHeader::Location) {
         return Result{ "Invalid XLSX file, check the headers!", {}, {} };
     }
 
@@ -56,5 +68,5 @@ auto XlsxParser::parse() const -> Result
         msg.locations.clear();
     }
 
-    return Result{ "", std::move(translations), {} };
+    return Result{ "", std::move(translations), std::move(p) };
 }
