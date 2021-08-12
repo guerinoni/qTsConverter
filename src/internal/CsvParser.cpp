@@ -17,8 +17,7 @@ auto CsvParser::parse() const -> Result
         m_ioParameter.csvProperty.field_separator);
 
     if (list.isEmpty()) {
-        return Result{ "Source file empty!", Translations{},
-                       InOutParameter{ m_ioParameter } };
+        return Result{ "Source file empty!", {}, {} };
     }
 
     removeEmptyFrontBack(list);
@@ -27,8 +26,7 @@ auto CsvParser::parse() const -> Result
     const auto appVersion       = qApp->applicationVersion();
     const auto currentVersion   = QVersionNumber::fromString(appVersion);
     const auto TsSupportVersion = QVersionNumber(4, 5, 0);
-    InOutParameter p;
-    p.outputFile = m_ioParameter.outputFile;
+    InOutParameter p{ "", "", m_ioParameter.tsVersion, {} };
     if (QVersionNumber::compare(currentVersion, TsSupportVersion) >= 0) {
         list.pop_front();
         p.tsVersion = list.first().first();

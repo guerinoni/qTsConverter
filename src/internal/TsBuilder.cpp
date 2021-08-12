@@ -26,7 +26,7 @@ auto TsBuilder::build(const Result &res) const -> bool
 
     s.writeEmptyElement("!DOCTYPE TS");
     s.writeStartElement("TS");
-    s.writeAttribute("version", m_ioParameter.tsVersion);
+    s.writeAttribute("version", res.params.tsVersion);
 
     for (const auto &ctxs : res.translantions) {
         s.writeStartElement("context");

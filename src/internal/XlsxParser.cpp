@@ -17,8 +17,7 @@ auto XlsxParser::parse() const -> Result
         xlsx.read(1, 2) != TitleHeader::Source ||
         xlsx.read(1, 3) != TitleHeader::Translation ||
         xlsx.read(1, 4) != TitleHeader::Location) {
-        return Result{ "Invalid XLSX file, check the headers!", Translations{},
-                       InOutParameter{ m_ioParameter } };
+        return Result{ "Invalid XLSX file, check the headers!", {}, {} };
     }
 
     Translations translations;
@@ -57,6 +56,5 @@ auto XlsxParser::parse() const -> Result
         msg.locations.clear();
     }
 
-    return Result{ "", std::move(translations),
-                   InOutParameter{ m_ioParameter } };
+    return Result{ "", std::move(translations), {} };
 }
