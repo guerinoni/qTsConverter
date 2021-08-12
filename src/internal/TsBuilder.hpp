@@ -16,7 +16,7 @@ class TsBuilder : public Builder
     TsBuilder operator=(const TsBuilder &) = delete;
     TsBuilder operator=(TsBuilder &&) = delete;
 
-    bool build(const Translations &trs) const override;
+    bool build(const Result &res) const override;
 
   private:
     static void removeSlashInDoctype(QFile *f);

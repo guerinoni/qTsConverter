@@ -1,7 +1,6 @@
 #pragma once
 
-#include "InOutParameter.hpp"
-#include "TranslationObject.hpp"
+#include "Result.hpp"
 
 class Parser
 {
@@ -15,7 +14,7 @@ class Parser
     Parser &operator=(const Parser &) = delete;
     Parser &operator=(Parser &&) = delete;
 
-    virtual std::pair<Translations, QString> parse() const = 0;
+    virtual Result parse() const = 0;
 
   protected:
     InOutParameter m_ioParameter;

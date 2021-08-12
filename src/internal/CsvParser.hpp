@@ -14,7 +14,7 @@ class CsvParser : public Parser
     CsvParser &operator=(const CsvParser &) = delete;
     CsvParser &operator=(CsvParser &&) = delete;
 
-    std::pair<Translations, QString> parse() const override;
+    Result parse() const override;
 
   private:
     static std::pair<QString, int> decodeLocation(const QString &str);

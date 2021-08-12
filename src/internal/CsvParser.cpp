@@ -1,24 +1,37 @@
 #include "CsvParser.hpp"
 
+#include <QApplication>
 #include <QFile>
+#include <QVersionNumber>
+#include <QtDebug>
 #include <include/qtcsv/reader.h>
 
 CsvParser::CsvParser(InOutParameter parameter) : Parser{ std::move(parameter) }
 {
 }
 
-auto CsvParser::parse() const -> std::pair<Translations, QString>
+auto CsvParser::parse() const -> Result
 {
     auto list = QtCSV::Reader::readToList(
         m_ioParameter.inputFile, m_ioParameter.csvProperty.string_separator,
         m_ioParameter.csvProperty.field_separator);
 
     if (list.isEmpty()) {
-        return std::make_pair(Translations(), "Source file empty!");
+        return Result{ "Source file empty!", {}, {} };
     }
 
     removeEmptyFrontBack(list);
     splitByRow(list);
+
+    const auto appVersion       = qApp->applicationVersion();
+    const auto currentVersion   = QVersionNumber::fromString(appVersion);
+    const auto TsSupportVersion = QVersionNumber(4, 5, 0);
+    InOutParameter p{ "", "", m_ioParameter.tsVersion, {} };
+    if (QVersionNumber::compare(currentVersion, TsSupportVersion) >= 0) {
+        list.pop_front();
+        p.tsVersion = list.first().first();
+        list.pop_front();
+    }
 
     Translations translations;
     TranslationContext context;
@@ -54,7 +67,7 @@ auto CsvParser::parse() const -> std::pair<Translations, QString>
         msg.locations.clear();
     }
 
-    return std::make_pair(translations, "");
+    return Result{ "", std::move(translations), std::move(p) };
 }
 
 auto CsvParser::decodeLocation(const QString &str) -> std::pair<QString, int>

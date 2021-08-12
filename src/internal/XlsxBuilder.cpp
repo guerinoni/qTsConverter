@@ -2,10 +2,11 @@
 
 #include "TitleHeaders.hpp"
 
+#include <QApplication>
 #include <QFile>
 #include <QTextStream>
+#include <QVersionNumber>
 #include <QtDebug>
-#include <xlsx/xlsxdocument.h>
 
 XlsxBuilder::XlsxBuilder(InOutParameter parameter) :
     Builder{ std::move(parameter) }
@@ -15,17 +16,28 @@ XlsxBuilder::XlsxBuilder(InOutParameter parameter) :
     }
 }
 
-auto XlsxBuilder::build(const Translations &trs) const -> bool
+auto XlsxBuilder::build(const Result &res) const -> bool
 {
     QXlsx::Document xlsx;
-    xlsx.write(1, 1, TitleHeader::Context);
-    xlsx.write(1, 2, TitleHeader::Source);
-    xlsx.write(1, 3, TitleHeader::Translation);
-    xlsx.write(1, 4, TitleHeader::Location);
-
-    int row{ 2 };
+    int row{ 1 };
     int col{ 1 };
-    for (const auto &tr : trs) {
+
+    addTsSupport(row, col, xlsx);
+
+    xlsx.write(row, col, TitleHeader::Context);
+    ++col;
+    xlsx.write(row, col, TitleHeader::Source);
+    ++col;
+    xlsx.write(row, col, TitleHeader::Translation);
+    ++col;
+    xlsx.write(row, col, TitleHeader::Location);
+    ++col;
+
+    col = 1;
+    if (row == 1) {
+        ++row;
+    }
+    for (const auto &tr : res.translantions) {
         for (const auto &msg : tr.messages) {
             xlsx.write(row, col++, tr.name);
             xlsx.write(row, col++, msg.source);
@@ -47,4 +59,17 @@ auto XlsxBuilder::build(const Translations &trs) const -> bool
     }
 
     return true;
+}
+
+void XlsxBuilder::addTsSupport(int &row, int &col, QXlsx::Document &doc) const
+{
+    const auto appVersion       = qApp->applicationVersion();
+    const auto currentVersion   = QVersionNumber::fromString(appVersion);
+    const auto TsSupportVersion = QVersionNumber(4, 5, 0);
+    if (QVersionNumber::compare(currentVersion, TsSupportVersion) >= 0) {
+        doc.write(row, col, TitleHeader::TsVersion);
+        ++row;
+        doc.write(row, col, m_ioParameter.tsVersion);
+        ++row;
+    }
 }
