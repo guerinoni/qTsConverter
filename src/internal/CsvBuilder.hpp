@@ -2,6 +2,8 @@
 
 #include "Builder.hpp"
 
+#include <include/qtcsv/stringdata.h>
+
 class CsvBuilder : public Builder
 {
   public:
@@ -15,4 +17,7 @@ class CsvBuilder : public Builder
     CsvBuilder operator=(CsvBuilder &&) = delete;
 
     bool build(const Translations &trs) const override;
+
+  private:
+    QtCSV::StringData addTsSupport() const;
 };

@@ -2,10 +2,11 @@
 
 #include "TitleHeaders.hpp"
 
+#include <QApplication>
 #include <QFile>
 #include <QTextStream>
+#include <QVersionNumber>
 #include <QtDebug>
-#include <include/qtcsv/stringdata.h>
 #include <include/qtcsv/writer.h>
 
 CsvBuilder::CsvBuilder(InOutParameter &&parameter) : Builder{ parameter }
@@ -17,11 +18,12 @@ CsvBuilder::CsvBuilder(InOutParameter &&parameter) : Builder{ parameter }
 
 auto CsvBuilder::build(const Translations &trs) const -> bool
 {
+    auto strData = addTsSupport();
+
     QStringList strList;
     strList << TitleHeader::Context << TitleHeader::Source
             << TitleHeader::Translation << TitleHeader::Location;
 
-    QtCSV::StringData strData;
     strData.addRow(strList);
 
     for (const auto &tr : trs) {
@@ -44,4 +46,23 @@ auto CsvBuilder::build(const Translations &trs) const -> bool
     }
 
     return true;
+}
+
+QtCSV::StringData CsvBuilder::addTsSupport() const
+{
+    QtCSV::StringData strData;
+    const auto appVersion       = qApp->applicationVersion();
+    const auto currentVersion   = QVersionNumber::fromString(appVersion);
+    const auto TsSupportVersion = QVersionNumber(4, 5, 0);
+    if (QVersionNumber::compare(currentVersion, TsSupportVersion) >= 0) {
+        QStringList strList;
+        strList << TitleHeader::TsVersion;
+        strData.addRow(strList);
+        strList.clear();
+        strList << m_ioParameter.tsVersion;
+        strData.addRow(strList);
+        strList.clear();
+    }
+
+    return strData;
 }
