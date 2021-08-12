@@ -1,5 +1,6 @@
 #include "ConverterFactory.hpp"
 
+#include <QApplication>
 #include <QFile>
 #include <QtDebug>
 #include <xlsx/xlsxdocument.h>
@@ -76,6 +77,67 @@ auto scenario_multiLocation() -> bool
     return true;
 }
 
+auto scenario_ts_version() -> bool
+{
+    auto output = FILESPATH + std::string("/output.xlsx");
+    const auto expected =
+        FILESPATH + std::string("/scenario_after_version_4_5_0.xlsx");
+    const auto inputFile{ FILESPATH + std::string("/scenario_simple.ts") };
+    auto conv = ConverterFactory::make_converter(
+        ConverterFactory::ConversionType::Ts2Xlsx, inputFile.c_str(),
+        output.c_str(), ";", "\"", "2.1");
+    conv->process();
+
+    QXlsx::Document xlsxOutput(output.c_str());
+    QXlsx::Document xlsxExpected(expected.c_str());
+
+    if (xlsxOutput.dimension() != xlsxExpected.dimension()) {
+        qDebug() << "dimension are different";
+        QFile::remove(output.c_str());
+        return false;
+    }
+
+    const auto rows = xlsxOutput.dimension().rowCount();
+    const auto cols = xlsxOutput.dimension().columnCount();
+    for (auto row = 1; row < rows; ++row) {
+        for (auto col = 1; col < cols; ++col) {
+            auto *const outCell = xlsxOutput.cellAt(row, col);
+            auto *const expCell = xlsxExpected.cellAt(row, col);
+
+            if (outCell == nullptr && expCell == nullptr) {
+                continue;
+            }
+
+            if ((outCell == nullptr && expCell != nullptr) ||
+                (outCell != nullptr && expCell == nullptr)) {
+                qDebug() << "different content in cell" << row << col;
+                QFile::remove(output.c_str());
+                return false;
+            }
+
+            const auto out = outCell->value();
+            const auto exp = expCell->value();
+
+            if (out.isNull() && exp.isNull()) {
+                continue;
+            }
+
+            if (!out.isValid() && !exp.isValid()) {
+                continue;
+            }
+
+            if (out.toString() != exp.toString()) {
+                qDebug() << "different content" << out << exp;
+                QFile::remove(output.c_str());
+                return false;
+            }
+        }
+    }
+
+    QFile::remove(output.c_str());
+    return true;
+}
+
 auto main() -> int
 {
     bool ret = false;
@@ -83,6 +145,9 @@ auto main() -> int
     ret |= !scenario_simple();
 
     ret |= !scenario_multiLocation();
+
+    QApplication::setApplicationVersion("4.5.0");
+    ret |= !scenario_ts_version();
 
     return static_cast<int>(ret);
 }

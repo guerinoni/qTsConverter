@@ -2,6 +2,8 @@
 
 #include "Builder.hpp"
 
+#include <xlsx/xlsxdocument.h>
+
 class XlsxBuilder : public Builder
 {
   public:
@@ -12,4 +14,7 @@ class XlsxBuilder : public Builder
     ~XlsxBuilder() override          = default;
 
     bool build(const Translations &trs) const override;
+
+  private:
+    void addTsSupport(int &row, int &col, QXlsx::Document &doc) const;
 };
