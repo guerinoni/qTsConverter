@@ -26,9 +26,9 @@ auto CliRunner::run() -> int
     auto converter  = CF::make_converter(type, input, output, ";", "\"", "2.1");
 
     const auto tmpResult = converter->process();
-    qInfo() << tmpResult.success << tmpResult.message
+    qInfo() << tmpResult.failed << tmpResult.message
             << tmpResult.detailedMessage;
-    return static_cast<int>(tmpResult.success);
+    return static_cast<int>(tmpResult.failed);
 }
 
 auto CliRunner::getSuffix(const QString &filepath) -> QString

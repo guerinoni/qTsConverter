@@ -15,7 +15,7 @@ void ConverterGuiProxy::convert(QConversionType type, QStringList input,
     output = QUrl::fromUserInput(output).toLocalFile();
 
     auto result = Converter::CoversionResult(
-        true, QStringLiteral("Conversion successfull!"), {});
+        false, QStringLiteral("Conversion successfull!"), {});
 
     const auto inputDim           = input.size();
     const auto multipleConversion = inputDim > 1;
@@ -37,14 +37,14 @@ void ConverterGuiProxy::convert(QConversionType type, QStringList input,
             convType, input[i], o, fieldSeparator, stringSeparator, tsVersion);
 
         const auto tmpResult = converter->process();
-        if (!tmpResult.success) {
-            setConversionInfo(tmpResult.success, tmpResult.message,
+        if (!tmpResult.failed) {
+            setConversionInfo(tmpResult.failed, tmpResult.message,
                               tmpResult.detailedMessage);
             return;
         }
     }
 
-    setConversionInfo(result.success, result.message, result.detailedMessage);
+    setConversionInfo(result.failed, result.message, result.detailedMessage);
 }
 
 auto ConverterGuiProxy::convSuccessfull() const -> bool

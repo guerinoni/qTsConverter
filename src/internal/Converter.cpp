@@ -17,8 +17,7 @@ auto Converter::process() const -> Converter::CoversionResult
 
     const auto ok = m_builder->build(result);
 
-    return ok ? CoversionResult(true, QStringLiteral("Conversion successfull!"),
-                                {})
-              : CoversionResult(false, QStringLiteral("Conversion failed!"),
-                                {});
+    return ok ? CoversionResult(false,
+                                QStringLiteral("Conversion successfull!"), {})
+              : CoversionResult(true, QStringLiteral("Conversion failed!"), {});
 }

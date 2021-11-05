@@ -22,12 +22,12 @@ class Converter
     struct CoversionResult {
         CoversionResult(bool s, const QString &msg,
                         const QString &detailedMsg) :
-            success(s),
+            failed(s),
             message(msg), detailedMessage(detailedMsg)
         {
         }
 
-        bool success;
+        bool failed;
         QString message;
         QString detailedMessage;
     };
