@@ -34,6 +34,22 @@ qTsConverter ../../tests/files/scenario_multiline.ts ./lol.csv
 
 ## Build
 
+Simple build
+```bash
+mkdir build
+cd build
+cmake ..
+cmake --build .
+```
+
+Simple build only CLI
+```bash
+mkdir build
+cd build
+cmake .. -DBUILD_CLI=ON
+cmake --build .
+```
+
 Compile from source and install:
 
 ```
