@@ -3,6 +3,7 @@
 #include "ConverterGuiProxy.hpp"
 #include "version.hpp"
 
+#define SHOULD_BUILD_CLI @BUILD_IS_CLI @
 #include <QApplication>
 #include <QCommandLineParser>
 #include <QFontDatabase>
