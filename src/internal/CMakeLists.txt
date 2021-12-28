@@ -8,7 +8,7 @@ find_package(
 set(SW_VERSION ${PROJECT_VERSION})
 set(SW_DESCRIPTION ${PROJECT_DESCRIPTION})
 configure_file(${PROJECT_SOURCE_DIR}/src/internal/version.h.in
-               ${PROJECT_SOURCE_DIR}/src/internal/version.hpp)
+               ${PROJECT_SOURCE_DIR}/src/internal/version.hpp @ONLY)
 
 add_library(
   internal

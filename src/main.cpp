@@ -3,13 +3,18 @@
 #include "ConverterGuiProxy.hpp"
 #include "version.hpp"
 
-#define SHOULD_BUILD_CLI @BUILD_IS_CLI @
+// clang-format off
+#ifndef ONLY_CLI
 #include <QApplication>
-#include <QCommandLineParser>
-#include <QFontDatabase>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <QQuickWindow>
+#endif
+// clang-format on
+
+#include <QCommandLineParser>
+#include <QDebug>
+#include <QFontDatabase>
 
 auto main(int argc, char **argv) -> int
 {
@@ -20,12 +25,21 @@ auto main(int argc, char **argv) -> int
         QQuickWindow::TextRenderType::NativeTextRendering);
 #endif
 
+#ifdef ONLY_CLI
+    QCoreApplication app(argc, argv);
+    QCoreApplication::setOrganizationName(QStringLiteral("Federico Guerinoni"));
+    QCoreApplication::setOrganizationDomain(
+        QStringLiteral("Federico Guerinoni"));
+    QCoreApplication::setApplicationName(QStringLiteral("qTsConverter"));
+    QCoreApplication::setApplicationVersion(swVersion());
+#else
     QApplication app(argc, argv);
     QApplication::setOrganizationName(QStringLiteral("Federico Guerinoni"));
     QApplication::setOrganizationDomain(QStringLiteral("Federico Guerinoni"));
     QApplication::setApplicationName(QStringLiteral("qTsConverter"));
     QApplication::setWindowIcon(QIcon(":/assets/logos/profile.png"));
     QApplication::setApplicationVersion(swVersion());
+#endif
 
     QCommandLineParser parser;
     parser.addHelpOption();
@@ -41,8 +55,14 @@ auto main(int argc, char **argv) -> int
     if (!args.isEmpty()) {
         CliRunner cli(std::move(args));
         return cli.run();
+#ifdef ONLY_CLI
+    } else {
+        qWarning() << "no args provided (this is CLI version)";
+        return 1;
+#endif
     }
 
+#ifndef ONLY_CLI
     QFontDatabase::addApplicationFont(
         QStringLiteral(":/assets/fonts/Roboto-Light.ttf"));
     QFontDatabase::addApplicationFont(
@@ -67,4 +87,5 @@ auto main(int argc, char **argv) -> int
     }
 
     return QGuiApplication::exec();
+#endif
 }
