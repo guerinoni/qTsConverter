@@ -52,7 +52,9 @@ set(BUILD_TESTS
 set(STATIC_LIB
     ON
     CACHE BOOL "build as static lib if ON, otherwise build shared lib" FORCE)
-set(BUILD_CLI OFF CACHE BOOL "build only command line version")
+set(BUILD_CLI
+    OFF
+    CACHE BOOL "build only command line version")
 
 add_subdirectory(3rd-party/qtcsv)
 add_subdirectory(3rd-party/qtxlsx)
