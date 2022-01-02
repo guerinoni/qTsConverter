@@ -24,10 +24,10 @@ jobs:
           arch: ${{ matrix.qtarch }}
           cached: ${{ steps.cache-qt.outputs.cache-hit }}
 
-      - name: Build
+      - name: Build GUI
         shell: bash
         run: |
-          mkdir build
-          cd build
+          mkdir build-gui
+          cd build-gui
           cmake ..
           cmake --build . --parallel
