@@ -34,6 +34,22 @@ qTsConverter ../../tests/files/scenario_multiline.ts ./lol.csv
 
 ## Build
 
+Simple build
+```bash
+mkdir build
+cd build
+cmake ..
+cmake --build .
+```
+
+Simple build only CLI
+```bash
+mkdir build
+cd build
+cmake -DBUILD_CLI:BOOL=ON -DCMAKE_PREFIX_PATH=/home/guerra/Qt/5.15.2/gcc_64/ ..
+cmake --build .
+```
+
 Compile from source and install:
 
 ```

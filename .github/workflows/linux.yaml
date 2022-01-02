@@ -24,12 +24,21 @@ jobs:
           arch: ${{ matrix.qtarch }}
           cached: ${{ steps.cache-qt.outputs.cache-hit }}
 
-      - name: Build
+      - name: Build GUI
         shell: bash
         run: |
           sudo apt install libgl-dev libx11-dev libxkbcommon-x11-dev
-          mkdir build
-          cd build
+          mkdir build-gui
+          cd build-gui
           cmake ..
+          cmake --build . --parallel
+          ctest --output-on-failure
+
+      - name: Build CLI
+        shell: bash
+        run: |
+          mkdir build-cli
+          cd build-cli
+          cmake -DBUILD_CLI:BOOL=ON ..
           cmake --build . --parallel
           ctest --output-on-failure
