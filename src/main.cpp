@@ -9,11 +9,12 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <QQuickWindow>
+#else
+#include <QtDebug>
 #endif
 // clang-format on
 
 #include <QCommandLineParser>
-#include <QDebug>
 #include <QFontDatabase>
 
 auto main(int argc, char **argv) -> int

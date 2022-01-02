@@ -46,7 +46,7 @@ Simple build only CLI
 ```bash
 mkdir build
 cd build
-cmake .. -DBUILD_CLI=ON
+cmake -DBUILD_CLI:BOOL=ON -DCMAKE_PREFIX_PATH=/home/guerra/Qt/5.15.2/gcc_64/ ..
 cmake --build .
 ```
 
