@@ -33,10 +33,6 @@ jobs:
           arch: ${{ matrix.qtarch }}
           cached: ${{ steps.cache-qt.outputs.cache-hit }}
 
-      - name: SetEnv
-        run: echo ::set-env name=RELEASE_VERSION::${GITHUB_REF#refs/*/}
-
-
       - name: Build
         shell: bash
         run: |
@@ -47,13 +43,13 @@ jobs:
         shell: bash
         run: |
           cd scripts
-          ./universal.sh $RELEASE_VERSION
+          ./universal.sh ${GITHUB_REF#refs/*/}
 
       - name: makeDebian
         shell: bash
         run: |
           cd scripts
-          ./debian.sh $RELEASE_VERSION
+          ./debian.sh ${GITHUB_REF#refs/*/}
 
       - name: UploadUniversal
         uses: svenstaro/upload-release-action@v2

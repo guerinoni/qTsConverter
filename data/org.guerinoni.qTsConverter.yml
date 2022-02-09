@@ -1,6 +1,6 @@
 app-id: org.guerinoni.qTsConverter
 runtime: org.kde.Platform
-runtime-version: '5.14'
+runtime-version: '5.15'
 sdk: org.kde.Sdk
 command: qTsConverter
 finish-args:
@@ -18,4 +18,4 @@ modules:
     sources:
       - type: git
         url: https://github.com/guerinoni/qTsConverter
-        tag: 4.4.0
+        tag: 4.5.0

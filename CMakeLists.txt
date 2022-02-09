@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.10)
 project(
   qTsConverter
   LANGUAGES CXX
-  VERSION "4.4.0"
+  VERSION "4.5.0"
   DESCRIPTION
     "Tool used to convert `.ts` file of Qt translation in other format more editable using an office suite."
 )
