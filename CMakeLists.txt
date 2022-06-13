@@ -40,7 +40,6 @@ set(CMAKE_CXX_FLAGS_INIT
     "-Wtautological-compare"
     "-Wuninitialized")
 
-set(CMAKE_CXX_FLAGS_DEBUG "-g")
 set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 
 include(cmake/Sanitizers.cmake)
