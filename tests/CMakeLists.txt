@@ -38,3 +38,15 @@ add_test("tst_ts2csv" tst_ts2csv)
 add_test("tst_csv2ts" tst_csv2ts)
 add_test("tst_ts2xlsx" tst_ts2xlsx)
 add_test("tst_xlsx2ts" tst_xlsx2ts)
+
+# copy required dlls to executables on windows
+if(WIN32)
+  cmake_minimum_required(VERSION 3.21)
+  add_custom_command(
+    TARGET tst_ts2csv
+    POST_BUILD
+    COMMAND
+      ${CMAKE_COMMAND} -E copy $<TARGET_RUNTIME_DLLS:tst_ts2csv>
+      $<TARGET_FILE_DIR:tst_ts2csv>
+    COMMAND_EXPAND_LISTS)
+endif()
