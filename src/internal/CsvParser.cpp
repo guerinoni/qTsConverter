@@ -14,7 +14,7 @@ CsvParser::CsvParser(InOutParameter parameter) : Parser{ std::move(parameter) }
 auto CsvParser::parse() const -> Result
 {
     auto const info = QFileInfo(m_ioParameter.inputFile);
-    auto list = QtCSV::Reader::readToList(
+    auto list       = QtCSV::Reader::readToList(
         info.absoluteFilePath(), m_ioParameter.csvProperty.string_separator,
         m_ioParameter.csvProperty.field_separator);
 

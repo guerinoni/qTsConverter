@@ -29,10 +29,10 @@ auto main(int argc, char **argv) -> int
     QCoreApplication::setApplicationName(QStringLiteral("qTsConverter"));
     QCoreApplication::setApplicationVersion(swVersion());
 #else
-#ifdef Q_OS_WIN
+#    ifdef Q_OS_WIN
     QQuickWindow::setTextRenderType(
         QQuickWindow::TextRenderType::NativeTextRendering);
-#endif
+#    endif
 
     QApplication app(argc, argv);
     QApplication::setOrganizationName(QStringLiteral("Federico Guerinoni"));
