@@ -4,6 +4,7 @@
 
 #include <QApplication>
 #include <QFile>
+#include <QFileInfo>
 #include <QTextStream>
 #include <QVersionNumber>
 #include <QtDebug>
@@ -38,7 +39,8 @@ auto CsvBuilder::build(const Result &res) const -> bool
         }
     }
 
-    if (!QtCSV::Writer::write(m_ioParameter.outputFile, strData,
+    auto const info = QFileInfo(m_ioParameter.outputFile);
+    if (!QtCSV::Writer::write(info.absoluteFilePath(), strData,
                               m_ioParameter.csvProperty.field_separator,
                               m_ioParameter.csvProperty.string_separator)) {
         qWarning() << "error writing file";

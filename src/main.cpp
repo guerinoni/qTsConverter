@@ -21,11 +21,6 @@ auto main(int argc, char **argv) -> int
 {
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
-#ifdef Q_OS_WIN
-    QQuickWindow::setTextRenderType(
-        QQuickWindow::TextRenderType::NativeTextRendering);
-#endif
-
 #ifdef ONLY_CLI
     QCoreApplication app(argc, argv);
     QCoreApplication::setOrganizationName(QStringLiteral("Federico Guerinoni"));
@@ -34,6 +29,11 @@ auto main(int argc, char **argv) -> int
     QCoreApplication::setApplicationName(QStringLiteral("qTsConverter"));
     QCoreApplication::setApplicationVersion(swVersion());
 #else
+#    ifdef Q_OS_WIN
+    QQuickWindow::setTextRenderType(
+        QQuickWindow::TextRenderType::NativeTextRendering);
+#    endif
+
     QApplication app(argc, argv);
     QApplication::setOrganizationName(QStringLiteral("Federico Guerinoni"));
     QApplication::setOrganizationDomain(QStringLiteral("Federico Guerinoni"));

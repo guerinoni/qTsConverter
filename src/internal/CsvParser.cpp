@@ -2,6 +2,7 @@
 
 #include <QApplication>
 #include <QFile>
+#include <QFileInfo>
 #include <QVersionNumber>
 #include <QtDebug>
 #include <include/qtcsv/reader.h>
@@ -12,8 +13,9 @@ CsvParser::CsvParser(InOutParameter parameter) : Parser{ std::move(parameter) }
 
 auto CsvParser::parse() const -> Result
 {
-    auto list = QtCSV::Reader::readToList(
-        m_ioParameter.inputFile, m_ioParameter.csvProperty.string_separator,
+    auto const info = QFileInfo(m_ioParameter.inputFile);
+    auto list       = QtCSV::Reader::readToList(
+        info.absoluteFilePath(), m_ioParameter.csvProperty.string_separator,
         m_ioParameter.csvProperty.field_separator);
 
     if (list.isEmpty()) {
