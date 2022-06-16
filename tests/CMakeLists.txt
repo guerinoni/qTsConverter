@@ -45,8 +45,7 @@ if(WIN32)
   add_custom_command(
     TARGET tst_ts2csv
     POST_BUILD
-    COMMAND
-      ${CMAKE_COMMAND} -E copy $<TARGET_RUNTIME_DLLS:tst_ts2csv>
-      $<TARGET_FILE_DIR:tst_ts2csv>
+    COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_RUNTIME_DLLS:tst_ts2csv>
+            $<TARGET_FILE_DIR:tst_ts2csv>
     COMMAND_EXPAND_LISTS)
 endif()
