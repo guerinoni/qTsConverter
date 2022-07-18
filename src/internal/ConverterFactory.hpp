@@ -14,5 +14,9 @@ class ConverterFactory
     static std::unique_ptr<Converter>
     make_converter(ConversionType type, const QString &in, const QString &out,
                    const QString &fieldSep, const QString &stringSep,
+                   const QString &tsVersion, bool noVersion, bool noLocation);
+    static std::unique_ptr<Converter>
+    make_converter(ConversionType type, const QString &in, const QString &out,
+                   const QString &fieldSep, const QString &stringSep,
                    const QString &tsVersion);
 };

@@ -5,7 +5,7 @@
 #include <QDir>
 #include <QtDebug>
 
-CliRunner::CliRunner(QStringList &&args) : m_args{ args } {}
+CliRunner::CliRunner(QStringList &&args, bool noVersion, bool noLocation) : m_args{ args }, m_noVersion(noVersion), m_noLocation(noLocation) {}
 
 auto CliRunner::run() -> int
 {
@@ -23,7 +23,7 @@ auto CliRunner::run() -> int
 
     using CF        = ConverterFactory;
     const auto type = CF::fromString(getSuffix(input), getSuffix(output));
-    auto converter  = CF::make_converter(type, input, output, ";", "\"", "2.1");
+    auto converter  = CF::make_converter(type, input, output, ";", "\"", "2.1", m_noVersion, m_noLocation);
 
     const auto tmpResult = converter->process();
     qInfo() << tmpResult.failed << tmpResult.message

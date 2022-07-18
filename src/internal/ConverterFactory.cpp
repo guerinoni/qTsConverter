@@ -61,37 +61,48 @@ auto ConverterFactory::make_converter(ConverterFactory::ConversionType type,
                                       const QString &tsVersion)
     -> std::unique_ptr<Converter>
 {
+    return make_converter(type, in, out, fieldSep, stringSep, tsVersion, false,
+                          false);
+}
+auto ConverterFactory::make_converter(ConverterFactory::ConversionType type,
+                                      const QString &in, const QString &out,
+                                      const QString &fieldSep,
+                                      const QString &stringSep,
+                                      const QString &tsVersion,
+                                      bool noVersion, bool noLocation)
+    -> std::unique_ptr<Converter>
+{
+    auto paramParser =
+        InOutParameter{ in,          out,
+                        tsVersion,   CsvProperty{ stringSep, fieldSep },
+                        noVersion, noLocation };
+    auto paramBuilder =
+        InOutParameter{ in,          out,
+                        tsVersion,   CsvProperty{ fieldSep, stringSep },
+                        noVersion, noLocation };
     switch (type) {
         case ConversionType::Ts2Csv:
             return std::make_unique<Converter>(
-                std::make_unique<TsParser>(InOutParameter{
-                    in, out, tsVersion, CsvProperty{ stringSep, fieldSep } }),
-                std::make_unique<CsvBuilder>(InOutParameter{
-                    in, out, tsVersion, CsvProperty{ fieldSep, stringSep } }));
+                std::make_unique<TsParser>(std::move(paramParser)),
+                std::make_unique<CsvBuilder>(std::move(paramBuilder)));
             break;
 
         case ConversionType::Csv2Ts:
             return std::make_unique<Converter>(
-                std::make_unique<CsvParser>(InOutParameter{
-                    in, out, tsVersion, CsvProperty{ stringSep, fieldSep } }),
-                std::make_unique<TsBuilder>(InOutParameter{
-                    in, out, tsVersion, CsvProperty{ fieldSep, stringSep } }));
+                std::make_unique<CsvParser>(std::move(paramParser)),
+                std::make_unique<TsBuilder>(std::move(paramBuilder)));
             break;
 
         case ConversionType::Ts2Xlsx:
             return std::make_unique<Converter>(
-                std::make_unique<TsParser>(InOutParameter{
-                    in, out, tsVersion, CsvProperty{ stringSep, fieldSep } }),
-                std::make_unique<XlsxBuilder>(InOutParameter{
-                    in, out, tsVersion, CsvProperty{ fieldSep, stringSep } }));
+                std::make_unique<TsParser>(std::move(paramParser)),
+                std::make_unique<XlsxBuilder>(std::move(paramBuilder)));
             break;
 
         case ConversionType::Xlsx2Ts:
             return std::make_unique<Converter>(
-                std::make_unique<XlsxParser>(InOutParameter{
-                    in, out, tsVersion, CsvProperty{ stringSep, fieldSep } }),
-                std::make_unique<TsBuilder>(InOutParameter{
-                    in, out, tsVersion, CsvProperty{ fieldSep, stringSep } }));
+                std::make_unique<XlsxParser>(std::move(paramParser)),
+                std::make_unique<TsBuilder>(std::move(paramBuilder)));
             break;
 
         default:

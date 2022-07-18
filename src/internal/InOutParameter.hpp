@@ -17,4 +17,6 @@ struct InOutParameter {
     QString outputFile;
     QString tsVersion;
     CsvProperty csvProperty;
+    bool noVersion;
+    bool noLocation;
 };

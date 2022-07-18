@@ -22,7 +22,9 @@ auto XlsxBuilder::build(const Result &res) const -> bool
     int row{ 1 };
     int col{ 1 };
 
-    addTsSupport(row, col, xlsx);
+    if (!m_ioParameter.noVersion) {
+        addTsSupport(row, col, xlsx);
+    }
 
     xlsx.write(row, col, TitleHeader::Context);
     ++col;
@@ -30,8 +32,10 @@ auto XlsxBuilder::build(const Result &res) const -> bool
     ++col;
     xlsx.write(row, col, TitleHeader::Translation);
     ++col;
-    xlsx.write(row, col, TitleHeader::Location);
-    ++col;
+    if (!m_ioParameter.noLocation) {
+        xlsx.write(row, col, TitleHeader::Location);
+        ++col;
+    }
 
     col = 1;
     if (row == 1) {
@@ -43,10 +47,12 @@ auto XlsxBuilder::build(const Result &res) const -> bool
             xlsx.write(row, col++, msg.source);
             xlsx.write(row, col++, msg.translation);
 
-            for (const auto &loc : msg.locations) {
-                xlsx.write(
-                    row, col++,
-                    QString(loc.first + " - " + QString::number(loc.second)));
+            if (!m_ioParameter.noLocation) {
+                for (const auto &loc : msg.locations) {
+                    xlsx.write(row, col++,
+                               QString(loc.first + " - " +
+                                       QString::number(loc.second)));
+                }
             }
             ++row;
             col = 1;
