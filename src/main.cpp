@@ -49,16 +49,19 @@ auto main(int argc, char **argv) -> int
 
     parser.addPositionalArgument("in", "input file.", "[in...]");
     parser.addPositionalArgument("out", "output file.", "[out...]");
-    QCommandLineOption noVersion("no-version", "do not print version information into output file");
+    QCommandLineOption noVersion(
+        "no-version", "do not print version information into output file");
     parser.addOption(noVersion);
-    QCommandLineOption noLocation("no-location", "do not print location information into output file");
+    QCommandLineOption noLocation(
+        "no-location", "do not print location information into output file");
     parser.addOption(noLocation);
 
     parser.process(app);
 
     auto args = parser.positionalArguments();
     if (!args.isEmpty()) {
-        CliRunner cli(std::move(args), parser.isSet(noVersion), parser.isSet(noLocation));
+        CliRunner cli(std::move(args), parser.isSet(noVersion),
+                      parser.isSet(noLocation));
         return cli.run();
 #ifdef ONLY_CLI
     } else {
