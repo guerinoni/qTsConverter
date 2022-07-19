@@ -1,5 +1,6 @@
 #include <ConverterFactory.hpp>
 #include <QFile>
+#include <iostream>
 
 auto test_conversion(std::string &&input, std::string &&expect,
                      ConverterFactory::ConversionType typeOfConvesion) -> bool
@@ -46,5 +47,18 @@ auto test_conversion(std::string &&input, std::string &&expect,
     out.close();
     out.remove();
 
-    return o.size() == e.size() && o == e;
+    const bool condition = o.size() == e.size() && o == e;
+
+    using namespace std;
+    if (!condition) {
+        cout << "Test " << input << " to " << expect << endl;
+        cout << "Output:" << endl;
+        cout << o.toStdString();
+        cout << "-----------" << endl;
+        cout << "Expected:" << endl;
+        cout << e.toStdString();
+        cout << "-----------" << endl;
+        cout << "-----------" << endl;
+    }
+    return condition;
 }
