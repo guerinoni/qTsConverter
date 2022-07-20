@@ -43,8 +43,8 @@ endif()
 install(TARGETS ${CMAKE_PROJECT_NAME}
         RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/)
 
-# copy required dlls to executable on windows
 if(WIN32)
+  # copy required dlls to executable on windows
   cmake_minimum_required(VERSION 3.21)
   add_custom_command(
     TARGET ${CMAKE_PROJECT_NAME}
@@ -53,4 +53,7 @@ if(WIN32)
       ${CMAKE_COMMAND} -E copy $<TARGET_RUNTIME_DLLS:${CMAKE_PROJECT_NAME}>
       $<TARGET_FILE_DIR:${CMAKE_PROJECT_NAME}>
     COMMAND_EXPAND_LISTS)
+  # install required dlls to executable on windows
+  install(FILES $<TARGET_RUNTIME_DLLS:${CMAKE_PROJECT_NAME}>
+          DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/)
 endif()

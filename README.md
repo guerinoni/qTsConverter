@@ -24,13 +24,17 @@ editable using an office suite.
 ![example conversion ts -> csv](./doc/Screenshot.png)
 
 ## Usage (CLI version)
-You can check te version with `qTsConverter --version`.
+You can check the version with `qTsConverter --version`.
 
 Perform a conversion:
 ```bash
 qTsConverter ../../tests/files/scenario_multiline.ts ./lol.csv
 ```
-
+To create an excelfile without version information / without file locations,
+the cli can be invoked with two command line switches.
+```bash
+qTsConverter --no-version --no-location ../../tests/files/scenario_multiline.ts ./lol.xlsx
+```
 
 ## Build
 
@@ -50,6 +54,7 @@ cmake -DBUILD_CLI:BOOL=ON -DCMAKE_PREFIX_PATH=/home/guerra/Qt/5.15.2/gcc_64/ ..
 cmake --build .
 ```
 
+### Linux
 Compile from source and install:
 
 ```
@@ -78,4 +83,17 @@ For example:
 
 ```bash
 xdg-mime default libreoffice-calc.desktop application/csv
+```
+
+### Windows
+Compile from source and install:
+
+```pwsh
+cmake -DCMAKE_BUILD_TYPE=Release -S . -B build_win_release
+cmake --build build_win_release --parallel --config Release
+```
+
+As Administrator
+```pwsh
+cmake --install build_win_release
 ```

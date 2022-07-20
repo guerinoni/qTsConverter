@@ -25,9 +25,19 @@ jobs:
           cached: ${{ steps.cache-qt.outputs.cache-hit }}
 
       - name: Build GUI
-        shell: bash
+        shell: pwsh
         run: |
           mkdir build-gui
           cd build-gui
           cmake ..
           cmake --build . --parallel
+          ctest --output-on-failure
+
+      - name: Build CLI
+        shell: pwsh
+        run: |
+          mkdir build-cli
+          cd build-cli
+          cmake -DBUILD_CLI:BOOL=ON ..
+          cmake --build . --parallel
+          ctest --output-on-failure
