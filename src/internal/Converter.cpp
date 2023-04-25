@@ -11,7 +11,7 @@ auto Converter::process() const -> Converter::CoversionResult
 {
     const auto result = m_parser->parse();
     if (!result.error.isEmpty()) {
-        return CoversionResult(false, QStringLiteral("Failed to parse source!"),
+        return CoversionResult(true, QStringLiteral("Failed to parse source!"),
                                result.error);
     }
 
