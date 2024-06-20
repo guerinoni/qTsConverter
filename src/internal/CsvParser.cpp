@@ -19,11 +19,13 @@ auto CsvParser::parse() const -> Result
         m_ioParameter.csvProperty.field_separator);
 
     if (list.isEmpty()) {
-        return Result{ "Source file empty!", {}, {} };
+        return Result{ "Source file empty!", {}, {}, {} };
     }
 
     removeEmptyFrontBack(list);
     splitByRow(list);
+
+    Header h;
 
     const auto appVersion       = qApp->applicationVersion();
     const auto currentVersion   = QVersionNumber::fromString(appVersion);
@@ -69,7 +71,7 @@ auto CsvParser::parse() const -> Result
         msg.locations.clear();
     }
 
-    return Result{ "", std::move(translations), std::move(p) };
+    return Result{ "", std::move(translations), std::move(p), std::move(h) };
 }
 
 auto CsvParser::decodeLocation(const QString &str) -> std::pair<QString, int>

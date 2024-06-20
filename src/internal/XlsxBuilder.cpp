@@ -23,7 +23,7 @@ auto XlsxBuilder::build(const Result &res) const -> bool
     int col{ 1 };
 
     if (!m_ioParameter.noVersion) {
-        addTsSupport(row, col, xlsx);
+        addTsSupport(row, col, xlsx, res);
     }
 
     xlsx.write(row, col, TitleHeader::Context);
@@ -38,7 +38,7 @@ auto XlsxBuilder::build(const Result &res) const -> bool
     }
 
     col = 1;
-    if (row == 1) {
+    if (row == 3) {
         ++row;
     }
     for (const auto &tr : res.translantions) {
@@ -67,7 +67,7 @@ auto XlsxBuilder::build(const Result &res) const -> bool
     return true;
 }
 
-void XlsxBuilder::addTsSupport(int &row, int &col, QXlsx::Document &doc) const
+void XlsxBuilder::addTsSupport(int &row, int &col, QXlsx::Document &doc, const Result &res) const
 {
     const auto appVersion       = qApp->applicationVersion();
     const auto currentVersion   = QVersionNumber::fromString(appVersion);
@@ -75,7 +75,20 @@ void XlsxBuilder::addTsSupport(int &row, int &col, QXlsx::Document &doc) const
     if (QVersionNumber::compare(currentVersion, TsSupportVersion) >= 0) {
         doc.write(row, col, TitleHeader::TsVersion);
         ++row;
-        doc.write(row, col, m_ioParameter.tsVersion);
+        doc.write(row, col, res.header.tsVersion);
         ++row;
     }
+    
+    row = 1;
+    ++col;
+    doc.write(row, col, TitleHeader::Language);
+    ++row;
+    doc.write(row, col, res.header.language);
+    row = 1;
+    ++col;
+    doc.write(row, col, TitleHeader::SourceLanguage);
+    ++row;
+    doc.write(row, col, res.header.sourcelanguage);
+    col = 1;
+    ++row;
 }
