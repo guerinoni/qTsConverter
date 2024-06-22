@@ -15,141 +15,93 @@ TsBuilder::TsBuilder(InOutParameter parameter) : Builder{ std::move(parameter) }
 auto TsBuilder::build(const Result &res) const -> bool
 {
 
-QDomDocument doc;
-QDomProcessingInstruction h = doc.createProcessingInstruction("xml", "version='1.0' encoding='UTF-8'");
-doc.appendChild(h);
+    QDomDocument doc;
+    QDomProcessingInstruction h = doc.createProcessingInstruction("xml", "version=\"1.0\" encoding=\"utf-8\"");
+    doc.appendChild(h);
 
-QDomElement elem = doc.createElement("!DOCTYPE TS");
-doc.appendChild(elem);
+    QDomElement elem = doc.createElement("!DOCTYPE TS");
+    doc.appendChild(elem);
 
-QDomElement root = doc.createElement("TS");
-if (res.root.language != "") {
-    root.setAttribute("language", res.root.language);
-}
-if (res.root.sourcelanguage != "") {
-    root.setAttribute("sourcelanguage", res.root.sourcelanguage);
-}
-if (res.root.tsVersion != "") {
-    root.setAttribute("version", res.root.tsVersion);
-}
-doc.appendChild(root);
-
-for (const auto &ctxs : res.translantions) {
-
-    QDomElement context = doc.createElement("context");
-    root.appendChild(context);
-
-    elem = doc.createElement("name");
-    context.appendChild(elem);
-    QDomText text = doc.createTextNode(ctxs.name);
-    elem.appendChild(text);
-
-    for (const auto &msg : ctxs.messages) {
-
-        QDomElement message = doc.createElement("message");
-        context.appendChild(message);
-
-        for (const auto &loc : msg.locations) {
-            elem = doc.createElement("location");
-            elem.setAttribute("filename", loc.first);
-            elem.setAttribute("line", QString::number(loc.second));
-            message.appendChild(elem);
-        }
-
-        elem = doc.createElement("source");
-        message.appendChild(elem);
-        text = doc.createTextNode(msg.source);
-        elem.appendChild(text);
-
-        if (msg.comment != "") {
-            elem = doc.createElement("comment");
-            message.appendChild(elem);
-            text = doc.createTextNode(msg.comment);
-            elem.appendChild(text);
-        }
-
-        if (msg.extracomment != "") {
-            elem = doc.createElement("extracomment");
-            message.appendChild(elem);
-            text = doc.createTextNode(msg.extracomment);
-            elem.appendChild(text);
-        }
-
-        if (msg.translatorcomment != "") {        
-            elem = doc.createElement("translatorcomment");
-            message.appendChild(elem);
-            text = doc.createTextNode(msg.translatorcomment);
-            elem.appendChild(text);
-        }
-        
-        elem = doc.createElement("translation");
-        if (msg.translationtype != "") {
-            elem.setAttribute("type", msg.translationtype);
-        }
-        message.appendChild(elem);
-        text = doc.createTextNode(msg.translation);
-        elem.appendChild(text);
+    QDomElement root = doc.createElement("TS");
+    if (res.root.language != "") {
+        root.setAttribute("language", res.root.language);
     }
-}
-
-QFile output(m_ioParameter.outputFile);
-if (!output.open(QFile::WriteOnly | QFile::Truncate)) {
-    qWarning() << "can't open file" << output.fileName();
-    return false;
-}
-else {
-    QTextStream stream(&output);
-    stream << doc.toString();
-}    
-    
-/*     s.setAutoFormatting(true);
-    s.setAutoFormattingIndent(4);
-    s.writeStartDocument();
-
-    s.writeEmptyElement("!DOCTYPE TS");
-    
-    // Create root element with attributes
-    s.writeStartElement("TS");
-    s.writeAttribute("version", res.root.tsVersion);
-    if (res.root.sourcelanguage != "" ) {
-        s.writeAttribute("sourcelanguage", res.root.sourcelanguage);
+    if (res.root.sourcelanguage != "") {
+        root.setAttribute("sourcelanguage", res.root.sourcelanguage);
     }
-    if (res.root.language != "" ) {
-        s.writeAttribute("language", res.root.language);
+    if (res.root.tsVersion != "") {
+        root.setAttribute("version", res.root.tsVersion);
     }
+    doc.appendChild(root);
 
     for (const auto &ctxs : res.translantions) {
-        s.writeStartElement("context");
-        s.writeTextElement("name", ctxs.name);
+
+        QDomElement context = doc.createElement("context");
+        root.appendChild(context);
+
+        elem = doc.createElement("name");
+        context.appendChild(elem);
+        QDomText text = doc.createTextNode(ctxs.name);
+        elem.appendChild(text);
 
         for (const auto &msg : ctxs.messages) {
-            s.writeStartElement("message");
+
+            QDomElement message = doc.createElement("message");
+            context.appendChild(message);
 
             for (const auto &loc : msg.locations) {
-                s.writeEmptyElement("location");
-                s.writeAttribute("filename", loc.first);
-                s.writeAttribute("line", QString::number(loc.second));
+                elem = doc.createElement("location");
+                elem.setAttribute("filename", loc.first);
+                elem.setAttribute("line", QString::number(loc.second));
+                message.appendChild(elem);
             }
 
-            s.writeTextElement("source", msg.source);
+            elem = doc.createElement("source");
+            message.appendChild(elem);
+            text = doc.createTextNode(msg.source);
+            elem.appendChild(text);
+
             if (msg.comment != "") {
-                s.writeTextElement("comment", msg.comment);
+                elem = doc.createElement("comment");
+                message.appendChild(elem);
+                text = doc.createTextNode(msg.comment);
+                elem.appendChild(text);
             }
-            if (msg.extracomment != "") {
-                s.writeTextElement("extracomment", msg.extracomment);
-            }
-            if (msg.translatorcomment != "") {
-                s.writeTextElement("translatorcomment", msg.translatorcomment);
-            }
-            s.writeTextElement("translation", msg.translation);
 
-            s.writeEndElement(); // message
+            if (msg.extracomment != "") {
+                elem = doc.createElement("extracomment");
+                message.appendChild(elem);
+                text = doc.createTextNode(msg.extracomment);
+                elem.appendChild(text);
+            }
+
+            if (msg.translatorcomment != "") {        
+                elem = doc.createElement("translatorcomment");
+                message.appendChild(elem);
+                text = doc.createTextNode(msg.translatorcomment);
+                elem.appendChild(text);
+            }
+            
+            elem = doc.createElement("translation");
+            if (msg.translationtype != "") {
+                elem.setAttribute("type", msg.translationtype);
+            }
+            message.appendChild(elem);
+            text = doc.createTextNode(msg.translation);
+            elem.appendChild(text);
         }
-        s.writeEndElement(); // context
     }
 
-    s.writeEndDocument(); */
-
+    QFile output(m_ioParameter.outputFile);
+    if (!output.open(QFile::WriteOnly | QFile::Truncate)) {
+        qWarning() << "can't open file" << output.fileName();
+        return false;
+    }
+    else {
+        QTextStream stream(&output);
+        stream << doc.toString();
+    }    
+    
     output.close();
     removeSlashInDoctype(&output);
     return true;
