@@ -23,14 +23,14 @@ auto TsBuilder::build(const Result &res) const -> bool
     doc.appendChild(elem);
 
     QDomElement root = doc.createElement("TS");
-    if (res.root.language != "") {
-        root.setAttribute("language", res.root.language);
+    if (res.root.tsVersion != "") {
+        root.setAttribute("version", res.root.tsVersion);
     }
     if (res.root.sourcelanguage != "") {
         root.setAttribute("sourcelanguage", res.root.sourcelanguage);
     }
-    if (res.root.tsVersion != "") {
-        root.setAttribute("version", res.root.tsVersion);
+    if (res.root.language != "") {
+        root.setAttribute("language", res.root.language);
     }
     doc.appendChild(root);
 
