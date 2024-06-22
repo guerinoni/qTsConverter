@@ -3,7 +3,7 @@
 #include <QString>
 #include <vector>
 
-struct Header {
+struct RootAttr {
     QString tsVersion;
     QString language;
     QString sourcelanguage;

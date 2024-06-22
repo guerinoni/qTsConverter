@@ -97,3 +97,26 @@ As Administrator
 ```pwsh
 cmake --install build_win_release
 ```
+
+##
+Example of supported TS file:
+
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="de" sourcelanguage="en">
+<context>
+    <name>context a</name>
+    <message>
+        <location filename="../dir/file.ui" line="26"/>
+        <source>source example</source>
+		<comment>comment example</comment>
+		<extracomment>extra comment example</extracomment>
+		<translatorcomment>translator comment example</translatorcomment>
+        <translation>translation example</translation>
+		<translation type="unfinished"></translation>
+		<translation type="vanished">Beispiel1</translation>
+		<translation type="obsolete">Beispiel2</translation>
+    </message>
+</context>
+</TS>
+

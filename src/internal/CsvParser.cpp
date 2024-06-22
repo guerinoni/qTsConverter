@@ -25,7 +25,7 @@ auto CsvParser::parse() const -> Result
     removeEmptyFrontBack(list);
     splitByRow(list);
 
-    Header h;
+    RootAttr root;
 
     const auto appVersion       = qApp->applicationVersion();
     const auto currentVersion   = QVersionNumber::fromString(appVersion);
@@ -71,7 +71,7 @@ auto CsvParser::parse() const -> Result
         msg.locations.clear();
     }
 
-    return Result{ "", std::move(translations), std::move(p), std::move(h) };
+    return Result{ "", std::move(translations), std::move(p), std::move(root) };
 }
 
 auto CsvParser::decodeLocation(const QString &str) -> std::pair<QString, int>

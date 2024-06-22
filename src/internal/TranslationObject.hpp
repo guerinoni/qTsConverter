@@ -6,6 +6,10 @@
 struct TranslationMessage {
     QString source;
     QString translation;
+    QString translationtype;    // attribute of translation: {empty = finished, unfinished, vanished, obsolete}
+    QString comment;
+    QString extracomment;
+    QString translatorcomment;
     std::vector<std::pair<QString, int>> locations;
 };
 

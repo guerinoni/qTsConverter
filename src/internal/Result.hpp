@@ -2,18 +2,18 @@
 
 #include "InOutParameter.hpp"
 #include "TranslationObject.hpp"
-#include "HeaderObject.hpp"
+#include "RootObject.hpp"
 
 #include <QString>
 
 struct Result {
-    explicit Result(QString &&err, Translations &&tr, InOutParameter &&par, Header &&hd) :
-        error{ std::move(err) }, translantions{ std::move(tr) }, params{std::move(par) }, header{std::move(hd)}
+    explicit Result(QString &&err, Translations &&tr, InOutParameter &&par, RootAttr &&rt) :
+        error{ std::move(err) }, translantions{ std::move(tr) }, params{std::move(par) }, root{std::move(rt)}
     {
     }
 
     QString error;
     Translations translantions;
     InOutParameter params;
-    Header header;
+    RootAttr root;
 };
