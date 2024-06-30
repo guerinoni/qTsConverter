@@ -28,6 +28,8 @@ auto XlsxBuilder::build(const Result &res) const -> bool
 
     xlsx.write(row, col, TitleHeader::Context);
     ++col;
+    xlsx.write(row, col, TitleHeader::ID);
+    ++col;
     xlsx.write(row, col, TitleHeader::Source);
     ++col;
     xlsx.write(row, col, TitleHeader::Translation);
@@ -53,6 +55,7 @@ auto XlsxBuilder::build(const Result &res) const -> bool
     for (const auto &tr : res.translantions) {
         for (const auto &msg : tr.messages) {
             xlsx.write(row, col++, tr.name);
+            xlsx.write(row, col++, msg.identifier);
             xlsx.write(row, col++, msg.source);
             xlsx.write(row, col++, msg.translation);
             xlsx.write(row, col++, msg.translationtype);

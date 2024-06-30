@@ -33,13 +33,14 @@ auto XlsxParser::parse() const -> Result
     }
 
     if (xlsx.read(offsetRow + 1, 1) != TitleHeader::Context ||
-        xlsx.read(offsetRow + 1, 2) != TitleHeader::Source ||
-        xlsx.read(offsetRow + 1, 3) != TitleHeader::Translation ||
-        xlsx.read(offsetRow + 1, 4) != TitleHeader::TranslationType ||
-        xlsx.read(offsetRow + 1, 5) != TitleHeader::Comment ||
-        xlsx.read(offsetRow + 1, 6) != TitleHeader::ExtraComment ||
-        xlsx.read(offsetRow + 1, 7) != TitleHeader::TranslatorComment ||
-        xlsx.read(offsetRow + 1, 8) != TitleHeader::Location) {
+        xlsx.read(offsetRow + 1, 2) != TitleHeader::ID ||
+        xlsx.read(offsetRow + 1, 3) != TitleHeader::Source ||
+        xlsx.read(offsetRow + 1, 4) != TitleHeader::Translation ||
+        xlsx.read(offsetRow + 1, 5) != TitleHeader::TranslationType ||
+        xlsx.read(offsetRow + 1, 6) != TitleHeader::Comment ||
+        xlsx.read(offsetRow + 1, 7) != TitleHeader::ExtraComment ||
+        xlsx.read(offsetRow + 1, 8) != TitleHeader::TranslatorComment ||
+        xlsx.read(offsetRow + 1, 9) != TitleHeader::Location) {
         return Result{ "Invalid XLSX file, check the headers!", {}, {}, {} };
     }
 
@@ -48,14 +49,15 @@ auto XlsxParser::parse() const -> Result
 
     for (auto row = 4; row <= lastRow; ++row) {
         context.name            = xlsx.read(row, 1).toString();
-        msg.source              = xlsx.read(row, 2).toString();
-        msg.translation         = xlsx.read(row, 3).toString();
-        msg.translationtype     = xlsx.read(row, 4).toString();
-        msg.comment             = xlsx.read(row, 5).toString();
-        msg.extracomment        = xlsx.read(row, 6).toString();
-        msg.translatorcomment   = xlsx.read(row, 7).toString();
+        msg.identifier          = xlsx.read(row, 2).toString();
+        msg.source              = xlsx.read(row, 3).toString();
+        msg.translation         = xlsx.read(row, 4).toString();
+        msg.translationtype     = xlsx.read(row, 5).toString();
+        msg.comment             = xlsx.read(row, 6).toString();
+        msg.extracomment        = xlsx.read(row, 7).toString();
+        msg.translatorcomment   = xlsx.read(row, 8).toString();
 
-        for (auto col = 8; col <= lastColumn; ++col) {
+        for (auto col = 9; col <= lastColumn; ++col) {
             const auto loc = xlsx.read(row, col).toString();
             if (loc.isEmpty()) {
                 break;

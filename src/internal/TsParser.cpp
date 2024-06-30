@@ -38,7 +38,9 @@ auto TsParser::parse() const -> Result
             }
 
             TranslationMessage msg;
-
+            msg.identifier =
+                nodeMsg.attributes().namedItem("id").nodeValue();
+//                nodeMsg.firstChildElement(QStringLiteral("message")).attributeNode("id").value();
             msg.source =
                 nodeMsg.firstChildElement(QStringLiteral("source")).text();
             msg.translation =

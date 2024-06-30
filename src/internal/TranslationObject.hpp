@@ -4,6 +4,7 @@
 #include <vector>
 
 struct TranslationMessage {
+    QString identifier;         // attribute of message: optional
     QString source;
     QString translation;
     QString translationtype;    // attribute of translation: {empty = finished, unfinished, vanished, obsolete}

@@ -47,7 +47,11 @@ auto TsBuilder::build(const Result &res) const -> bool
         for (const auto &msg : ctxs.messages) {
 
             QDomElement message = doc.createElement("message");
+            if (msg.identifier != "") {
+                message.setAttribute("id", msg.identifier);
+            }
             context.appendChild(message);
+
 
             for (const auto &loc : msg.locations) {
                 elem = doc.createElement("location");
