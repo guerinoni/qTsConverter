@@ -16,5 +16,5 @@ class XlsxBuilder : public Builder
     bool build(const Result &res) const override;
 
   private:
-    void addTsSupport(int &row, int &col, QXlsx::Document &doc) const;
+    void addTsSupport(int &row, int &col, QXlsx::Document &doc, const Result &res) const;
 };
