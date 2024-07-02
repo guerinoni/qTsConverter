@@ -1,9 +1,11 @@
-"Context";"Source";"Translation";"Location"
-"main";"Hello
+"TsVersion";"sourcelanguage";"language"
+"2.1";"";""
+"Context";"ID";"Source";"Translation";"TranslationType";"comment";"extracomment";"translatorcomment";"Location"
+"main";"";"Hello
 world
 multiline
-0";"";"main.qml - 15"
-"main";"Hello
+0";"";"";"";"";"";"main.qml - 15"
+"main";"";"Hello
 world
 multiline
-1";"";"main.qml - 24"
+1";"";"";"";"";"";"main.qml - 24"

@@ -106,7 +106,7 @@ Example of supported TS file:
 <TS version="2.1" language="de" sourcelanguage="en">
 <context>
     <name>context a</name>
-    <message>
+    <message id="my-id">
         <location filename="../dir/file.ui" line="26"/>
         <source>source example</source>
 		<comment>comment example</comment>
@@ -114,8 +114,8 @@ Example of supported TS file:
 		<translatorcomment>translator comment example</translatorcomment>
         <translation>translation example</translation>
 		<translation type="unfinished"></translation>
-		<translation type="vanished">Beispiel1</translation>
-		<translation type="obsolete">Beispiel2</translation>
+		<translation type="vanished">example 1: type is optional and maximum one type</translation>
+		<translation type="obsolete">example 2</translation>
     </message>
 </context>
 </TS>

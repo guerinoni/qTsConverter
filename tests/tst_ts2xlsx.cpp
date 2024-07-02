@@ -142,11 +142,11 @@ auto main() -> int
 {
     bool ret = false;
 
+    QApplication::setApplicationVersion("5.0.0");
     ret |= !scenario_simple();
 
     ret |= !scenario_multiLocation();
 
-    QApplication::setApplicationVersion("4.5.0");
     ret |= !scenario_ts_version();
 
     return static_cast<int>(ret);
