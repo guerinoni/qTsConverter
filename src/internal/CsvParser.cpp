@@ -21,7 +21,6 @@ auto CsvParser::parse() const -> Result
     if (list.isEmpty()) {
         return Result{ "Source file empty!", {}, {}, {} };
     }
-
     removeEmptyFrontBack(list);
     //splitByRow(list);
 
@@ -33,14 +32,11 @@ auto CsvParser::parse() const -> Result
     InOutParameter p{ "", "", m_ioParameter.tsVersion, {} };
     if (QVersionNumber::compare(currentVersion, TsSupportVersion) >= 0) {
         list.pop_front();
-        root.tsVersion = list.first().at(0);
-            qDebug() << root.tsVersion;
-        //list.pop_front();
-        root.sourcelanguage = list.first().at(1);
-            qDebug() << root.sourcelanguage;
-        //list.pop_front();
-        root.language = list.first().at(2);
-            qDebug() << root.language;
+        root.tsVersion = list.first().isEmpty() ? QString{} : list.first().first();
+        list.first().pop_front();
+        root.sourcelanguage = list.first().isEmpty() ? QString{} : list.first().first();
+        list.first().pop_front();
+        root.language = list.first().isEmpty() ? QString{} : list.first().first();
         list.pop_front();
     }
 
@@ -52,26 +48,17 @@ auto CsvParser::parse() const -> Result
     removeQuote(list);
 
     for (const QStringList &l : qAsConst(list)) {
-        qDebug("---newline---");
-        for (const auto &value : l) {
+//        for (const auto &value : l) {
             context.name = l.at(kNameIndex);
-            qDebug() << context.name;
-        }
+//        }
 
         msg.identifier          = l.at(kIdIndex);
-        qDebug() << msg.identifier;
         msg.source              = l.at(kSourceIndex);
-        qDebug() << msg.source;
         msg.translation         = l.at(kTranslationIndex);
-        qDebug() << msg.translation;
         msg.translationtype     = l.at(kTranslationTypeIndex);
-        qDebug() << msg.translationtype;
         msg.comment             = l.at(kCommentIndex);
-        qDebug() << msg.comment;
         msg.extracomment        = l.at(kExtraCommentIndex);
-        qDebug() << msg.extracomment;
         msg.translatorcomment   = l.at(kTranslatorCommentIndex);
-        qDebug() << msg.translatorcomment;
 
         msg.locations.emplace_back(decodeLocation(l.at(kLocationsIndex)));
 
