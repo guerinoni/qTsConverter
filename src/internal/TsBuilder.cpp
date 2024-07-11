@@ -1,9 +1,9 @@
 #include "TsBuilder.hpp"
 
+#include <QDomDocument>
 #include <QFile>
 #include <QXmlStreamWriter>
 #include <QtDebug>
-#include <QDomDocument>
 
 #undef QDOMONLY
 
@@ -20,7 +20,8 @@ auto TsBuilder::build(const Result &res) const -> bool
     qSetGlobalQHashSeed(0);
 
     QDomDocument doc;
-    QDomProcessingInstruction h = doc.createProcessingInstruction("xml", "version=\"1.0\" encoding=\"utf-8\"");
+    QDomProcessingInstruction h = doc.createProcessingInstruction(
+        "xml", "version=\"1.0\" encoding=\"utf-8\"");
     doc.appendChild(h);
 
     QDomElement elem = doc.createElement("!DOCTYPE TS");
@@ -39,7 +40,6 @@ auto TsBuilder::build(const Result &res) const -> bool
     doc.appendChild(root);
 
     for (const auto &ctxs : res.translantions) {
-
         QDomElement context = doc.createElement("context");
         root.appendChild(context);
 
@@ -49,13 +49,11 @@ auto TsBuilder::build(const Result &res) const -> bool
         elem.appendChild(text);
 
         for (const auto &msg : ctxs.messages) {
-
             QDomElement message = doc.createElement("message");
             if (msg.identifier != "") {
                 message.setAttribute("id", msg.identifier);
             }
             context.appendChild(message);
-
 
             for (const auto &loc : msg.locations) {
                 elem = doc.createElement("location");
@@ -83,13 +81,13 @@ auto TsBuilder::build(const Result &res) const -> bool
                 elem.appendChild(text);
             }
 
-            if (msg.translatorcomment != "") {        
+            if (msg.translatorcomment != "") {
                 elem = doc.createElement("translatorcomment");
                 message.appendChild(elem);
                 text = doc.createTextNode(msg.translatorcomment);
                 elem.appendChild(text);
             }
-            
+
             elem = doc.createElement("translation");
             if (msg.translationtype != "") {
                 elem.setAttribute("type", msg.translationtype);
@@ -104,11 +102,10 @@ auto TsBuilder::build(const Result &res) const -> bool
     if (!output.open(QFile::WriteOnly | QFile::Truncate)) {
         qWarning() << "can't open file" << output.fileName();
         return false;
-    }
-    else {
+    } else {
         QTextStream stream(&output);
         stream << doc.toString();
-    }    
+    }
 #else
     QFile output(m_ioParameter.outputFile);
     if (!output.open(QFile::WriteOnly | QFile::Truncate)) {
@@ -123,14 +120,14 @@ auto TsBuilder::build(const Result &res) const -> bool
     s.writeStartDocument();
 
     s.writeEmptyElement("!DOCTYPE TS");
-    
+
     // Create root element with attributes
     s.writeStartElement("TS");
     s.writeAttribute("version", res.root.tsVersion);
-    if (res.root.sourcelanguage != "" ) {
+    if (res.root.sourcelanguage != "") {
         s.writeAttribute("sourcelanguage", res.root.sourcelanguage);
     }
-    if (res.root.language != "" ) {
+    if (res.root.language != "") {
         s.writeAttribute("language", res.root.language);
     }
 
@@ -140,7 +137,7 @@ auto TsBuilder::build(const Result &res) const -> bool
 
         for (const auto &msg : ctxs.messages) {
             s.writeStartElement("message");
-            if (msg.identifier != "" ) {
+            if (msg.identifier != "") {
                 s.writeAttribute("id", msg.identifier);
             }
 
@@ -160,10 +157,10 @@ auto TsBuilder::build(const Result &res) const -> bool
             if (msg.translatorcomment != "") {
                 s.writeTextElement("translatorcomment", msg.translatorcomment);
             }
-            
+
             s.writeStartElement("translation");
             if (msg.translationtype != "") {
-                s.writeAttribute("type",msg.translationtype);
+                s.writeAttribute("type", msg.translationtype);
             }
             s.writeCharacters(msg.translation);
             s.writeEndElement();

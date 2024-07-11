@@ -83,7 +83,8 @@ auto XlsxBuilder::build(const Result &res) const -> bool
     return true;
 }
 
-void XlsxBuilder::addTsSupport(int &row, int &col, QXlsx::Document &doc, const Result &res) const
+void XlsxBuilder::addTsSupport(int &row, int &col, QXlsx::Document &doc,
+                               const Result &res) const
 {
     const auto appVersion       = qApp->applicationVersion();
     const auto currentVersion   = QVersionNumber::fromString(appVersion);
@@ -94,7 +95,7 @@ void XlsxBuilder::addTsSupport(int &row, int &col, QXlsx::Document &doc, const R
         doc.write(row, col, res.root.tsVersion);
         ++row;
     }
-    
+
     row = 1;
     ++col;
     doc.write(row, col, TitleHeader::SourceLanguage);

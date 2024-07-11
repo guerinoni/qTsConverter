@@ -8,4 +8,3 @@ struct RootAttr {
     QString language;
     QString sourcelanguage;
 };
-

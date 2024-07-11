@@ -22,7 +22,7 @@ auto CsvParser::parse() const -> Result
         return Result{ "Source file empty!", {}, {}, {} };
     }
     removeEmptyFrontBack(list);
-    //splitByRow(list);
+    // splitByRow(list);
 
     RootAttr root;
 
@@ -32,11 +32,14 @@ auto CsvParser::parse() const -> Result
     InOutParameter p{ "", "", m_ioParameter.tsVersion, {} };
     if (QVersionNumber::compare(currentVersion, TsSupportVersion) >= 0) {
         list.pop_front();
-        root.tsVersion = list.first().isEmpty() ? QString{} : list.first().first();
+        root.tsVersion =
+            list.first().isEmpty() ? QString{} : list.first().first();
         list.first().pop_front();
-        root.sourcelanguage = list.first().isEmpty() ? QString{} : list.first().first();
+        root.sourcelanguage =
+            list.first().isEmpty() ? QString{} : list.first().first();
         list.first().pop_front();
-        root.language = list.first().isEmpty() ? QString{} : list.first().first();
+        root.language =
+            list.first().isEmpty() ? QString{} : list.first().first();
         list.pop_front();
     }
 
@@ -48,17 +51,17 @@ auto CsvParser::parse() const -> Result
     removeQuote(list);
 
     for (const QStringList &l : qAsConst(list)) {
-//        for (const auto &value : l) {
-            context.name = l.at(kNameIndex);
-//        }
+        //        for (const auto &value : l) {
+        context.name = l.at(kNameIndex);
+        //        }
 
-        msg.identifier          = l.at(kIdIndex);
-        msg.source              = l.at(kSourceIndex);
-        msg.translation         = l.at(kTranslationIndex);
-        msg.translationtype     = l.at(kTranslationTypeIndex);
-        msg.comment             = l.at(kCommentIndex);
-        msg.extracomment        = l.at(kExtraCommentIndex);
-        msg.translatorcomment   = l.at(kTranslatorCommentIndex);
+        msg.identifier        = l.at(kIdIndex);
+        msg.source            = l.at(kSourceIndex);
+        msg.translation       = l.at(kTranslationIndex);
+        msg.translationtype   = l.at(kTranslationTypeIndex);
+        msg.comment           = l.at(kCommentIndex);
+        msg.extracomment      = l.at(kExtraCommentIndex);
+        msg.translatorcomment = l.at(kTranslatorCommentIndex);
 
         msg.locations.emplace_back(decodeLocation(l.at(kLocationsIndex)));
 

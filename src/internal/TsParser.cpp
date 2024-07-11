@@ -20,10 +20,10 @@ auto TsParser::parse() const -> Result
     Translations translations;
 
     QDomElement docElem = doc.documentElement();
-    root.tsVersion = docElem.attributeNode("version").value();
-    root.language = docElem.attributeNode("language").value();
+    root.tsVersion      = docElem.attributeNode("version").value();
+    root.language       = docElem.attributeNode("language").value();
     root.sourcelanguage = docElem.attributeNode("sourcelanguage").value();
-    
+
     auto contexts = doc.elementsByTagName(QStringLiteral("context"));
     for (int i = 0; i < contexts.size(); ++i) {
         auto nodeCtx = contexts.item(i);
@@ -38,21 +38,24 @@ auto TsParser::parse() const -> Result
             }
 
             TranslationMessage msg;
-            msg.identifier =
-                nodeMsg.attributes().namedItem("id").nodeValue();
-//                nodeMsg.firstChildElement(QStringLiteral("message")).attributeNode("id").value();
+            msg.identifier = nodeMsg.attributes().namedItem("id").nodeValue();
+            //                nodeMsg.firstChildElement(QStringLiteral("message")).attributeNode("id").value();
             msg.source =
                 nodeMsg.firstChildElement(QStringLiteral("source")).text();
             msg.translation =
                 nodeMsg.firstChildElement(QStringLiteral("translation")).text();
             msg.translationtype =
-                nodeMsg.firstChildElement(QStringLiteral("translation")).attributeNode("type").value();
+                nodeMsg.firstChildElement(QStringLiteral("translation"))
+                    .attributeNode("type")
+                    .value();
             msg.comment =
                 nodeMsg.firstChildElement(QStringLiteral("comment")).text();
             msg.extracomment =
-                nodeMsg.firstChildElement(QStringLiteral("extracomment")).text();
+                nodeMsg.firstChildElement(QStringLiteral("extracomment"))
+                    .text();
             msg.translatorcomment =
-                nodeMsg.firstChildElement(QStringLiteral("translatorcomment")).text();                                
+                nodeMsg.firstChildElement(QStringLiteral("translatorcomment"))
+                    .text();
 
             for (int k = 0; k < locations.size(); k++) {
                 if (locations.at(k).nodeName() == "location") {

@@ -29,7 +29,7 @@ auto XlsxParser::parse() const -> Result
         root.tsVersion      = xlsx.read(2, 1).toString();
         root.sourcelanguage = xlsx.read(2, 2).toString();
         root.language       = xlsx.read(2, 3).toString();
-        offsetRow   = 2;
+        offsetRow           = 2;
     }
 
     if (xlsx.read(offsetRow + 1, 1) != TitleHeader::Context ||
@@ -48,14 +48,14 @@ auto XlsxParser::parse() const -> Result
     const auto lastColumn = xlsx.dimension().lastColumn();
 
     for (auto row = 4; row <= lastRow; ++row) {
-        context.name            = xlsx.read(row, 1).toString();
-        msg.identifier          = xlsx.read(row, 2).toString();
-        msg.source              = xlsx.read(row, 3).toString();
-        msg.translation         = xlsx.read(row, 4).toString();
-        msg.translationtype     = xlsx.read(row, 5).toString();
-        msg.comment             = xlsx.read(row, 6).toString();
-        msg.extracomment        = xlsx.read(row, 7).toString();
-        msg.translatorcomment   = xlsx.read(row, 8).toString();
+        context.name          = xlsx.read(row, 1).toString();
+        msg.identifier        = xlsx.read(row, 2).toString();
+        msg.source            = xlsx.read(row, 3).toString();
+        msg.translation       = xlsx.read(row, 4).toString();
+        msg.translationtype   = xlsx.read(row, 5).toString();
+        msg.comment           = xlsx.read(row, 6).toString();
+        msg.extracomment      = xlsx.read(row, 7).toString();
+        msg.translatorcomment = xlsx.read(row, 8).toString();
 
         for (auto col = 9; col <= lastColumn; ++col) {
             const auto loc = xlsx.read(row, col).toString();

@@ -23,17 +23,17 @@ auto CsvBuilder::build(const Result &res) const -> bool
 
     QStringList strList;
     strList << TitleHeader::Context << TitleHeader::ID << TitleHeader::Source
-            << TitleHeader::Translation << TitleHeader::TranslationType 
-            << TitleHeader::Comment << TitleHeader::ExtraComment << TitleHeader::TranslatorComment 
-            << TitleHeader::Location;
+            << TitleHeader::Translation << TitleHeader::TranslationType
+            << TitleHeader::Comment << TitleHeader::ExtraComment
+            << TitleHeader::TranslatorComment << TitleHeader::Location;
     strData.addRow(strList);
 
     for (const auto &tr : res.translantions) {
         for (const auto &msg : tr.messages) {
             strList.clear();
-            strList << tr.name << msg.identifier << msg.source 
-                    << msg.translation << msg.translationtype
-                    << msg.comment << msg.extracomment << msg.translatorcomment;
+            strList << tr.name << msg.identifier << msg.source
+                    << msg.translation << msg.translationtype << msg.comment
+                    << msg.extracomment << msg.translatorcomment;
             for (const auto &loc : msg.locations) {
                 strList << QString(loc.first + " - " +
                                    QString::number(loc.second));
@@ -61,10 +61,12 @@ QtCSV::StringData CsvBuilder::addTsSupport(const Result &res) const
     const auto TsSupportVersion = QVersionNumber(4, 5, 0);
     if (QVersionNumber::compare(currentVersion, TsSupportVersion) >= 0) {
         QStringList strList;
-        strList << TitleHeader::TsVersion << TitleHeader::SourceLanguage << TitleHeader::Language;
+        strList << TitleHeader::TsVersion << TitleHeader::SourceLanguage
+                << TitleHeader::Language;
         strData.addRow(strList);
         strList.clear();
-        strList << res.root.tsVersion << res.root.sourcelanguage << res.root.language;
+        strList << res.root.tsVersion << res.root.sourcelanguage
+                << res.root.language;
         strData.addRow(strList);
         strList.clear();
     }
