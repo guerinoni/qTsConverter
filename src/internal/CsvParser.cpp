@@ -19,11 +19,12 @@ auto CsvParser::parse() const -> Result
         m_ioParameter.csvProperty.field_separator);
 
     if (list.isEmpty()) {
-        return Result{ "Source file empty!", {}, {} };
+        return Result{ "Source file empty!", {}, {}, {} };
     }
-
     removeEmptyFrontBack(list);
-    splitByRow(list);
+    // splitByRow(list);
+
+    RootAttr root;
 
     const auto appVersion       = qApp->applicationVersion();
     const auto currentVersion   = QVersionNumber::fromString(appVersion);
@@ -31,7 +32,14 @@ auto CsvParser::parse() const -> Result
     InOutParameter p{ "", "", m_ioParameter.tsVersion, {} };
     if (QVersionNumber::compare(currentVersion, TsSupportVersion) >= 0) {
         list.pop_front();
-        p.tsVersion = list.first().first();
+        root.tsVersion =
+            list.first().isEmpty() ? QString{} : list.first().first();
+        list.first().pop_front();
+        root.sourcelanguage =
+            list.first().isEmpty() ? QString{} : list.first().first();
+        list.first().pop_front();
+        root.language =
+            list.first().isEmpty() ? QString{} : list.first().first();
         list.pop_front();
     }
 
@@ -43,18 +51,23 @@ auto CsvParser::parse() const -> Result
     removeQuote(list);
 
     for (const QStringList &l : qAsConst(list)) {
-        for (const auto &value : l) {
-            context.name = l.at(kNameIndex);
-        }
+        //        for (const auto &value : l) {
+        context.name = l.at(kNameIndex);
+        //        }
 
-        msg.source      = l.at(kSourceIndex);
-        msg.translation = l.at(kTranslationIndex);
+        msg.identifier        = l.at(kIdIndex);
+        msg.source            = l.at(kSourceIndex);
+        msg.translation       = l.at(kTranslationIndex);
+        msg.translationtype   = l.at(kTranslationTypeIndex);
+        msg.comment           = l.at(kCommentIndex);
+        msg.extracomment      = l.at(kExtraCommentIndex);
+        msg.translatorcomment = l.at(kTranslatorCommentIndex);
+
         msg.locations.emplace_back(decodeLocation(l.at(kLocationsIndex)));
 
         for (int i = kLocationsIndex + 1; i < l.size(); i++) {
             msg.locations.emplace_back(decodeLocation(l.at(i)));
         }
-
         auto it =
             std::find_if(translations.begin(), translations.end(),
                          [&](const auto &c) { return c.name == context.name; });
@@ -69,7 +82,7 @@ auto CsvParser::parse() const -> Result
         msg.locations.clear();
     }
 
-    return Result{ "", std::move(translations), std::move(p) };
+    return Result{ "", std::move(translations), std::move(p), std::move(root) };
 }
 
 auto CsvParser::decodeLocation(const QString &str) -> std::pair<QString, int>

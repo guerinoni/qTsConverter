@@ -1,27 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE TS>
-<TS version="2.1">
+<TS version="2.1" sourcelanguage="en" language="it">
     <context>
         <name>MenuBar</name>
         <message>
             <location filename="../src/app/qml/MenuBar.qml" line="17"/>
             <source>text</source>
-            <translation></translation>
+            <comment>my comment</comment>
+            <translation type="unfinished"></translation>
         </message>
-        <message>
+        <message id="1abc">
             <location filename="../src/app/qml/MenuBar.qml" line="28"/>
             <source>map</source>
-            <translation></translation>
+            <extracomment>extra comment test</extracomment>
+            <translatorcomment>translatorcomment</translatorcomment>
+            <translation type="vanished">whatever</translation>
         </message>
         <message>
             <location filename="../src/app/qml/MenuBar.qml" line="43"/>
             <source>cam</source>
-            <translation></translation>
+            <translation type="obsolete">whichever</translation>
         </message>
         <message>
             <location filename="../src/app/qml/MenuBar.qml" line="58"/>
             <source>checklist</source>
-            <translation></translation>
+            <translation>mytranslation</translation>
         </message>
     </context>
 </TS>

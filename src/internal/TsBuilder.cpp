@@ -1,5 +1,6 @@
 #include "TsBuilder.hpp"
 
+#include <QDomDocument>
 #include <QFile>
 #include <QXmlStreamWriter>
 #include <QtDebug>
@@ -20,13 +21,22 @@ auto TsBuilder::build(const Result &res) const -> bool
     }
 
     QXmlStreamWriter s(&output);
+
     s.setAutoFormatting(true);
     s.setAutoFormattingIndent(4);
     s.writeStartDocument();
 
     s.writeEmptyElement("!DOCTYPE TS");
+
+    // Create root element with attributes
     s.writeStartElement("TS");
-    s.writeAttribute("version", res.params.tsVersion);
+    s.writeAttribute("version", res.root.tsVersion);
+    if (res.root.sourcelanguage != "") {
+        s.writeAttribute("sourcelanguage", res.root.sourcelanguage);
+    }
+    if (res.root.language != "") {
+        s.writeAttribute("language", res.root.language);
+    }
 
     for (const auto &ctxs : res.translantions) {
         s.writeStartElement("context");
@@ -34,6 +44,9 @@ auto TsBuilder::build(const Result &res) const -> bool
 
         for (const auto &msg : ctxs.messages) {
             s.writeStartElement("message");
+            if (msg.identifier != "") {
+                s.writeAttribute("id", msg.identifier);
+            }
 
             for (const auto &loc : msg.locations) {
                 s.writeEmptyElement("location");
@@ -42,15 +55,33 @@ auto TsBuilder::build(const Result &res) const -> bool
             }
 
             s.writeTextElement("source", msg.source);
-            s.writeTextElement("translation", msg.translation);
+            if (msg.comment != "") {
+                s.writeTextElement("comment", msg.comment);
+            }
+            if (msg.extracomment != "") {
+                s.writeTextElement("extracomment", msg.extracomment);
+            }
+            if (msg.translatorcomment != "") {
+                s.writeTextElement("translatorcomment", msg.translatorcomment);
+            }
+
+            s.writeStartElement("translation");
+            if (msg.translationtype != "") {
+                s.writeAttribute("type", msg.translationtype);
+            }
+            s.writeCharacters(msg.translation);
+            s.writeEndElement();
+
             s.writeEndElement(); // message
         }
         s.writeEndElement(); // context
     }
 
     s.writeEndDocument();
+
     output.close();
     removeSlashInDoctype(&output);
+
     return true;
 }
 

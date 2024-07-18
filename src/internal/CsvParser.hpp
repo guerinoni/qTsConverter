@@ -25,8 +25,13 @@ class CsvParser : public Parser
     static bool isLocation(const QString &value);
 
     const int kNameIndex{ 0 };
-    const int kSourceIndex{ 1 };
-    const int kTranslationIndex{ 2 };
-    const int kLocationsIndex{ 3 };
+    const int kIdIndex{ 1 };
+    const int kSourceIndex{ 2 };
+    const int kTranslationIndex{ 3 };
+    const int kTranslationTypeIndex{ 4 };
+    const int kCommentIndex{ 5 };
+    const int kExtraCommentIndex{ 6 };
+    const int kTranslatorCommentIndex{ 7 };
+    const int kLocationsIndex{ 8 };
     const int kRowSize{ 8 };
 };

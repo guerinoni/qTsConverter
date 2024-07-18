@@ -19,18 +19,21 @@ CsvBuilder::CsvBuilder(InOutParameter &&parameter) : Builder{ parameter }
 
 auto CsvBuilder::build(const Result &res) const -> bool
 {
-    auto strData = addTsSupport();
+    auto strData = addTsSupport(res);
 
     QStringList strList;
-    strList << TitleHeader::Context << TitleHeader::Source
-            << TitleHeader::Translation << TitleHeader::Location;
-
+    strList << TitleHeader::Context << TitleHeader::ID << TitleHeader::Source
+            << TitleHeader::Translation << TitleHeader::TranslationType
+            << TitleHeader::Comment << TitleHeader::ExtraComment
+            << TitleHeader::TranslatorComment << TitleHeader::Location;
     strData.addRow(strList);
 
     for (const auto &tr : res.translantions) {
         for (const auto &msg : tr.messages) {
             strList.clear();
-            strList << tr.name << msg.source << msg.translation;
+            strList << tr.name << msg.identifier << msg.source
+                    << msg.translation << msg.translationtype << msg.comment
+                    << msg.extracomment << msg.translatorcomment;
             for (const auto &loc : msg.locations) {
                 strList << QString(loc.first + " - " +
                                    QString::number(loc.second));
@@ -50,7 +53,7 @@ auto CsvBuilder::build(const Result &res) const -> bool
     return true;
 }
 
-QtCSV::StringData CsvBuilder::addTsSupport() const
+QtCSV::StringData CsvBuilder::addTsSupport(const Result &res) const
 {
     QtCSV::StringData strData;
     const auto appVersion       = qApp->applicationVersion();
@@ -58,10 +61,12 @@ QtCSV::StringData CsvBuilder::addTsSupport() const
     const auto TsSupportVersion = QVersionNumber(4, 5, 0);
     if (QVersionNumber::compare(currentVersion, TsSupportVersion) >= 0) {
         QStringList strList;
-        strList << TitleHeader::TsVersion;
+        strList << TitleHeader::TsVersion << TitleHeader::SourceLanguage
+                << TitleHeader::Language;
         strData.addRow(strList);
         strList.clear();
-        strList << m_ioParameter.tsVersion;
+        strList << res.root.tsVersion << res.root.sourcelanguage
+                << res.root.language;
         strData.addRow(strList);
         strList.clear();
     }

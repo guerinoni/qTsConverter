@@ -19,18 +19,18 @@ auto scenario_simple() -> bool
     int rowCount    = xlsx.dimension().rowCount();
     int columnCount = xlsx.dimension().columnCount();
 
-    if (rowCount != 5 || columnCount != 4) {
+    if (rowCount != 7 || columnCount != 9) {
         qDebug() << "The column size or the row size is wrong";
         QFile::remove(output.c_str());
         return false;
     }
 
-    if (xlsx.read(2, 2) != "text" || xlsx.read(3, 2) != "map" ||
-        xlsx.read(4, 2) != "cam" || xlsx.read(5, 2) != "checklist" ||
-        xlsx.read(2, 4) != "../src/app/qml/MenuBar.qml - 17" ||
-        xlsx.read(3, 4) != "../src/app/qml/MenuBar.qml - 28" ||
-        xlsx.read(4, 4) != "../src/app/qml/MenuBar.qml - 43" ||
-        xlsx.read(5, 4) != "../src/app/qml/MenuBar.qml - 58") {
+    if (xlsx.read(4, 3) != "text" || xlsx.read(5, 3) != "map" ||
+        xlsx.read(6, 3) != "cam" || xlsx.read(7, 3) != "checklist" ||
+        xlsx.read(4, 9) != "../src/app/qml/MenuBar.qml - 17" ||
+        xlsx.read(5, 9) != "../src/app/qml/MenuBar.qml - 28" ||
+        xlsx.read(6, 9) != "../src/app/qml/MenuBar.qml - 43" ||
+        xlsx.read(7, 9) != "../src/app/qml/MenuBar.qml - 58") {
         qWarning() << "Can't find one or more strings in the output file";
         QFile::remove(output.c_str());
         return false;
@@ -55,19 +55,19 @@ auto scenario_multiLocation() -> bool
     int rowCount    = xlsx.dimension().rowCount();
     int columnCount = xlsx.dimension().columnCount();
 
-    if (rowCount != 7 || columnCount != 6) {
+    if (rowCount != 9 || columnCount != 11) {
         qDebug() << "The column size or the row size is wrong";
         QFile::remove(output.c_str());
         return false;
     }
 
-    if (xlsx.read(2, 2) != "Series" ||
-        xlsx.read(2, 4) != "../themewidget.cpp - 289" ||
-        xlsx.read(2, 5) != "../themewidget.cpp - 290" ||
-        xlsx.read(2, 6) != "../themewidget.cpp - 291" ||
-        xlsx.read(3, 6) != "../themewidget.cpp - 91" ||
-        xlsx.read(7, 2) != "Anti-aliasing" ||
-        xlsx.read(7, 4) != "../themewidget.ui - 49") {
+    if (xlsx.read(4, 3) != "Series" ||
+        xlsx.read(4, 9) != "../themewidget.cpp - 289" ||
+        xlsx.read(4, 10) != "../themewidget.cpp - 290" ||
+        xlsx.read(4, 11) != "../themewidget.cpp - 291" ||
+        xlsx.read(5, 11) != "../themewidget.cpp - 91" ||
+        xlsx.read(9, 3) != "Anti-aliasing" ||
+        xlsx.read(9, 9) != "../themewidget.ui - 49") {
         qWarning() << "Can't find one or more strings in the output file";
         QFile::remove(output.c_str());
         return false;
@@ -110,7 +110,7 @@ auto scenario_ts_version() -> bool
 
             if ((outCell == nullptr && expCell != nullptr) ||
                 (outCell != nullptr && expCell == nullptr)) {
-                qDebug() << "different content in cell" << row << col;
+                qDebug() << "!different content in cell" << row << col;
                 QFile::remove(output.c_str());
                 return false;
             }
@@ -142,11 +142,11 @@ auto main() -> int
 {
     bool ret = false;
 
+    QApplication::setApplicationVersion("5.0.0");
     ret |= !scenario_simple();
 
     ret |= !scenario_multiLocation();
 
-    QApplication::setApplicationVersion("4.5.0");
     ret |= !scenario_ts_version();
 
     return static_cast<int>(ret);

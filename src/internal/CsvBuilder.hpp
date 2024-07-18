@@ -19,5 +19,5 @@ class CsvBuilder : public Builder
     bool build(const Result &res) const override;
 
   private:
-    QtCSV::StringData addTsSupport() const;
+    QtCSV::StringData addTsSupport(const Result &res) const;
 };

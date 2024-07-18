@@ -13,6 +13,11 @@ XlsxParser::XlsxParser(InOutParameter &&parameter) :
 
 auto XlsxParser::parse() const -> Result
 {
+    RootAttr root;
+    Translations translations;
+    TranslationContext context;
+    TranslationMessage msg;
+
     QXlsx::Document xlsx(m_ioParameter.inputFile);
 
     auto offsetRow{ 0 };
@@ -21,30 +26,38 @@ auto XlsxParser::parse() const -> Result
     const auto TsSupportVersion = QVersionNumber(4, 5, 0);
     InOutParameter p{ "", "", m_ioParameter.tsVersion, {} };
     if (QVersionNumber::compare(currentVersion, TsSupportVersion) >= 0) {
-        p.tsVersion = xlsx.read(2, 1).toString();
-        offsetRow   = 2;
+        root.tsVersion      = xlsx.read(2, 1).toString();
+        root.sourcelanguage = xlsx.read(2, 2).toString();
+        root.language       = xlsx.read(2, 3).toString();
+        offsetRow           = 2;
     }
 
     if (xlsx.read(offsetRow + 1, 1) != TitleHeader::Context ||
-        xlsx.read(offsetRow + 1, 2) != TitleHeader::Source ||
-        xlsx.read(offsetRow + 1, 3) != TitleHeader::Translation ||
-        xlsx.read(offsetRow + 1, 4) != TitleHeader::Location) {
-        return Result{ "Invalid XLSX file, check the headers!", {}, {} };
+        xlsx.read(offsetRow + 1, 2) != TitleHeader::ID ||
+        xlsx.read(offsetRow + 1, 3) != TitleHeader::Source ||
+        xlsx.read(offsetRow + 1, 4) != TitleHeader::Translation ||
+        xlsx.read(offsetRow + 1, 5) != TitleHeader::TranslationType ||
+        xlsx.read(offsetRow + 1, 6) != TitleHeader::Comment ||
+        xlsx.read(offsetRow + 1, 7) != TitleHeader::ExtraComment ||
+        xlsx.read(offsetRow + 1, 8) != TitleHeader::TranslatorComment ||
+        xlsx.read(offsetRow + 1, 9) != TitleHeader::Location) {
+        return Result{ "Invalid XLSX file, check the headers!", {}, {}, {} };
     }
-
-    Translations translations;
-    TranslationContext context;
-    TranslationMessage msg;
 
     const auto lastRow    = xlsx.dimension().lastRow();
     const auto lastColumn = xlsx.dimension().lastColumn();
 
-    for (auto row = 2; row <= lastRow; ++row) {
-        context.name    = xlsx.read(row, 1).toString();
-        msg.source      = xlsx.read(row, 2).toString();
-        msg.translation = xlsx.read(row, 3).toString();
+    for (auto row = 4; row <= lastRow; ++row) {
+        context.name          = xlsx.read(row, 1).toString();
+        msg.identifier        = xlsx.read(row, 2).toString();
+        msg.source            = xlsx.read(row, 3).toString();
+        msg.translation       = xlsx.read(row, 4).toString();
+        msg.translationtype   = xlsx.read(row, 5).toString();
+        msg.comment           = xlsx.read(row, 6).toString();
+        msg.extracomment      = xlsx.read(row, 7).toString();
+        msg.translatorcomment = xlsx.read(row, 8).toString();
 
-        for (auto col = 4; col <= lastColumn; ++col) {
+        for (auto col = 9; col <= lastColumn; ++col) {
             const auto loc = xlsx.read(row, col).toString();
             if (loc.isEmpty()) {
                 break;
@@ -68,5 +81,5 @@ auto XlsxParser::parse() const -> Result
         msg.locations.clear();
     }
 
-    return Result{ "", std::move(translations), std::move(p) };
+    return Result{ "", std::move(translations), std::move(p), std::move(root) };
 }

@@ -383,3 +383,4 @@ $RECYCLE.BIN/
 compile_commands.json
 
 src/internal/version.hpp
+.vscode/
