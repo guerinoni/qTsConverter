@@ -35,8 +35,7 @@ auto CsvBuilder::build(const Result &res) const -> bool
                     << msg.translation << msg.translationtype << msg.comment
                     << msg.extracomment << msg.translatorcomment;
             for (const auto &loc : msg.locations) {
-                strList << QString(loc.first + " - " +
-                                   QString::number(loc.second));
+                strList << QString(loc.first + " - " + loc.second);
             }
             strData.addRow(strList);
         }

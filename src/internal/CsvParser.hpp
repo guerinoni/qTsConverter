@@ -17,7 +17,7 @@ class CsvParser : public Parser
     Result parse() const override;
 
   private:
-    static std::pair<QString, int> decodeLocation(const QString &str);
+    static std::pair<QString, QString> decodeLocation(const QString &str);
     static void removeEmptyFrontBack(QList<QStringList> &list);
     void splitByRow(QList<QStringList> &list) const;
     static void removeQuote(QList<QStringList> &list);

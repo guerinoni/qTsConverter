@@ -48,10 +48,13 @@ auto TsBuilder::build(const Result &res) const -> bool
                 s.writeAttribute("id", msg.identifier);
             }
 
-            for (const auto &loc : msg.locations) {
+            for (const std::pair<QString, QString> &loc : msg.locations) {
                 s.writeEmptyElement("location");
-                s.writeAttribute("filename", loc.first);
-                s.writeAttribute("line", QString::number(loc.second));
+                if (!loc.first.isEmpty())
+                    s.writeAttribute("filename", loc.first);
+
+                if (!loc.second.isEmpty())
+                    s.writeAttribute("line", loc.second);
             }
 
             s.writeTextElement("source", msg.source);

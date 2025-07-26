@@ -19,5 +19,5 @@ class TsParser : public Parser
     Result parse() const override;
 
   private:
-    static std::pair<QString, int> wrapLocation(const QDomNode &node);
+    static std::pair<QString, QString> wrapLocation(const QDomNode &node);
 };

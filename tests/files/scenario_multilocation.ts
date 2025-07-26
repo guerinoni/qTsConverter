@@ -4,7 +4,7 @@
     <context>
         <name>ThemeWidget</name>
         <message>
-            <location filename="../themewidget.cpp" line="289"/>
+            <location filename="../themewidget.cpp" line="+289"/>
             <location filename="../themewidget.cpp" line="290"/>
             <location filename="../themewidget.cpp" line="291"/>
             <source>Series</source>
@@ -16,7 +16,7 @@
         <message>
             <location filename="../themewidget.cpp" line="89"/>
             <location filename="../themewidget.cpp" line="90"/>
-            <location filename="../themewidget.cpp" line="91"/>
+            <location filename="../themewidget.cpp" line="-91"/>
             <source>SourceValue</source>
             <translation></translation>
         </message>

@@ -64,7 +64,7 @@ auto XlsxParser::parse() const -> Result
             }
             auto list = loc.split(QStringLiteral(" - "));
             msg.locations.emplace_back(
-                std::make_pair(list.first(), list.last().toInt()));
+                std::make_pair(list.first(), list.last()));
         }
 
         auto it =

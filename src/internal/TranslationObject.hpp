@@ -12,7 +12,7 @@ struct TranslationMessage {
     QString comment;
     QString extracomment;
     QString translatorcomment;
-    std::vector<std::pair<QString, int>> locations;
+    std::vector<std::pair<QString, QString>> locations;
 };
 
 struct TranslationContext {

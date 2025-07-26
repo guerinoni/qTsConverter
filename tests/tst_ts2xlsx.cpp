@@ -62,10 +62,10 @@ auto scenario_multiLocation() -> bool
     }
 
     if (xlsx.read(4, 3) != "Series" ||
-        xlsx.read(4, 9) != "../themewidget.cpp - 289" ||
+        xlsx.read(4, 9) != "../themewidget.cpp - +289" ||
         xlsx.read(4, 10) != "../themewidget.cpp - 290" ||
         xlsx.read(4, 11) != "../themewidget.cpp - 291" ||
-        xlsx.read(5, 11) != "../themewidget.cpp - 91" ||
+        xlsx.read(5, 11) != "../themewidget.cpp - -91" ||
         xlsx.read(9, 3) != "Anti-aliasing" ||
         xlsx.read(9, 9) != "../themewidget.ui - 49") {
         qWarning() << "Can't find one or more strings in the output file";

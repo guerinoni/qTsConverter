@@ -66,8 +66,7 @@ auto XlsxBuilder::build(const Result &res) const -> bool
             if (!m_ioParameter.noLocation) {
                 for (const auto &loc : msg.locations) {
                     xlsx.write(row, col++,
-                               QString(loc.first + " - " +
-                                       QString::number(loc.second)));
+                               QString(loc.first + " - " + loc.second));
                 }
             }
             ++row;
